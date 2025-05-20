@@ -2137,7 +2137,8 @@
 							</div>
 						</div>
 					{:else}
-						<div class="overflow-auto w-full h-full flex items-center">
+						<div class="overflow-auto w-full h-full flex-col items-center">
+							<div class="overflow-auto w-full flex items-center" style="height:20vh;background-color:lightskyblue">页面导航占位符</div>
 							<Placeholder
 								{history}
 								{selectedModels}
