@@ -2422,7 +2422,7 @@
 	}
 	
 	.ai-tool-item:nth-child(1) {
-		background: linear-gradient(135deg, rgba(255, 245, 245, 0.95) 0%, rgba(255, 230, 230, 0.9) 100%);
+		background: linear-gradient(135deg, rgba(255, 248, 220, 0.95) 0%, rgba(255, 235, 180, 0.9) 100%);
 	}
 	
 	.ai-tool-item:nth-child(2) {
@@ -2434,7 +2434,7 @@
 	}
 	
 	.ai-tool-item:nth-child(4) {
-		background: linear-gradient(135deg, rgba(255, 245, 250, 0.95) 0%, rgba(255, 230, 240, 0.9) 100%);
+		background: linear-gradient(135deg, rgba(255, 240, 255, 0.95) 0%, rgba(245, 220, 255, 0.9) 100%);
 	}
 	
 	.ai-tool-item:hover {
@@ -2716,7 +2716,7 @@
 	}
 	
 	:global(.dark) .ai-tool-item:nth-child(1) {
-		background: linear-gradient(135deg, rgba(60, 30, 30, 0.8) 0%, rgba(50, 20, 20, 0.8) 100%);
+		background: linear-gradient(135deg, rgba(60, 50, 30, 0.8) 0%, rgba(50, 40, 20, 0.8) 100%);
 	}
 	
 	:global(.dark) .ai-tool-item:nth-child(2) {
@@ -2728,7 +2728,7 @@
 	}
 	
 	:global(.dark) .ai-tool-item:nth-child(4) {
-		background: linear-gradient(135deg, rgba(60, 30, 45, 0.8) 0%, rgba(50, 20, 35, 0.8) 100%);
+		background: linear-gradient(135deg, rgba(60, 30, 60, 0.8) 0%, rgba(50, 20, 50, 0.8) 100%);
 	}
 	
 	:global(.dark) .ai-tool-item:hover {
