@@ -2282,38 +2282,10 @@
 												
 												<!-- 轮播内容 -->
 												<div class="ai-carousel-slides" style="transform: translateX(-{currentSlide * 100}%)">
-													<!-- 第一个广告：智能生成PPT -->
-													<div class="ai-carousel-slide ai-slide-green">
-														<div class="ai-carousel-content">
-															<h3 class="ai-carousel-title">智能生成PPT</h3>
-															<p class="ai-carousel-desc">一键生成专业演示文稿，自动排版设计</p>
-															<div class="ai-carousel-feature">
-																<span class="ai-feature-tag">AI智能排版</span>
-																<span class="ai-feature-tag">海量模板</span>
-															</div>
-															<button class="ai-carousel-button">立即体验 →</button>
-														</div>
-														<div class="ai-carousel-icon">📊</div>
-													</div>
-													
-													<!-- 第二个广告：文档智能处理 -->
-													<div class="ai-carousel-slide ai-slide-purple">
-														<div class="ai-carousel-content">
-															<h3 class="ai-carousel-title">文档智能处理</h3>
-															<p class="ai-carousel-desc">OCR识别、格式转换，文档处理更高效</p>
-															<div class="ai-carousel-feature">
-																<span class="ai-feature-tag">批量处理</span>
-																<span class="ai-feature-tag">格式互转</span>
-															</div>
-															<button class="ai-carousel-button">开始使用 →</button>
-														</div>
-														<div class="ai-carousel-icon">📄</div>
-													</div>
-													
-													<!-- 第三个广告：AI制度助手 -->
+													<!-- 第一个广告：制度助手 -->
 													<div class="ai-carousel-slide ai-slide-yellow">
 														<div class="ai-carousel-content">
-															<h3 class="ai-carousel-title">AI制度助手</h3>
+															<h3 class="ai-carousel-title">制度助手</h3>
 															<p class="ai-carousel-desc">快速查询公司制度，智能解答政策问题</p>
 															<div class="ai-carousel-feature">
 																<span class="ai-feature-tag">智能问答</span>
@@ -2324,7 +2296,21 @@
 														<div class="ai-carousel-icon">📋</div>
 													</div>
 													
-													<!-- 第四个广告：大图识别 -->
+													<!-- 第二个广告：PPT创作 -->
+													<div class="ai-carousel-slide ai-slide-green">
+														<div class="ai-carousel-content">
+															<h3 class="ai-carousel-title">PPT创作</h3>
+															<p class="ai-carousel-desc">一键生成专业演示文稿，自动排版设计</p>
+															<div class="ai-carousel-feature">
+																<span class="ai-feature-tag">AI智能排版</span>
+																<span class="ai-feature-tag">海量模板</span>
+															</div>
+															<button class="ai-carousel-button">立即体验 →</button>
+														</div>
+														<div class="ai-carousel-icon">📊</div>
+													</div>
+													
+													<!-- 第三个广告：大图识别 -->
 													<div class="ai-carousel-slide ai-slide-blue">
 														<div class="ai-carousel-content">
 															<h3 class="ai-carousel-title">大图识别</h3>
@@ -2336,6 +2322,20 @@
 															<button class="ai-carousel-button">开始识别 →</button>
 														</div>
 														<div class="ai-carousel-icon">🔍</div>
+													</div>
+													
+													<!-- 第四个广告：文档转换 -->
+													<div class="ai-carousel-slide ai-slide-purple">
+														<div class="ai-carousel-content">
+															<h3 class="ai-carousel-title">文档转换</h3>
+															<p class="ai-carousel-desc">OCR识别、格式转换，文档处理更高效</p>
+															<div class="ai-carousel-feature">
+																<span class="ai-feature-tag">批量处理</span>
+																<span class="ai-feature-tag">格式互转</span>
+															</div>
+															<button class="ai-carousel-button">开始使用 →</button>
+														</div>
+														<div class="ai-carousel-icon">📄</div>
 													</div>
 												</div>
 												
