@@ -2043,6 +2043,7 @@
 					title={$chatTitle}
 					bind:selectedModels
 					shareEnabled={!!history.currentId}
+					showModelSelector={$settings?.landingPageMode === 'chat' || createMessagesList(history, history.currentId).length > 0}
 					{initNewChat}
 				/>
 
@@ -2137,7 +2138,7 @@
 							</div>
 						</div>
 					{:else}
-						<div class="overflow-auto w-full h-full flex-col items-center">
+						<div class="overflow-auto w-full h-full flex flex-col items-center">
 							<!-- AI助手导航页面 -->
 							<div class="ai-assistant-container">
 								<div class="ai-assistant-content">
@@ -2319,14 +2320,16 @@
 	.ai-assistant-container {
 		width: 100%;
 		height: auto;
-		background-color: #fafafa;
+		background-color: transparent;
 		overflow: visible;
+		padding-top: 50px; /* 添加顶部间距，避免被遮挡 */
 	}
 	
 	.ai-assistant-content {
 		max-width: 1200px;
 		margin: 0 auto;
 		padding: 20px;
+		padding-top: 0; /* 顶部间距已由容器提供 */
 	}
 	
 	/* 头部标题区域 */
@@ -2377,10 +2380,12 @@
 	
 	/* 卡片基础样式 */
 	.ai-card {
-		background: white;
+		background: rgba(255, 255, 255, 0.7);
+		backdrop-filter: blur(10px);
 		border-radius: 12px;
 		padding: 16px;
 		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+		border: 1px solid rgba(0, 0, 0, 0.05);
 	}
 	
 	.ai-card-title {
@@ -2392,51 +2397,76 @@
 	
 	/* 效率工具卡片 */
 	.ai-tools-card {
-		background: linear-gradient(135deg, #f6f7fb 0%, #f3f4f9 100%);
+		background: linear-gradient(135deg, rgba(246, 247, 251, 0.8) 0%, rgba(243, 244, 249, 0.8) 100%);
+		padding: 18px;
 	}
 	
 	.ai-tools-grid {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 12px;
+		gap: 14px;
 	}
 	
 	.ai-tool-item {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding: 12px 8px;
-		background: rgba(255, 255, 255, 0.8);
+		padding: 16px 12px;
+		background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 250, 255, 0.9) 100%);
 		border-radius: 10px;
 		cursor: pointer;
 		transition: all 0.3s ease;
+		min-height: 90px;
+		justify-content: center;
+		border: 1px solid rgba(0, 0, 0, 0.03);
+	}
+	
+	.ai-tool-item:nth-child(1) {
+		background: linear-gradient(135deg, rgba(255, 245, 245, 0.95) 0%, rgba(255, 230, 230, 0.9) 100%);
+	}
+	
+	.ai-tool-item:nth-child(2) {
+		background: linear-gradient(135deg, rgba(245, 255, 245, 0.95) 0%, rgba(230, 255, 230, 0.9) 100%);
+	}
+	
+	.ai-tool-item:nth-child(3) {
+		background: linear-gradient(135deg, rgba(245, 245, 255, 0.95) 0%, rgba(230, 230, 255, 0.9) 100%);
+	}
+	
+	.ai-tool-item:nth-child(4) {
+		background: linear-gradient(135deg, rgba(255, 245, 250, 0.95) 0%, rgba(255, 230, 240, 0.9) 100%);
 	}
 	
 	.ai-tool-item:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		transform: translateY(-3px);
+		box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+		border-color: rgba(0, 0, 0, 0.06);
 	}
 	
 	.ai-tool-icon {
-		width: 36px;
-		height: 36px;
-		margin-bottom: 6px;
+		width: 40px;
+		height: 40px;
+		margin-bottom: 8px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-size: 20px;
+		font-size: 24px;
+		background: rgba(255, 255, 255, 0.5);
+		border-radius: 50%;
+		backdrop-filter: blur(10px);
 	}
 	
 	.ai-tool-name {
-		font-size: 12px;
+		font-size: 13px;
 		color: #333;
 		text-align: center;
-		line-height: 1.2;
+		line-height: 1.3;
+		font-weight: 500;
 	}
 	
 	/* 精选智能体卡片 */
 	.ai-agents-card {
-		background: linear-gradient(135deg, #f8f6ff 0%, #f4f2ff 100%);
+		background: linear-gradient(135deg, rgba(248, 246, 255, 0.8) 0%, rgba(244, 242, 255, 0.8) 100%);
 	}
 	
 	.ai-agent-item {
@@ -2645,8 +2675,10 @@
 	}
 	
 	:global(.dark) .ai-card {
-		background: #1e1e1e;
+		background: rgba(30, 30, 30, 0.7);
+		backdrop-filter: blur(10px);
 		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+		border: 1px solid rgba(255, 255, 255, 0.05);
 	}
 	
 	:global(.dark) .ai-card-title,
@@ -2666,16 +2698,47 @@
 	}
 	
 	:global(.dark) .ai-tools-card {
-		background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
+		background: linear-gradient(135deg, rgba(26, 26, 26, 0.8) 0%, rgba(37, 37, 37, 0.8) 100%);
 	}
 	
 	:global(.dark) .ai-agents-card {
-		background: linear-gradient(135deg, #1e1a24 0%, #252028 100%);
+		background: linear-gradient(135deg, rgba(30, 26, 36, 0.8) 0%, rgba(37, 32, 40, 0.8) 100%);
 	}
 	
 	:global(.dark) .ai-tool-item,
 	:global(.dark) .ai-agent-item {
 		background: rgba(30, 30, 30, 0.8);
+		border-color: rgba(255, 255, 255, 0.03);
+	}
+	
+	:global(.dark) .ai-agent-item {
+		background: rgba(30, 30, 30, 0.8);
+	}
+	
+	:global(.dark) .ai-tool-item:nth-child(1) {
+		background: linear-gradient(135deg, rgba(60, 30, 30, 0.8) 0%, rgba(50, 20, 20, 0.8) 100%);
+	}
+	
+	:global(.dark) .ai-tool-item:nth-child(2) {
+		background: linear-gradient(135deg, rgba(30, 60, 30, 0.8) 0%, rgba(20, 50, 20, 0.8) 100%);
+	}
+	
+	:global(.dark) .ai-tool-item:nth-child(3) {
+		background: linear-gradient(135deg, rgba(30, 30, 60, 0.8) 0%, rgba(20, 20, 50, 0.8) 100%);
+	}
+	
+	:global(.dark) .ai-tool-item:nth-child(4) {
+		background: linear-gradient(135deg, rgba(60, 30, 45, 0.8) 0%, rgba(50, 20, 35, 0.8) 100%);
+	}
+	
+	:global(.dark) .ai-tool-item:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+		border-color: rgba(255, 255, 255, 0.06);
+	}
+	
+	:global(.dark) .ai-tool-icon {
+		background: rgba(0, 0, 0, 0.3);
 	}
 	
 	:global(.dark) .ai-ppt-input-area {
