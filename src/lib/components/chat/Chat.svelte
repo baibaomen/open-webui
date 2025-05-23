@@ -2160,20 +2160,20 @@
 											<h2 class="ai-card-title">效率工具</h2>
 											<div class="ai-tools-grid">
 												<div class="ai-tool-item">
-													<div class="ai-tool-icon">🎙️</div>
-													<span class="ai-tool-name">实时记录</span>
+													<div class="ai-tool-icon">📋</div>
+													<span class="ai-tool-name">制度助手</span>
 												</div>
 												<div class="ai-tool-item">
 													<div class="ai-tool-icon">📊</div>
 													<span class="ai-tool-name">PPT创作</span>
 												</div>
 												<div class="ai-tool-item">
-													<div class="ai-tool-icon">📖</div>
-													<span class="ai-tool-name">阅读助手</span>
+													<div class="ai-tool-icon">🔍</div>
+													<span class="ai-tool-name">大图识别</span>
 												</div>
 												<div class="ai-tool-item">
-													<div class="ai-tool-icon">📝</div>
-													<span class="ai-tool-name">AI 笔记</span>
+													<div class="ai-tool-icon">📄</div>
+													<span class="ai-tool-name">文档转换</span>
 												</div>
 											</div>
 										</div>
