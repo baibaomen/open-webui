@@ -2138,7 +2138,84 @@
 						</div>
 					{:else}
 						<div class="overflow-auto w-full h-full flex-col items-center">
-							<div class="overflow-auto w-full flex items-center" style="height:20vh;background-color:lightskyblue">页面导航占位符</div>
+							<!-- AI助手导航页面 -->
+							<div class="ai-assistant-container">
+								<div class="ai-assistant-content">
+									<!-- 头部 -->
+									<div class="ai-header">
+										<div class="ai-logo">
+											<div class="ai-logo-icon"></div>
+										</div>
+										<div class="ai-header-text">
+											<h1>我是通义，你的实用AI助手</h1>
+											<p>我可以帮你做这些事情，换一换 ⟳</p>
+										</div>
+									</div>
+									
+									<!-- 主内容 -->
+									<div class="ai-main-content">
+										<!-- 效率工具卡片 -->
+										<div class="ai-card ai-tools-card">
+											<h2 class="ai-card-title">效率工具</h2>
+											<div class="ai-tools-grid">
+												<div class="ai-tool-item">
+													<div class="ai-tool-icon">🎙️</div>
+													<span class="ai-tool-name">实时记录</span>
+												</div>
+												<div class="ai-tool-item">
+													<div class="ai-tool-icon">📊</div>
+													<span class="ai-tool-name">PPT创作</span>
+												</div>
+												<div class="ai-tool-item">
+													<div class="ai-tool-icon">📖</div>
+													<span class="ai-tool-name">阅读助手</span>
+												</div>
+												<div class="ai-tool-item">
+													<div class="ai-tool-icon">📝</div>
+													<span class="ai-tool-name">AI 笔记</span>
+												</div>
+											</div>
+										</div>
+										
+										<!-- 精选智能体卡片 -->
+										<div class="ai-card ai-agents-card">
+											<h2 class="ai-card-title">精选智能体</h2>
+											<div class="ai-agent-item">
+												<div class="ai-agent-avatar ai-purple">千</div>
+												<div class="ai-agent-info">
+													<h3>千问大模型</h3>
+													<p>Qwen3模型重磅发...</p>
+												</div>
+											</div>
+											<div class="ai-agent-item">
+												<div class="ai-agent-avatar ai-orange">A</div>
+												<div class="ai-agent-info">
+													<h3>AI扩图</h3>
+													<p>AI扩图工具，支持...</p>
+												</div>
+											</div>
+										</div>
+										
+										<!-- PPT卡片 -->
+										<div class="ai-card ai-ppt-card">
+											<div class="ai-ppt-content">
+												<div class="ai-ppt-input-area">
+													<textarea class="ai-ppt-input" placeholder="工作总结汇报" rows="2"></textarea>
+												</div>
+												<button class="ai-ppt-button">
+													<span class="ai-ppt-icon"></span>
+													智能生成PPT
+												</button>
+											</div>
+											<div class="ai-avatar-decoration"></div>
+											<!-- 装饰性元素 -->
+											<div class="ai-decorator-dot" style="top: 20px; right: 40px;"></div>
+											<div class="ai-decorator-dot" style="top: 40px; right: 20px;"></div>
+											<div class="ai-decorator-line" style="bottom: 60px; left: 20px; right: 150px;"></div>
+										</div>
+									</div>
+								</div>
+							</div>
 							<Placeholder
 								{history}
 								{selectedModels}
@@ -2184,22 +2261,22 @@
 				bind:this={controlPaneComponent}
 				bind:history
 				bind:chatFiles
-				bind:params
-				bind:files
-				bind:pane={controlPane}
-				chatId={$chatId}
-				modelId={selectedModelIds?.at(0) ?? null}
-				models={selectedModelIds.reduce((a, e, i, arr) => {
-					const model = $models.find((m) => m.id === e);
-					if (model) {
-						return [...a, model];
-					}
-					return a;
-				}, [])}
-				{submitPrompt}
-				{stopResponse}
-				{showMessage}
-				{eventTarget}
+					bind:params
+					bind:files
+					bind:pane={controlPane}
+					chatId={$chatId}
+					modelId={selectedModelIds?.at(0) ?? null}
+					models={selectedModelIds.reduce((a, e, i, arr) => {
+						const model = $models.find((m) => m.id === e);
+						if (model) {
+							return [...a, model];
+						}
+						return a;
+					}, [])}
+					{submitPrompt}
+					{stopResponse}
+					{showMessage}
+					{eventTarget}
 			/>
 		</PaneGroup>
 	{:else if loading}
@@ -2210,3 +2287,367 @@
 		</div>
 	{/if}
 </div>
+
+<style>
+	/* AI助手导航页面样式 */
+	.ai-assistant-container {
+		width: 100%;
+		height: auto;
+		background-color: #fafafa;
+		overflow: visible;
+	}
+	
+	.ai-assistant-content {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 20px;
+	}
+	
+	/* 头部标题区域 */
+	.ai-header {
+		display: flex;
+		align-items: center;
+		margin-bottom: 20px;
+	}
+	
+	.ai-logo {
+		width: 48px;
+		height: 48px;
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		border-radius: 12px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-right: 12px;
+		box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+	}
+	
+	.ai-logo-icon {
+		width: 28px;
+		height: 28px;
+		background: white;
+		border-radius: 50%;
+		position: relative;
+	}
+	
+	.ai-header-text h1 {
+		font-size: 20px;
+		font-weight: 600;
+		margin-bottom: 2px;
+		color: #333;
+	}
+	
+	.ai-header-text p {
+		color: #666;
+		font-size: 13px;
+	}
+	
+	/* 主内容区域 */
+	.ai-main-content {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1.2fr;
+		gap: 16px;
+	}
+	
+	/* 卡片基础样式 */
+	.ai-card {
+		background: white;
+		border-radius: 12px;
+		padding: 16px;
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+	}
+	
+	.ai-card-title {
+		font-size: 14px;
+		font-weight: 600;
+		margin-bottom: 12px;
+		color: #1a1a1a;
+	}
+	
+	/* 效率工具卡片 */
+	.ai-tools-card {
+		background: linear-gradient(135deg, #f6f7fb 0%, #f3f4f9 100%);
+	}
+	
+	.ai-tools-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 12px;
+	}
+	
+	.ai-tool-item {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 12px 8px;
+		background: rgba(255, 255, 255, 0.8);
+		border-radius: 10px;
+		cursor: pointer;
+		transition: all 0.3s ease;
+	}
+	
+	.ai-tool-item:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	}
+	
+	.ai-tool-icon {
+		width: 36px;
+		height: 36px;
+		margin-bottom: 6px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 20px;
+	}
+	
+	.ai-tool-name {
+		font-size: 12px;
+		color: #333;
+		text-align: center;
+		line-height: 1.2;
+	}
+	
+	/* 精选智能体卡片 */
+	.ai-agents-card {
+		background: linear-gradient(135deg, #f8f6ff 0%, #f4f2ff 100%);
+	}
+	
+	.ai-agent-item {
+		display: flex;
+		align-items: center;
+		padding: 12px;
+		background: rgba(255, 255, 255, 0.8);
+		border-radius: 10px;
+		margin-bottom: 10px;
+		cursor: pointer;
+		transition: all 0.3s ease;
+	}
+	
+	.ai-agent-item:last-child {
+		margin-bottom: 0;
+	}
+	
+	.ai-agent-item:hover {
+		transform: translateX(4px);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	}
+	
+	.ai-agent-avatar {
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		margin-right: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 18px;
+		color: white;
+	}
+	
+	.ai-agent-avatar.ai-purple {
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	}
+	
+	.ai-agent-avatar.ai-orange {
+		background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+	}
+	
+	.ai-agent-info h3 {
+		font-size: 14px;
+		font-weight: 500;
+		margin-bottom: 1px;
+		color: #333;
+	}
+	
+	.ai-agent-info p {
+		font-size: 12px;
+		color: #666;
+	}
+	
+	/* PPT卡片 */
+	.ai-ppt-card {
+		background: linear-gradient(135deg, #9890e3 0%, #b1a7f2 50%, #d4c5f2 100%);
+		color: white;
+		position: relative;
+		overflow: hidden;
+	}
+	
+	.ai-ppt-content {
+		position: relative;
+		z-index: 1;
+	}
+	
+	.ai-ppt-input-area {
+		background: white;
+		border-radius: 10px;
+		padding: 12px;
+		margin-bottom: 16px;
+		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+	}
+	
+	.ai-ppt-input {
+		width: 100%;
+		border: none;
+		outline: none;
+		font-size: 13px;
+		color: #333;
+		resize: none;
+		background: transparent;
+		line-height: 1.4;
+	}
+	
+	.ai-ppt-input::placeholder {
+		color: #999;
+	}
+	
+	.ai-ppt-button {
+		background: white;
+		color: #333;
+		border: none;
+		padding: 10px 20px;
+		border-radius: 8px;
+		font-size: 13px;
+		font-weight: 500;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		transition: all 0.3s ease;
+	}
+	
+	.ai-ppt-button:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	}
+	
+	.ai-ppt-icon {
+		width: 16px;
+		height: 16px;
+		background: #333;
+		mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>') no-repeat center;
+		mask-size: contain;
+		-webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>') no-repeat center;
+		-webkit-mask-size: contain;
+	}
+	
+	.ai-avatar-decoration {
+		position: absolute;
+		bottom: 16px;
+		right: 16px;
+		width: 80px;
+		height: 80px;
+		opacity: 0.6;
+	}
+	
+	.ai-avatar-decoration::before {
+		content: "👨‍💼";
+		font-size: 60px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+	
+	/* 装饰性元素 */
+	.ai-decorator-dot {
+		position: absolute;
+		width: 5px;
+		height: 5px;
+		background: rgba(255, 255, 255, 0.4);
+		border-radius: 50%;
+	}
+	
+	.ai-decorator-line {
+		position: absolute;
+		height: 1px;
+		background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+	}
+	
+	/* 响应式设计 */
+	@media (max-width: 1024px) {
+		.ai-main-content {
+			grid-template-columns: 1fr 1fr;
+		}
+		
+		.ai-ppt-card {
+			grid-column: 1 / -1;
+		}
+	}
+	
+	@media (max-width: 768px) {
+		.ai-main-content {
+			grid-template-columns: 1fr;
+			gap: 12px;
+		}
+		
+		.ai-tools-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		
+		.ai-assistant-content {
+			padding: 16px;
+		}
+		
+		.ai-header {
+			margin-bottom: 16px;
+		}
+		
+		.ai-card {
+			padding: 12px;
+		}
+	}
+	
+	/* 暗色模式适配 */
+	:global(.dark) .ai-assistant-container {
+		background-color: transparent;
+	}
+	
+	:global(.dark) .ai-card {
+		background: #1e1e1e;
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+	}
+	
+	:global(.dark) .ai-card-title,
+	:global(.dark) .ai-header-text h1 {
+		color: #f0f0f0;
+	}
+	
+	:global(.dark) .ai-header-text p,
+	:global(.dark) .ai-agent-info p {
+		color: #999;
+	}
+	
+	:global(.dark) .ai-tool-name,
+	:global(.dark) .ai-agent-info h3,
+	:global(.dark) .ai-ppt-input {
+		color: #e0e0e0;
+	}
+	
+	:global(.dark) .ai-tools-card {
+		background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
+	}
+	
+	:global(.dark) .ai-agents-card {
+		background: linear-gradient(135deg, #1e1a24 0%, #252028 100%);
+	}
+	
+	:global(.dark) .ai-tool-item,
+	:global(.dark) .ai-agent-item {
+		background: rgba(30, 30, 30, 0.8);
+	}
+	
+	:global(.dark) .ai-ppt-input-area {
+		background: rgba(30, 30, 30, 0.95);
+	}
+	
+	:global(.dark) .ai-ppt-button {
+		background: #2a2a2a;
+		color: #e0e0e0;
+	}
+	
+	:global(.dark) .ai-ppt-icon {
+		background: #e0e0e0;
+	}
+</style>
