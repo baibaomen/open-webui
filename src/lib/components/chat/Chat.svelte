@@ -2147,8 +2147,8 @@
 											<div class="ai-logo-icon"></div>
 										</div>
 										<div class="ai-header-text">
-											<h1>我是通义，你的实用AI助手</h1>
-											<p>我可以帮你做这些事情，换一换 ⟳</p>
+											<h1>我是金融街AI小助手</h1>
+											<p>我可以帮你做这些事情</p>
 										</div>
 									</div>
 									
@@ -2179,19 +2179,45 @@
 										
 										<!-- 精选智能体卡片 -->
 										<div class="ai-card ai-agents-card">
-											<h2 class="ai-card-title">精选智能体</h2>
-											<div class="ai-agent-item">
+											<h2 class="ai-card-title">精选大模型</h2>
+											<div class="ai-agent-item {selectedModels[0] === 'qwen/qwen-max' ? 'active' : ''}" on:click={() => {
+												selectedModels = ['qwen/qwen-max'];
+												toast.success('已切换到千问大模型');
+											}}>
 												<div class="ai-agent-avatar ai-purple">千</div>
 												<div class="ai-agent-info">
 													<h3>千问大模型</h3>
-													<p>Qwen3模型重磅发...</p>
+													<p>QwenMax，通义千问系列效果最好的模型</p>
 												</div>
 											</div>
-											<div class="ai-agent-item">
-												<div class="ai-agent-avatar ai-orange">A</div>
+											<div class="ai-agent-item {selectedModels[0] === 'google/gemini-2.5-pro-preview' ? 'active' : ''}" on:click={() => {
+												selectedModels = ['google/gemini-2.5-pro-preview'];
+												toast.success('已切换到Gemini大模型');
+											}}>
+												<div class="ai-agent-avatar ai-blue">G</div>
 												<div class="ai-agent-info">
-													<h3>AI扩图</h3>
-													<p>AI扩图工具，支持...</p>
+													<h3>Gemini 2.5 Pro</h3>
+													<p>Google最新的Gemini 2.5 Pro预览版</p>
+												</div>
+											</div>
+											<div class="ai-agent-item {selectedModels[0] === 'openai/gpt-4.1' ? 'active' : ''}" on:click={() => {
+												selectedModels = ['openai/gpt-4.1'];
+												toast.success('已切换到ChatGPT 4.1');
+											}}>
+												<div class="ai-agent-avatar ai-green">A</div>
+												<div class="ai-agent-info">
+													<h3>ChatGPT 4.1</h3>
+													<p>OpenAI的GPT-4.1顶级大模型</p>
+												</div>
+											</div>
+											<div class="ai-agent-item {selectedModels[0] === 'anthropic/claude-sonnet-4' ? 'active' : ''}" on:click={() => {
+												selectedModels = ['anthropic/claude-sonnet-4'];
+												toast.success('已切换到Claude Sonnet');
+											}}>
+												<div class="ai-agent-avatar ai-orange">C</div>
+												<div class="ai-agent-info">
+													<h3>Claude Sonnet 4</h3>
+													<p>Anthropic的Claude Sonnet 4模型</p>
 												</div>
 											</div>
 										</div>
@@ -2416,10 +2442,10 @@
 	.ai-agent-item {
 		display: flex;
 		align-items: center;
-		padding: 12px;
+		padding: 10px;
 		background: rgba(255, 255, 255, 0.8);
 		border-radius: 10px;
-		margin-bottom: 10px;
+		margin-bottom: 8px;
 		cursor: pointer;
 		transition: all 0.3s ease;
 	}
@@ -2433,15 +2459,20 @@
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 	}
 	
+	.ai-agent-item.active {
+		background: rgba(102, 126, 234, 0.1);
+		border: 1px solid rgba(102, 126, 234, 0.3);
+	}
+	
 	.ai-agent-avatar {
-		width: 40px;
-		height: 40px;
+		width: 36px;
+		height: 36px;
 		border-radius: 50%;
 		margin-right: 10px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-size: 18px;
+		font-size: 16px;
 		color: white;
 	}
 	
@@ -2453,16 +2484,25 @@
 		background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 	}
 	
+	.ai-agent-avatar.ai-blue {
+		background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+	}
+	
+	.ai-agent-avatar.ai-green {
+		background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+	}
+	
 	.ai-agent-info h3 {
-		font-size: 14px;
+		font-size: 13px;
 		font-weight: 500;
 		margin-bottom: 1px;
 		color: #333;
 	}
 	
 	.ai-agent-info p {
-		font-size: 12px;
+		font-size: 11px;
 		color: #666;
+		line-height: 1.3;
 	}
 	
 	/* PPT卡片 */
