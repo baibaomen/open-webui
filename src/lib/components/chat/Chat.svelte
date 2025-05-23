@@ -116,6 +116,11 @@
 	let slideInterval: NodeJS.Timeout | undefined;
 	const totalSlides = 4;
 
+	// 即将推出提示函数
+	const showComingSoon = () => {
+		alert('即将推出，敬请期待');
+	};
+
 	// 轮播控制函数
 	const startCarousel = () => {
 		if (slideInterval) {
@@ -2198,19 +2203,19 @@
 										<div class="ai-card ai-tools-card">
 											<h2 class="ai-card-title">效率工具</h2>
 											<div class="ai-tools-grid">
-												<div class="ai-tool-item">
+												<div class="ai-tool-item" on:click={showComingSoon}>
 													<div class="ai-tool-icon">📋</div>
 													<span class="ai-tool-name">制度助手</span>
 												</div>
-												<div class="ai-tool-item">
+												<div class="ai-tool-item" on:click={showComingSoon}>
 													<div class="ai-tool-icon">📊</div>
 													<span class="ai-tool-name">PPT创作</span>
 												</div>
-												<div class="ai-tool-item">
+												<div class="ai-tool-item" on:click={showComingSoon}>
 													<div class="ai-tool-icon">🔍</div>
 													<span class="ai-tool-name">大图识别</span>
 												</div>
-												<div class="ai-tool-item">
+												<div class="ai-tool-item" on:click={showComingSoon}>
 													<div class="ai-tool-icon">📄</div>
 													<span class="ai-tool-name">文档转换</span>
 												</div>
@@ -2291,7 +2296,7 @@
 																<span class="ai-feature-tag">智能问答</span>
 																<span class="ai-feature-tag">实时更新</span>
 															</div>
-															<button class="ai-carousel-button">马上咨询 →</button>
+															<button class="ai-carousel-button" on:click={showComingSoon}>马上咨询 →</button>
 														</div>
 														<div class="ai-carousel-icon">📋</div>
 													</div>
@@ -2305,7 +2310,7 @@
 																<span class="ai-feature-tag">AI智能排版</span>
 																<span class="ai-feature-tag">海量模板</span>
 															</div>
-															<button class="ai-carousel-button">立即体验 →</button>
+															<button class="ai-carousel-button" on:click={showComingSoon}>立即体验 →</button>
 														</div>
 														<div class="ai-carousel-icon">📊</div>
 													</div>
@@ -2319,7 +2324,7 @@
 																<span class="ai-feature-tag">高精度识别</span>
 																<span class="ai-feature-tag">大图支持</span>
 															</div>
-															<button class="ai-carousel-button">开始识别 →</button>
+															<button class="ai-carousel-button" on:click={showComingSoon}>开始识别 →</button>
 														</div>
 														<div class="ai-carousel-icon">🔍</div>
 													</div>
@@ -2333,7 +2338,7 @@
 																<span class="ai-feature-tag">批量处理</span>
 																<span class="ai-feature-tag">格式互转</span>
 															</div>
-															<button class="ai-carousel-button">开始使用 →</button>
+															<button class="ai-carousel-button" on:click={showComingSoon}>开始使用 →</button>
 														</div>
 														<div class="ai-carousel-icon">📄</div>
 													</div>
