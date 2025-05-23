@@ -111,6 +111,37 @@
 	let eventConfirmationInputValue = '';
 	let eventCallback = null;
 
+	// 轮播广告状态
+	let currentSlide = 0;
+	let slideInterval: NodeJS.Timeout | undefined;
+	const totalSlides = 4;
+
+	// 轮播控制函数
+	const startCarousel = () => {
+		if (slideInterval) {
+			clearInterval(slideInterval);
+		}
+		slideInterval = setInterval(() => {
+			currentSlide = (currentSlide + 1) % totalSlides;
+		}, 5000);
+	};
+	
+	const pauseCarousel = () => {
+		if (slideInterval) {
+			clearInterval(slideInterval);
+		}
+	};
+	
+	const nextSlide = () => {
+		currentSlide = (currentSlide + 1) % totalSlides;
+		startCarousel();
+	};
+	
+	const prevSlide = () => {
+		currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+		startCarousel();
+	};
+
 	let chatIdUnsubscriber: Unsubscriber | undefined;
 
 	let selectedModels = [''];
@@ -422,6 +453,9 @@
 		window.addEventListener('message', onMessageHandler);
 		$socket?.on('chat-events', chatEventHandler);
 
+		// 启动轮播
+		startCarousel();
+
 		if (!$chatId) {
 			chatIdUnsubscriber = chatId.subscribe(async (value) => {
 				if (!value) {
@@ -496,6 +530,11 @@
 		chatIdUnsubscriber?.();
 		window.removeEventListener('message', onMessageHandler);
 		$socket?.off('chat-events', chatEventHandler);
+		
+		// 清理轮播定时器
+		if (slideInterval) {
+			clearInterval(slideInterval);
+		}
 	});
 
 	// File upload functions
@@ -2224,21 +2263,96 @@
 										</div>
 										
 										<!-- PPT卡片 -->
-										<div class="ai-card ai-ppt-card">
-											<div class="ai-ppt-content">
-												<div class="ai-ppt-input-area">
-													<textarea class="ai-ppt-input" placeholder="工作总结汇报" rows="2"></textarea>
-												</div>
-												<button class="ai-ppt-button">
-													<span class="ai-ppt-icon"></span>
-													智能生成PPT
+										<div class="ai-card ai-carousel-card"
+											on:mouseenter={pauseCarousel}
+											on:mouseleave={startCarousel}
+										>
+											<div class="ai-carousel-container">
+												<!-- 轮播控制按钮 -->
+												<button class="ai-carousel-nav ai-carousel-nav-prev" on:click={prevSlide}>
+													<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+														<polyline points="15 18 9 12 15 6"></polyline>
+													</svg>
 												</button>
+												<button class="ai-carousel-nav ai-carousel-nav-next" on:click={nextSlide}>
+													<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+														<polyline points="9 18 15 12 9 6"></polyline>
+													</svg>
+												</button>
+												
+												<!-- 轮播内容 -->
+												<div class="ai-carousel-slides" style="transform: translateX(-{currentSlide * 100}%)">
+													<!-- 第一个广告：智能生成PPT -->
+													<div class="ai-carousel-slide ai-slide-green">
+														<div class="ai-carousel-content">
+															<h3 class="ai-carousel-title">智能生成PPT</h3>
+															<p class="ai-carousel-desc">一键生成专业演示文稿，自动排版设计</p>
+															<div class="ai-carousel-feature">
+																<span class="ai-feature-tag">AI智能排版</span>
+																<span class="ai-feature-tag">海量模板</span>
+															</div>
+															<button class="ai-carousel-button">立即体验 →</button>
+														</div>
+														<div class="ai-carousel-icon">📊</div>
+													</div>
+													
+													<!-- 第二个广告：文档智能处理 -->
+													<div class="ai-carousel-slide ai-slide-purple">
+														<div class="ai-carousel-content">
+															<h3 class="ai-carousel-title">文档智能处理</h3>
+															<p class="ai-carousel-desc">OCR识别、格式转换，文档处理更高效</p>
+															<div class="ai-carousel-feature">
+																<span class="ai-feature-tag">批量处理</span>
+																<span class="ai-feature-tag">格式互转</span>
+															</div>
+															<button class="ai-carousel-button">开始使用 →</button>
+														</div>
+														<div class="ai-carousel-icon">📄</div>
+													</div>
+													
+													<!-- 第三个广告：AI制度助手 -->
+													<div class="ai-carousel-slide ai-slide-yellow">
+														<div class="ai-carousel-content">
+															<h3 class="ai-carousel-title">AI制度助手</h3>
+															<p class="ai-carousel-desc">快速查询公司制度，智能解答政策问题</p>
+															<div class="ai-carousel-feature">
+																<span class="ai-feature-tag">智能问答</span>
+																<span class="ai-feature-tag">实时更新</span>
+															</div>
+															<button class="ai-carousel-button">马上咨询 →</button>
+														</div>
+														<div class="ai-carousel-icon">📋</div>
+													</div>
+													
+													<!-- 第四个广告：大图识别 -->
+													<div class="ai-carousel-slide ai-slide-blue">
+														<div class="ai-carousel-content">
+															<h3 class="ai-carousel-title">大图识别</h3>
+															<p class="ai-carousel-desc">轻松识别超大文字密集的扫描图，精准提取文本</p>
+															<div class="ai-carousel-feature">
+																<span class="ai-feature-tag">高精度识别</span>
+																<span class="ai-feature-tag">大图支持</span>
+															</div>
+															<button class="ai-carousel-button">开始识别 →</button>
+														</div>
+														<div class="ai-carousel-icon">🔍</div>
+													</div>
+												</div>
+												
+												<!-- 轮播指示器 -->
+												<div class="ai-carousel-indicators">
+													{#each Array(totalSlides) as _, index}
+														<button 
+															class="ai-carousel-dot {currentSlide === index ? 'active' : ''}"
+															on:click={() => {
+																currentSlide = index;
+																// 点击后重新启动轮播
+																startCarousel();
+															}}
+														></button>
+													{/each}
+												</div>
 											</div>
-											<div class="ai-avatar-decoration"></div>
-											<!-- 装饰性元素 -->
-											<div class="ai-decorator-dot" style="top: 20px; right: 40px;"></div>
-											<div class="ai-decorator-dot" style="top: 40px; right: 20px;"></div>
-											<div class="ai-decorator-line" style="bottom: 60px; left: 20px; right: 150px;"></div>
 										</div>
 									</div>
 								</div>
@@ -2536,70 +2650,358 @@
 	}
 	
 	/* PPT卡片 */
-	.ai-ppt-card {
-		background: linear-gradient(135deg, #9890e3 0%, #b1a7f2 50%, #d4c5f2 100%);
+	.ai-carousel-card {
+		background: transparent;
 		color: white;
+		position: relative;
+		overflow: hidden;
+		/* 移除padding，让内容完全填充 */
+		padding: 0;
+		/* 移除边框 */
+		border: none;
+	}
+	
+	/* 使用更高优先级确保覆盖基础ai-card样式 */
+	.ai-card.ai-carousel-card {
+		padding: 0 !important;
+		border: none !important;
+		background: transparent !important;
+		box-shadow: none !important;
+	}
+	
+	/* 轮播项背景色 - 对应效率工具 */
+	.ai-slide-green {
+		background: linear-gradient(135deg, #e8fce8 0%, #c5f4c5 50%, #a8e6a8 100%);
 		position: relative;
 		overflow: hidden;
 	}
 	
-	.ai-ppt-content {
+	.ai-slide-green::before {
+		content: '';
+		position: absolute;
+		top: -50%;
+		right: -50%;
+		width: 200%;
+		height: 200%;
+		background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+		animation: float 20s ease-in-out infinite;
+	}
+	
+	.ai-slide-purple {
+		background: linear-gradient(135deg, #fce8fc 0%, #f4c5f4 50%, #e6a8e6 100%);
+		position: relative;
+		overflow: hidden;
+	}
+	
+	.ai-slide-purple::before {
+		content: '';
+		position: absolute;
+		top: -50%;
+		left: -50%;
+		width: 200%;
+		height: 200%;
+		background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+		animation: float 20s ease-in-out infinite reverse;
+	}
+	
+	.ai-slide-yellow {
+		background: linear-gradient(135deg, #fff8dc 0%, #ffe4a1 50%, #ffd074 100%);
+		position: relative;
+		overflow: hidden;
+	}
+	
+	.ai-slide-yellow::before {
+		content: '';
+		position: absolute;
+		bottom: -50%;
+		right: -50%;
+		width: 200%;
+		height: 200%;
+		background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
+		animation: float 20s ease-in-out infinite;
+	}
+	
+	.ai-slide-blue {
+		background: linear-gradient(135deg, #e8e8ff 0%, #c5c5ff 50%, #a8a8ff 100%);
+		position: relative;
+		overflow: hidden;
+	}
+	
+	.ai-slide-blue::before {
+		content: '';
+		position: absolute;
+		bottom: -50%;
+		left: -50%;
+		width: 200%;
+		height: 200%;
+		background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+		animation: float 20s ease-in-out infinite reverse;
+	}
+	
+	@keyframes float {
+		0%, 100% {
+			transform: translate(0, 0) rotate(0deg);
+		}
+		25% {
+			transform: translate(10%, 10%) rotate(90deg);
+		}
+		50% {
+			transform: translate(-10%, 20%) rotate(180deg);
+		}
+		75% {
+			transform: translate(20%, -10%) rotate(270deg);
+		}
+	}
+	
+	.ai-carousel-container {
 		position: relative;
 		z-index: 1;
+		height: 100%;
+		overflow: hidden;
+		/* 保持圆角，与ai-card一致 */
+		border-radius: 12px;
+		/* 移除阴影，避免重复 */
 	}
 	
-	.ai-ppt-input-area {
-		background: white;
-		border-radius: 10px;
-		padding: 12px;
-		margin-bottom: 16px;
-		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-	}
-	
-	.ai-ppt-input {
-		width: 100%;
-		border: none;
-		outline: none;
-		font-size: 13px;
-		color: #333;
-		resize: none;
-		background: transparent;
-		line-height: 1.4;
-	}
-	
-	.ai-ppt-input::placeholder {
-		color: #999;
-	}
-	
-	.ai-ppt-button {
-		background: white;
-		color: #333;
-		border: none;
-		padding: 10px 20px;
-		border-radius: 8px;
-		font-size: 13px;
-		font-weight: 500;
-		cursor: pointer;
+	.ai-carousel-slides {
 		display: flex;
+		transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+		height: 100%;
+	}
+	
+	.ai-carousel-slide {
+		flex: 0 0 100%;
+		display: flex;
+		flex-direction: column;
 		align-items: center;
-		gap: 6px;
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		justify-content: center;
+		padding: 24px;
+		height: 100%;
+		min-height: 100%;
+		box-sizing: border-box;
+		position: relative;
+	}
+	
+	.ai-carousel-content {
+		text-align: center;
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		position: relative;
+		z-index: 2;
+	}
+	
+	.ai-carousel-title {
+		font-size: 18px;
+		font-weight: 600;
+		margin-bottom: 10px;
+		color: #1a1a1a;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+	}
+	
+	.ai-carousel-desc {
+		font-size: 14px;
+		color: #4a4a4a;
+		margin-bottom: 16px;
+		line-height: 1.5;
+		text-shadow: 0 1px 1px rgba(0, 0, 0, 0.03);
+	}
+	
+	.ai-carousel-feature {
+		display: flex;
+		justify-content: center;
+		gap: 10px;
+		margin-bottom: 20px;
+		flex-wrap: wrap;
+	}
+	
+	.ai-feature-tag {
+		background: rgba(255, 255, 255, 0.6);
+		backdrop-filter: blur(10px);
+		padding: 5px 12px;
+		border-radius: 20px;
+		font-size: 12px;
+		color: #333;
+		border: 1px solid rgba(0, 0, 0, 0.06);
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 		transition: all 0.3s ease;
 	}
 	
-	.ai-ppt-button:hover {
-			transform: translateY(-2px);
-			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	.ai-feature-tag:hover {
+		transform: translateY(-1px);
+		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 	}
 	
-	.ai-ppt-icon {
+	.ai-carousel-button {
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		color: white;
+		border: none;
+		padding: 10px 24px;
+		border-radius: 25px;
+		font-size: 13px;
+		font-weight: 500;
+		cursor: pointer;
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+		transition: all 0.3s ease;
+		margin-bottom: 10px;
+		position: relative;
+		overflow: hidden;
+	}
+	
+	.ai-carousel-button::before {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 0;
+		height: 0;
+		background: rgba(255, 255, 255, 0.2);
+		border-radius: 50%;
+		transform: translate(-50%, -50%);
+		transition: width 0.6s ease, height 0.6s ease;
+	}
+	
+	.ai-carousel-button:hover::before {
+		width: 300px;
+		height: 300px;
+	}
+	
+	.ai-carousel-button:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+	}
+	
+	.ai-carousel-icon {
+		font-size: 48px;
+		margin-top: 10px;
+		filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+		animation: bounce 3s ease-in-out infinite;
+		position: relative;
+		z-index: 2;
+	}
+	
+	@keyframes bounce {
+		0%, 100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-10px);
+		}
+	}
+	
+	.ai-carousel-indicators {
+		display: flex;
+		justify-content: center;
+		gap: 8px;
+		margin-top: 10px;
+		position: relative;
+		z-index: 3;
+	}
+	
+	.ai-carousel-dot {
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		background: rgba(0, 0, 0, 0.2);
+		border: none;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		padding: 0;
+		position: relative;
+	}
+	
+	.ai-carousel-dot::after {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 50%;
 		width: 16px;
 		height: 16px;
-		background: #333;
-		mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>') no-repeat center;
-		mask-size: contain;
-		-webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>') no-repeat center;
-		-webkit-mask-size: contain;
+		border-radius: 50%;
+		background: transparent;
+		border: 2px solid rgba(0, 0, 0, 0.3);
+		transform: translate(-50%, -50%) scale(0);
+		transition: all 0.3s ease;
+	}
+	
+	.ai-carousel-dot.active {
+		background: rgba(0, 0, 0, 0.5);
+		width: 24px;
+		border-radius: 12px;
+	}
+	
+	.ai-carousel-dot.active::after {
+		transform: translate(-50%, -50%) scale(1);
+		border-color: rgba(0, 0, 0, 0.5);
+	}
+	
+	.ai-carousel-dot:hover {
+		background: rgba(0, 0, 0, 0.3);
+	}
+	
+	.ai-carousel-nav {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		background: rgba(255, 255, 255, 0.9);
+		backdrop-filter: blur(10px);
+		border: none;
+		width: 36px;
+		height: 36px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		z-index: 2;
+		color: #333;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	}
+	
+	.ai-carousel-nav:hover {
+		background: rgba(255, 255, 255, 1);
+		transform: translateY(-50%) scale(1.1);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	}
+	
+	.ai-carousel-nav-prev {
+		left: 10px;
+	}
+	
+	.ai-carousel-nav-next {
+		right: 10px;
+	}
+	
+	:global(.dark) .ai-carousel-nav {
+		background: rgba(30, 30, 30, 0.9);
+		color: #e0e0e0;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+	}
+	
+	:global(.dark) .ai-carousel-nav:hover {
+		background: rgba(40, 40, 40, 1);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+	}
+	
+	:global(.dark) .ai-carousel-dot {
+		background: rgba(255, 255, 255, 0.2);
+	}
+	
+	:global(.dark) .ai-carousel-dot.active {
+		background: rgba(255, 255, 255, 0.6);
+	}
+	
+	:global(.dark) .ai-carousel-dot.active::after {
+		border-color: rgba(255, 255, 255, 0.6);
+	}
+	
+	:global(.dark) .ai-carousel-dot:hover {
+		background: rgba(255, 255, 255, 0.4);
 	}
 	
 	.ai-avatar-decoration {
@@ -2641,7 +3043,7 @@
 			grid-template-columns: 1fr 1fr;
 		}
 		
-		.ai-ppt-card {
+		.ai-carousel-card {
 			grid-column: 1 / -1;
 		}
 	}
@@ -2666,6 +3068,11 @@
 		
 		.ai-card {
 			padding: 12px;
+		}
+		
+		/* 确保轮播卡片在移动端也没有padding */
+		.ai-card.ai-carousel-card {
+			padding: 0 !important;
 		}
 	}
 	
@@ -2693,7 +3100,7 @@
 	
 	:global(.dark) .ai-tool-name,
 	:global(.dark) .ai-agent-info h3,
-	:global(.dark) .ai-ppt-input {
+	:global(.dark) .ai-carousel-input {
 		color: #e0e0e0;
 	}
 	
@@ -2741,16 +3148,182 @@
 		background: rgba(0, 0, 0, 0.3);
 	}
 	
-	:global(.dark) .ai-ppt-input-area {
+	:global(.dark) .ai-carousel-input-area {
 		background: rgba(30, 30, 30, 0.95);
 	}
 	
-	:global(.dark) .ai-ppt-button {
+	:global(.dark) .ai-carousel-button {
 		background: #2a2a2a;
 		color: #e0e0e0;
 	}
 	
-	:global(.dark) .ai-ppt-icon {
+	:global(.dark) .ai-carousel-icon {
 		background: #e0e0e0;
+	}
+	
+	:global(.dark) .ai-carousel-button:hover {
+		background: #3a3a3a;
+	}
+	
+	:global(.dark) .ai-carousel-title {
+		color: #f0f0f0;
+	}
+	
+	:global(.dark) .ai-carousel-desc {
+		color: rgba(255, 255, 255, 0.7);
+	}
+	
+	:global(.dark) .ai-feature-tag {
+		background: rgba(255, 255, 255, 0.1);
+		color: #e0e0e0;
+	}
+	
+	:global(.dark) .ai-carousel-dot {
+		background: rgba(255, 255, 255, 0.2);
+	}
+	
+	:global(.dark) .ai-carousel-dot.active {
+		background: rgba(255, 255, 255, 0.8);
+	}
+	
+	:global(.dark) .ai-carousel-dot:hover {
+		background: rgba(255, 255, 255, 0.4);
+	}
+	
+	.ai-carousel-dot:hover {
+		background: rgba(255, 255, 255, 0.6);
+	}
+	
+	.ai-carousel-nav {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		background: rgba(0, 0, 0, 0.1);
+		border: none;
+		width: 36px;
+		height: 36px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		backdrop-filter: blur(10px);
+		z-index: 2;
+		color: #333;
+	}
+	
+	.ai-carousel-nav:hover {
+		background: rgba(0, 0, 0, 0.2);
+		transform: translateY(-50%) scale(1.1);
+	}
+	
+	.ai-carousel-nav-prev {
+		left: 10px;
+	}
+	
+	.ai-carousel-nav-next {
+		right: 10px;
+	}
+	
+	:global(.dark) .ai-carousel-nav {
+		background: rgba(255, 255, 255, 0.1);
+		color: #e0e0e0;
+	}
+	
+	:global(.dark) .ai-carousel-nav:hover {
+		background: rgba(255, 255, 255, 0.2);
+	}
+	
+	:global(.dark) .ai-carousel-card {
+		background: transparent;
+	}
+	
+	/* 暗色模式下也要覆盖基础卡片样式 */
+	:global(.dark) .ai-card.ai-carousel-card {
+		padding: 0 !important;
+		border: none !important;
+		background: transparent !important;
+		box-shadow: none !important;
+	}
+	
+	:global(.dark) .ai-slide-green {
+		background: linear-gradient(135deg, #1a3a1a 0%, #245024 50%, #2d6a2d 100%);
+	}
+	
+	:global(.dark) .ai-slide-purple {
+		background: linear-gradient(135deg, #3a1a3a 0%, #502450 50%, #6a2d6a 100%);
+	}
+	
+	:global(.dark) .ai-slide-yellow {
+		background: linear-gradient(135deg, #3a2f1a 0%, #504024 50%, #6a552d 100%);
+	}
+	
+	:global(.dark) .ai-slide-blue {
+		background: linear-gradient(135deg, #1a1a3a 0%, #242450 50%, #2d2d6a 100%);
+	}
+	
+	:global(.dark) .ai-slide-green::before,
+	:global(.dark) .ai-slide-purple::before,
+	:global(.dark) .ai-slide-yellow::before,
+	:global(.dark) .ai-slide-blue::before {
+		background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+	}
+	
+	:global(.dark) .ai-carousel-container {
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+	}
+	
+	:global(.dark) .ai-carousel-title {
+		color: #f0f0f0;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+	}
+	
+	:global(.dark) .ai-carousel-desc {
+		color: #d0d0d0;
+		text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+	}
+	
+	:global(.dark) .ai-feature-tag {
+		background: rgba(255, 255, 255, 0.1);
+		color: #e0e0e0;
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	}
+	
+	:global(.dark) .ai-carousel-button {
+		background: linear-gradient(135deg, #5a6ad8 0%, #6b4ba2 100%);
+		box-shadow: 0 4px 15px rgba(90, 106, 216, 0.3);
+	}
+	
+	:global(.dark) .ai-carousel-button:hover {
+		box-shadow: 0 6px 20px rgba(90, 106, 216, 0.4);
+	}
+	
+	:global(.dark) .ai-carousel-nav {
+		background: rgba(30, 30, 30, 0.9);
+		color: #e0e0e0;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+	}
+	
+	:global(.dark) .ai-carousel-nav:hover {
+		background: rgba(40, 40, 40, 1);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+	}
+	
+	:global(.dark) .ai-carousel-dot {
+		background: rgba(255, 255, 255, 0.2);
+	}
+	
+	:global(.dark) .ai-carousel-dot.active {
+		background: rgba(255, 255, 255, 0.6);
+	}
+	
+	:global(.dark) .ai-carousel-dot.active::after {
+		border-color: rgba(255, 255, 255, 0.6);
+	}
+	
+	:global(.dark) .ai-carousel-dot:hover {
+		background: rgba(255, 255, 255, 0.4);
 	}
 </style>
