@@ -88,7 +88,7 @@
 				try {
 					const isDarkMode = document.documentElement.classList.contains('dark');
 					const virtualWidth = 800; // Fixed width in px
-					const pagePixelHeight = 1200; // Each slice height (adjust to avoid canvas bugs; generally 2–4k is safe)
+					const pagePixelHeight = 1368; // Each slice height (adjust to avoid canvas bugs; generally 2–4k is safe)
 
 					// Clone & style once
 					const clonedElement = containerElement.cloneNode(true);

@@ -130,18 +130,18 @@
 			currentSlide = (currentSlide + 1) % totalSlides;
 		}, 5000);
 	};
-	
+
 	const pauseCarousel = () => {
 		if (slideInterval) {
 			clearInterval(slideInterval);
 		}
 	};
-	
+
 	const nextSlide = () => {
 		currentSlide = (currentSlide + 1) % totalSlides;
 		startCarousel();
 	};
-	
+
 	const prevSlide = () => {
 		currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
 		startCarousel();
@@ -535,7 +535,7 @@
 		chatIdUnsubscriber?.();
 		window.removeEventListener('message', onMessageHandler);
 		$socket?.off('chat-events', chatEventHandler);
-		
+
 		// 清理轮播定时器
 		if (slideInterval) {
 			clearInterval(slideInterval);
@@ -2087,7 +2087,8 @@
 					title={$chatTitle}
 					bind:selectedModels
 					shareEnabled={!!history.currentId}
-					showModelSelector={$settings?.landingPageMode === 'chat' || createMessagesList(history, history.currentId).length > 0}
+					showModelSelector={$settings?.landingPageMode === 'chat' ||
+						createMessagesList(history, history.currentId).length > 0}
 					{initNewChat}
 				/>
 
@@ -2188,121 +2189,166 @@
 								<div class="ai-assistant-content">
 									<!-- 头部 -->
 									<div class="ai-header">
-										<div class="ai-logo">
-											<div class="ai-logo-icon"></div>
+										<div class="box_2 flex-row justify-between">
+											<img
+												class="image_1"
+												referrerpolicy="no-referrer"
+												src="https://lanhu-oss-2537-2.lanhuapp.com/SketchPng8b9c57ab9a8f8319cf57c6674ebebfae62268308392ce6c6f4245142032b3e1a"
+											/>
+											<span class="text_1">万语千言，心领神悟</span>
 										</div>
-										<div class="ai-header-text">
-											<h1>我是金融街AI小助手</h1>
-											<p>我可以帮你做这些事情</p>
+										<div class="text-wrapper_1 flex-row">
+											<span class="text_2">我是anget，你的实用AI助手</span>
 										</div>
 									</div>
-									
+
 									<!-- 主内容 -->
 									<div class="ai-main-content">
+																			<!-- 精选工具卡片 -->
+										<div class="ai-card ai-agents-card">
+										<div class="group_4 flex-col">
+											<div class="text-wrapper_2 flex-row justify-between">
+												<span class="text_3">精选工具</span>
+												<span class="text_4">发现更多</span>
+												</div>
+											<div class="group_5 flex-row justify-between">
+												<div class="group_6 flex-row">
+													<div class="image-text_1 flex-col justify-between">
+														<div class="box_4 flex-col"></div>
+														<div class="text-group_1 flex-col justify-between">
+															<span class="text_5">集团制度助手</span>
+															<span class="paragraph_1">智能解答集团制度疑问<br />秒查最新条款，事务处理快人一步。</span>
+											</div>
+												</div>
+											</div>
+												<div class="group_7 flex-row">
+													<div class="image-text_2 flex-col justify-between">
+														<div class="block_1 flex-col"></div>
+														<div class="text-group_2 flex-col justify-between">
+															<span class="text_6">董事会议题比对助手</span>
+															<span class="text_7">一键核验议题变更，决策更高效</span>
+												</div>
+											</div>
+												</div>
+											</div>
+											<img
+												class="image_2"
+												referrerpolicy="no-referrer"
+												src="https://lanhu-oss-2537-2.lanhuapp.com/SketchPng8db48e952174a87d5ea81dc246b55158f38b22405e9b67a285cbdbaf3aab799c"
+											/>
+											<img
+												class="image_3"
+												referrerpolicy="no-referrer"
+												src="https://lanhu-oss-2537-2.lanhuapp.com/SketchPngd20cd1176d11fb7132789a0bd7237be99d436cacf332c672efb8a41928c65379"
+											/>
+											</div>
+										</div>
 										<!-- 效率工具卡片 -->
 										<div class="ai-card ai-tools-card">
-											<h2 class="ai-card-title">效率工具</h2>
-											<div class="ai-tools-grid">
-												<div class="ai-tool-item" on:click={showComingSoon}>
-													<div class="ai-tool-icon">📋</div>
-													<span class="ai-tool-name">制度助手</span>
+										<span class="text_8">效率工具</span>
+										<div class="box_5 flex-row">
+											<div class="text-group_3 flex-col justify-between">
+												<span class="text_9">图文识别助手</span>
+												<span class="text_10">秒级识别多语言/表格/手写体，解放人力</span>
 												</div>
-												<div class="ai-tool-item" on:click={showComingSoon}>
-													<div class="ai-tool-icon">📊</div>
-													<span class="ai-tool-name">PPT创作</span>
 												</div>
-												<div class="ai-tool-item" on:click={showComingSoon}>
-													<div class="ai-tool-icon">🔍</div>
-													<span class="ai-tool-name">大图识别</span>
+										<div class="box_6 flex-row">
+											<div class="image-text_3 flex-row justify-between">
+												<div class="group_9 flex-col">
+													<div class="section_1 flex-col"></div>
 												</div>
-												<div class="ai-tool-item" on:click={showComingSoon}>
-													<div class="ai-tool-icon">📄</div>
-													<span class="ai-tool-name">文档转换</span>
+												<div class="text-group_4 flex-col justify-between">
+													<span class="text_11">睿宝儿童生长发育专家</span>
+													<span class="text_12">精准预警偏离风险，科学育儿不焦虑</span>
 												</div>
 											</div>
 										</div>
-										
-										<!-- 精选智能体卡片 -->
-										<div class="ai-card ai-agents-card">
-											<h2 class="ai-card-title">精选大模型</h2>
-											<div class="ai-agent-item {selectedModels[0] === 'qwen/qwen-max' ? 'active' : ''}" on:click={() => {
-												selectedModels = ['qwen/qwen-max'];
-												toast.success('已切换到千问大模型');
-											}}>
-												<div class="ai-agent-avatar ai-purple">千</div>
-												<div class="ai-agent-info">
-													<h3>千问大模型</h3>
-													<p>QwenMax，通义千问系列效果最好的模型</p>
+										<div class="box_7 flex-row">
+											<div class="image-text_4 flex-row justify-between">
+												<div class="box_8 flex-col"></div>
+												<div class="text-group_5 flex-col justify-between">
+													<span class="text_13">家庭财富配置助手</span>
+													<span class="text_14">定制家庭资产方案，平衡风险与收益</span>
 												</div>
-											</div>
-											<div class="ai-agent-item {selectedModels[0] === 'google/gemini-2.5-pro-preview' ? 'active' : ''}" on:click={() => {
-												selectedModels = ['google/gemini-2.5-pro-preview'];
-												toast.success('已切换到Gemini大模型');
-											}}>
-												<div class="ai-agent-avatar ai-blue">G</div>
-												<div class="ai-agent-info">
-													<h3>Gemini 2.5 Pro</h3>
-													<p>Google最新的Gemini 2.5 Pro预览版</p>
-												</div>
-											</div>
-											<div class="ai-agent-item {selectedModels[0] === 'openai/gpt-4.1' ? 'active' : ''}" on:click={() => {
-												selectedModels = ['openai/gpt-4.1'];
-												toast.success('已切换到ChatGPT 4.1');
-											}}>
-												<div class="ai-agent-avatar ai-green">A</div>
-												<div class="ai-agent-info">
-													<h3>ChatGPT 4.1</h3>
-													<p>OpenAI的GPT-4.1顶级大模型</p>
-												</div>
-											</div>
-											<div class="ai-agent-item {selectedModels[0] === 'anthropic/claude-sonnet-4' ? 'active' : ''}" on:click={() => {
-												selectedModels = ['anthropic/claude-sonnet-4'];
-												toast.success('已切换到Claude Sonnet');
-											}}>
-												<div class="ai-agent-avatar ai-orange">C</div>
-												<div class="ai-agent-info">
-													<h3>Claude Sonnet 4</h3>
-													<p>Anthropic的Claude Sonnet 4模型</p>
 												</div>
 											</div>
 										</div>
-										
 										<!-- PPT卡片 -->
-										<div class="ai-card ai-carousel-card"
+										<div
+											class="ai-card ai-carousel-card"
 											on:mouseenter={pauseCarousel}
 											on:mouseleave={startCarousel}
 										>
 											<div class="ai-carousel-container">
-												<!-- 轮播控制按钮 -->
-												<button class="ai-carousel-nav ai-carousel-nav-prev" on:click={prevSlide}>
-													<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-														<polyline points="15 18 9 12 15 6"></polyline>
-													</svg>
-												</button>
-												<button class="ai-carousel-nav ai-carousel-nav-next" on:click={nextSlide}>
-													<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-														<polyline points="9 18 15 12 9 6"></polyline>
-													</svg>
-												</button>
-												
 												<!-- 轮播内容 -->
-												<div class="ai-carousel-slides" style="transform: translateX(-{currentSlide * 100}%)">
-													<!-- 第一个广告：制度助手 -->
-													<div class="ai-carousel-slide ai-slide-yellow">
-														<div class="ai-carousel-content">
-															<h3 class="ai-carousel-title">制度助手</h3>
-															<p class="ai-carousel-desc">快速查询公司制度，智能解答政策问题</p>
-															<div class="ai-carousel-feature">
-																<span class="ai-feature-tag">智能问答</span>
-																<span class="ai-feature-tag">实时更新</span>
+												<div
+													class="ai-carousel-slides"
+													style="transform: translateX(-{currentSlide * 100}%)"
+												>
+													<!-- 第一个轮播：智能PPT生成工具 -->
+													<div class="ai-carousel-slide ai-slide-unified">
+														<div class="group_10 flex-col">
+															<div class="group_11 flex-col">
+																<div class="box_9 flex-row">
+																	<div class="text-wrapper_3 flex-col">
+																		<span class="text_15">批量处理</span>
 															</div>
-															<button class="ai-carousel-button" on:click={showComingSoon}>马上咨询 →</button>
 														</div>
-														<div class="ai-carousel-icon">📋</div>
+																<div class="box_10 flex-row">
+																	<div class="text-wrapper_4 flex-col">
+																		<span class="text_16">智能文档</span>
+																	</div>
+																</div>
+																<div class="box_11 flex-row">
+																	<div class="group_12 flex-col">
+																		<span class="text_17">25.7%</span>
+																		<div class="group_13 flex-row justify-between">
+																			<span class="text_18">8.15%</span>
+																			<img
+																				class="image_4"
+																				referrerpolicy="no-referrer"
+																				src="https://lanhu-oss-2537-2.lanhuapp.com/SketchPng644b147b71c8453fabf9aba7e53e27b427959a3bed18b430bff26be749d06072"
+																			/>
+																		</div>
+																		<div class="group_14 flex-col">
+																			<div class="section_2 flex-col">
+																				<span class="text_19">50.25%</span>
+																				<img
+																					class="image_5"
+																					referrerpolicy="no-referrer"
+																					src="https://lanhu-oss-2537-2.lanhuapp.com/SketchPng7b1df71c1348dd97a34cad7079324afc9f5014d9a9eaca372e2b83735244881b"
+																				/>
+																				<img
+																					class="label_6"
+																					referrerpolicy="no-referrer"
+																					src="https://lanhu-oss-2537-2.lanhuapp.com/SketchPng06d5060ff0fbabd64a920a1eb3034f3a57ee96e7d85b08d4b32ad4440765de33"
+																				/>
+																				<img
+																					class="image_6"
+																					referrerpolicy="no-referrer"
+																					src="https://lanhu-oss-2537-2.lanhuapp.com/SketchPng8575291cf8ccd9ad35cbbdc622e132fa467d6b7e50efe28f8f415faa100fb6b6"
+																				/>
+																			</div>
+																		</div>
+																		<img
+																			class="label_7"
+																			referrerpolicy="no-referrer"
+																			src="https://lanhu-oss-2537-2.lanhuapp.com/SketchPng90382fdb9233b5139c6fb75e7b0df51c2d3ec09f7862cde6140bdaea3cdae209"
+																		/>
+																	</div>
+																	<div class="text-wrapper_5 flex-col">
+																		<span class="text_20">工作总结汇报</span>
+																	</div>
+																</div>
+															</div>
+															<div class="text-wrapper_6 flex-col">
+																<span class="text_21">智能PPT生成工具</span>
+															</div>
+														</div>
 													</div>
-													
+
 													<!-- 第二个广告：PPT创作 -->
-													<div class="ai-carousel-slide ai-slide-green">
+													<div class="ai-carousel-slide ai-slide-unified">
 														<div class="ai-carousel-content">
 															<h3 class="ai-carousel-title">PPT创作</h3>
 															<p class="ai-carousel-desc">一键生成专业演示文稿，自动排版设计</p>
@@ -2310,27 +2356,33 @@
 																<span class="ai-feature-tag">AI智能排版</span>
 																<span class="ai-feature-tag">海量模板</span>
 															</div>
-															<button class="ai-carousel-button" on:click={showComingSoon}>立即体验 →</button>
+															<button class="ai-carousel-button" on:click={showComingSoon}
+																>立即体验 →</button
+															>
 														</div>
 														<div class="ai-carousel-icon">📊</div>
 													</div>
-													
+
 													<!-- 第三个广告：大图识别 -->
-													<div class="ai-carousel-slide ai-slide-blue">
+													<div class="ai-carousel-slide ai-slide-unified">
 														<div class="ai-carousel-content">
 															<h3 class="ai-carousel-title">大图识别</h3>
-															<p class="ai-carousel-desc">轻松识别超大文字密集的扫描图，精准提取文本</p>
+															<p class="ai-carousel-desc">
+																轻松识别超大文字密集的扫描图，精准提取文本
+															</p>
 															<div class="ai-carousel-feature">
 																<span class="ai-feature-tag">高精度识别</span>
 																<span class="ai-feature-tag">大图支持</span>
 															</div>
-															<button class="ai-carousel-button" on:click={showComingSoon}>开始识别 →</button>
+															<button class="ai-carousel-button" on:click={showComingSoon}
+																>开始识别 →</button
+															>
 														</div>
 														<div class="ai-carousel-icon">🔍</div>
 													</div>
-													
+
 													<!-- 第四个广告：文档转换 -->
-													<div class="ai-carousel-slide ai-slide-purple">
+													<div class="ai-carousel-slide ai-slide-unified">
 														<div class="ai-carousel-content">
 															<h3 class="ai-carousel-title">文档转换</h3>
 															<p class="ai-carousel-desc">OCR识别、格式转换，文档处理更高效</p>
@@ -2338,16 +2390,18 @@
 																<span class="ai-feature-tag">批量处理</span>
 																<span class="ai-feature-tag">格式互转</span>
 															</div>
-															<button class="ai-carousel-button" on:click={showComingSoon}>开始使用 →</button>
+															<button class="ai-carousel-button" on:click={showComingSoon}
+																>开始使用 →</button
+															>
 														</div>
 														<div class="ai-carousel-icon">📄</div>
 													</div>
 												</div>
-												
+
 												<!-- 轮播指示器 -->
 												<div class="ai-carousel-indicators">
 													{#each Array(totalSlides) as _, index}
-														<button 
+														<button
 															class="ai-carousel-dot {currentSlide === index ? 'active' : ''}"
 															on:click={() => {
 																currentSlide = index;
@@ -2407,22 +2461,22 @@
 				bind:this={controlPaneComponent}
 				bind:history
 				bind:chatFiles
-					bind:params
-					bind:files
-					bind:pane={controlPane}
-					chatId={$chatId}
-					modelId={selectedModelIds?.at(0) ?? null}
-					models={selectedModelIds.reduce((a, e, i, arr) => {
-						const model = $models.find((m) => m.id === e);
-						if (model) {
-							return [...a, model];
-						}
-						return a;
-					}, [])}
-					{submitPrompt}
-					{stopResponse}
-					{showMessage}
-					{eventTarget}
+				bind:params
+				bind:files
+				bind:pane={controlPane}
+				chatId={$chatId}
+				modelId={selectedModelIds?.at(0) ?? null}
+				models={selectedModelIds.reduce((a, e, i, arr) => {
+					const model = $models.find((m) => m.id === e);
+					if (model) {
+						return [...a, model];
+					}
+					return a;
+				}, [])}
+				{submitPrompt}
+				{stopResponse}
+				{showMessage}
+				{eventTarget}
 			/>
 		</PaneGroup>
 	{:else if loading}
@@ -2443,21 +2497,67 @@
 		overflow: visible;
 		padding-top: 50px; /* 添加顶部间距，避免被遮挡 */
 	}
-	
+
 	.ai-assistant-content {
-		max-width: 1200px;
+		max-width: 1368px;
 		margin: 0 auto;
-		padding: 20px;
 		padding-top: 0; /* 顶部间距已由容器提供 */
 	}
-	
+
 	/* 头部标题区域 */
 	.ai-header {
 		display: flex;
-		align-items: center;
-		margin-bottom: 20px;
+		flex-direction: column;
+		margin-bottom: 32px;
+		padding: 20px 0;
 	}
-	
+
+	.box_2 {
+		width: 514px;
+		height: 71px;
+		margin: 0;
+		align-items: center;
+	}
+
+	.image_1 {
+		width: 70px;
+		height: 69px;
+		margin-top: 1px;
+	}
+
+	.text_1 {
+		width: 432px;
+		height: 70px;
+		overflow-wrap: break-word;
+		color: rgba(0, 0, 0, 1);
+		font-size: 48px;
+		font-family: SourceHanSansSC-Heavy;
+		font-weight: 900;
+		text-align: left;
+		white-space: nowrap;
+		line-height: 70px;
+		margin-left: 16px;
+	}
+
+	.text-wrapper_1 {
+		width: 231px;
+		height: 27px;
+		margin: 16px 0 0 0;
+	}
+
+	.text_2 {
+		width: 231px;
+		height: 27px;
+		overflow-wrap: break-word;
+		color: rgba(145, 145, 145, 1);
+		font-size: 18px;
+		font-family: SourceHanSansSC-Bold;
+		font-weight: 700;
+		text-align: left;
+		white-space: nowrap;
+		line-height: 27px;
+	}
+
 	.ai-logo {
 		width: 48px;
 		height: 48px;
@@ -2469,7 +2569,7 @@
 		margin-right: 12px;
 		box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
 	}
-	
+
 	.ai-logo-icon {
 		width: 28px;
 		height: 28px;
@@ -2477,61 +2577,69 @@
 		border-radius: 50%;
 		position: relative;
 	}
-	
+
 	.ai-header-text h1 {
 		font-size: 20px;
 		font-weight: 600;
 		margin-bottom: 2px;
 		color: #333;
 	}
-	
+
 	.ai-header-text p {
 		color: #666;
 		font-size: 13px;
 	}
-	
+
 	/* 主内容区域 */
 	.ai-main-content {
 		display: grid;
-		grid-template-columns: 1fr 1fr 1.2fr;
-		gap: 16px;
+		grid-template-columns: 590px 369px 369px;
+		gap: 20px;
+		width: 1368px;
+		height: 302px;
 	}
-	
+
 	/* 卡片基础样式 */
 	.ai-card {
 		background: rgba(255, 255, 255, 0.7);
 		backdrop-filter: blur(10px);
 		border-radius: 12px;
 		padding: 16px;
-		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-		border: 1px solid rgba(0, 0, 0, 0.05);
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
 	}
-	
+
 	.ai-card-title {
 		font-size: 14px;
 		font-weight: 600;
 		margin-bottom: 12px;
 		color: #1a1a1a;
 	}
-	
+
 	/* 效率工具卡片 */
 	.ai-tools-card {
-		background: linear-gradient(135deg, rgba(246, 247, 251, 0.8) 0%, rgba(243, 244, 249, 0.8) 100%);
-		padding: 18px;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng16218c3a4f53bbc4ea44cd220c0a693bdaa23074038e9c0ded886ea077c268a8) 100% no-repeat;
+		background-size: 100% 100%;
+		width: 369px;
+		height: 302px;
+		padding: 0;
 	}
-	
+
 	.ai-tools-grid {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		gap: 14px;
 	}
-	
+
 	.ai-tool-item {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		padding: 16px 12px;
-		background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 250, 255, 0.9) 100%);
+		background: linear-gradient(
+			135deg,
+			rgba(255, 255, 255, 0.95) 0%,
+			rgba(250, 250, 255, 0.9) 100%
+		);
 		border-radius: 10px;
 		cursor: pointer;
 		transition: all 0.3s ease;
@@ -2539,29 +2647,45 @@
 		justify-content: center;
 		border: 1px solid rgba(0, 0, 0, 0.03);
 	}
-	
+
 	.ai-tool-item:nth-child(1) {
-		background: linear-gradient(135deg, rgba(255, 248, 220, 0.95) 0%, rgba(255, 235, 180, 0.9) 100%);
+		background: linear-gradient(
+			135deg,
+			rgba(255, 248, 220, 0.95) 0%,
+			rgba(255, 235, 180, 0.9) 100%
+		);
 	}
-	
+
 	.ai-tool-item:nth-child(2) {
-		background: linear-gradient(135deg, rgba(245, 255, 245, 0.95) 0%, rgba(230, 255, 230, 0.9) 100%);
+		background: linear-gradient(
+			135deg,
+			rgba(245, 255, 245, 0.95) 0%,
+			rgba(230, 255, 230, 0.9) 100%
+		);
 	}
-	
+
 	.ai-tool-item:nth-child(3) {
-		background: linear-gradient(135deg, rgba(245, 245, 255, 0.95) 0%, rgba(230, 230, 255, 0.9) 100%);
+		background: linear-gradient(
+			135deg,
+			rgba(245, 245, 255, 0.95) 0%,
+			rgba(230, 230, 255, 0.9) 100%
+		);
 	}
-	
+
 	.ai-tool-item:nth-child(4) {
-		background: linear-gradient(135deg, rgba(255, 240, 255, 0.95) 0%, rgba(245, 220, 255, 0.9) 100%);
+		background: linear-gradient(
+			135deg,
+			rgba(255, 240, 255, 0.95) 0%,
+			rgba(245, 220, 255, 0.9) 100%
+		);
 	}
-	
+
 	.ai-tool-item:hover {
 		transform: translateY(-3px);
 		box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 		border-color: rgba(0, 0, 0, 0.06);
 	}
-	
+
 	.ai-tool-icon {
 		width: 40px;
 		height: 40px;
@@ -2574,7 +2698,7 @@
 		border-radius: 50%;
 		backdrop-filter: blur(10px);
 	}
-	
+
 	.ai-tool-name {
 		font-size: 13px;
 		color: #333;
@@ -2582,12 +2706,373 @@
 		line-height: 1.3;
 		font-weight: 500;
 	}
-	
+
 	/* 精选智能体卡片 */
 	.ai-agents-card {
-		background: linear-gradient(135deg, rgba(248, 246, 255, 0.8) 0%, rgba(244, 242, 255, 0.8) 100%);
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngd8121537deb00481af86b1ed83619d70f6bfd597805b5360add9aa73ab2eb9ca) 100% no-repeat;
+		background-size: 100% 100%;
+		height: 301px;
+		padding: 0;
+	}
+
+	/* 精选工具相关样式 */
+	.flex-col {
+		display: flex;
+		flex-direction: column;
+	}
+	.flex-row {
+		display: flex;
+		flex-direction: row;
+	}
+	.justify-between {
+		display: flex;
+		justify-content: space-between;
 	}
 	
+	.group_4 {
+		position: relative;
+		height: 301px;
+		width: 100%;
+	}
+	
+	.text-wrapper_2 {
+		width: 557px;
+		height: 29px;
+		margin: 16px 0 0 16px;
+	}
+	
+	.text_3 {
+		width: 80px;
+		height: 29px;
+		overflow-wrap: break-word;
+		color: rgba(0, 0, 0, 1);
+		font-size: 20px;
+		font-family: SourceHanSansSC-Bold;
+		font-weight: 700;
+		text-align: left;
+		white-space: nowrap;
+		line-height: 29px;
+	}
+	
+	.text_4 {
+		width: 64px;
+		height: 24px;
+		overflow-wrap: break-word;
+		color: rgba(235, 146, 54, 1);
+		font-size: 16px;
+		font-family: SourceHanSansSC-Regular;
+		font-weight: normal;
+		text-align: left;
+		white-space: nowrap;
+		line-height: 24px;
+		margin-top: 4px;
+		cursor: pointer;
+	}
+	
+	.group_5 {
+		width: 558px;
+		height: 187px;
+		margin: 47px 0 22px 16px;
+		position: relative;
+	}
+	
+	.group_6 {
+		width: 271px;
+		height: 187px;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng2a4fa2df9080010b676e8e846b7d3e12397da4efe879d50740653d979179b4a9) 100% no-repeat;
+		background-size: 100% 100%;
+	}
+	
+	.group_7 {
+		width: 271px;
+		height: 187px;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng2a4fa2df9080010b676e8e846b7d3e12397da4efe879d50740653d979179b4a9) 100% no-repeat;
+		background-size: 100% 100%;
+		margin-left: 16px;
+	}
+	
+	.image-text_1 {
+		width: 229px;
+		height: 145px;
+		margin: 13px 0 0 19px;
+	}
+
+	.box_4 {
+		width: 114px;
+		height: 64px;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng8c5456740b389e3babd5229477b17d62e3f169ea345ccd39660a0f83867b9de0) -39px -43px no-repeat;
+		background-size: 192px 150px;
+	}
+
+	.text-group_1 {
+		width: 224px;
+		height: 81px;
+		margin-left: 5px;
+	}
+	
+	.text_5 {
+		width: 96px;
+		height: 24px;
+		overflow-wrap: break-word;
+		color: rgba(0, 0, 0, 1);
+		font-size: 16px;
+		font-family: SourceHanSansSC-Bold;
+		font-weight: 700;
+		text-align: left;
+		white-space: nowrap;
+		line-height: 24px;
+	}
+	
+	.paragraph_1 {
+		width: 224px;
+		height: 48px;
+		overflow-wrap: break-word;
+		color: rgba(145, 145, 145, 1);
+		font-size: 14px;
+		font-family: SourceHanSansSC-Regular;
+		font-weight: normal;
+		text-align: left;
+		line-height: 24px;
+		margin-top: 9px;
+	}
+	
+	.image-text_2 {
+		width: 201px;
+		height: 121px;
+		margin: 13px 0 0 19px;
+	}
+
+	.block_1 {
+		width: 114px;
+		height: 64px;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngdc973b30122c2591965fad22f61f22b62c948bcb1999995f9618abf53d524486) -81px -88px no-repeat;
+		background-size: 276px 240px;
+	}
+
+	.text-group_2 {
+		width: 196px;
+		height: 57px;
+		margin-left: 5px;
+	}
+	
+	.text_6 {
+		width: 144px;
+		height: 24px;
+		overflow-wrap: break-word;
+		color: rgba(0, 0, 0, 1);
+		font-size: 16px;
+		font-family: SourceHanSansSC-Bold;
+		font-weight: 700;
+		text-align: left;
+		white-space: nowrap;
+		line-height: 24px;
+	}
+	
+	.text_7 {
+		width: 196px;
+		height: 24px;
+		overflow-wrap: break-word;
+		color: rgba(145, 145, 145, 1);
+		font-size: 14px;
+		font-family: SourceHanSansSC-Regular;
+		font-weight: normal;
+		text-align: left;
+		white-space: nowrap;
+		line-height: 24px;
+		margin-top: 9px;
+	}
+	
+	.image_2 {
+		position: absolute;
+		left: 40px;
+		top: 69px;
+		width: 103px;
+		height: 88px;
+	}
+
+	.image_3 {
+		position: absolute;
+		left: 327px;
+		top: 62px;
+		width: 76px;
+		height: 98px;
+	}
+
+	/* 效率工具卡片样式 */
+	.text_8 {
+		width: auto;
+		min-width: 80px;
+		height: 29px;
+		overflow-wrap: break-word;
+		color: rgba(0, 0, 0, 1);
+		font-size: 20px;
+		font-family: SourceHanSansSC-Bold;
+		font-weight: 700;
+		text-align: left;
+		white-space: nowrap;
+		line-height: 29px;
+		margin: 16px 0 0 19px;
+		display: block;
+	}
+
+	.box_5 {
+		border-radius: 16px;
+		background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/4dc27692efb042f3978dfd837098adba_mergeImage.png);
+		width: 328px;
+		height: 64px;
+		margin: 25px 0 0 19px;
+	}
+
+	.text-group_3 {
+		width: 232px;
+		height: 50px;
+		margin: 7px 0 0 64px;
+	}
+
+	.text_9 {
+		width: 96px;
+		height: 24px;
+		overflow-wrap: break-word;
+		color: rgba(0, 0, 0, 1);
+		font-size: 16px;
+		font-family: SourceHanSansSC-Bold;
+		font-weight: 700;
+		text-align: left;
+		white-space: nowrap;
+		line-height: 24px;
+	}
+
+	.text_10 {
+		width: 232px;
+		height: 24px;
+		overflow-wrap: break-word;
+		color: rgba(145, 145, 145, 1);
+		font-size: 13px;
+		font-family: SourceHanSansSC-Regular;
+		font-weight: normal;
+		text-align: left;
+		white-space: nowrap;
+		line-height: 24px;
+		margin-top: 2px;
+	}
+
+	.box_6 {
+		background-color: rgba(255, 255, 255, 1);
+		border-radius: 16px;
+		width: 328px;
+		height: 64px;
+		margin: 8px 0 0 19px;
+	}
+
+	.image-text_3 {
+		width: 256px;
+		height: 50px;
+		margin: 7px 0 0 16px;
+	}
+
+	.group_9 {
+		border-radius: 50%;
+		background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/2f47c5c1d2a8443d9c64fff3a3dbd9c0_mergeImage.png);
+		height: 40px;
+		border: 1px solid rgba(151, 151, 151, 1);
+		margin-top: 5px;
+		width: 40px;
+	}
+
+	.section_1 {
+		border-radius: 8px;
+		background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/f81183809aab4f5da2fdc07d415af73a_mergeImage.png);
+		width: 40px;
+		height: 40px;
+	}
+
+	.text-group_4 {
+		width: 208px;
+		height: 50px;
+	}
+
+	.text_11 {
+		width: 160px;
+		height: 24px;
+		overflow-wrap: break-word;
+		color: rgba(0, 0, 0, 1);
+		font-size: 16px;
+		font-family: SourceHanSansSC-Bold;
+		font-weight: 700;
+		text-align: left;
+		white-space: nowrap;
+		line-height: 24px;
+	}
+
+	.text_12 {
+		width: 208px;
+		height: 24px;
+		overflow-wrap: break-word;
+		color: rgba(145, 145, 145, 1);
+		font-size: 13px;
+		font-family: SourceHanSansSC-Regular;
+		font-weight: normal;
+		text-align: left;
+		white-space: nowrap;
+		line-height: 24px;
+		margin-top: 2px;
+	}
+
+	.box_7 {
+		background-color: rgba(255, 255, 255, 1);
+		border-radius: 16px;
+		width: 328px;
+		height: 64px;
+		margin: 8px 0 24px 19px;
+	}
+
+	.image-text_4 {
+		width: 256px;
+		height: 50px;
+		margin: 7px 0 0 16px;
+	}
+
+	.box_8 {
+		border-radius: 50%;
+		background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/ec5ca5f2954440a8aae7c1dd9976b0aa_mergeImage.png);
+		width: 40px;
+		height: 40px;
+		border: 1px solid rgba(151, 151, 151, 1);
+		margin-top: 5px;
+	}
+
+	.text-group_5 {
+		width: 208px;
+		height: 50px;
+	}
+
+	.text_13 {
+		width: 128px;
+		height: 24px;
+		overflow-wrap: break-word;
+		color: rgba(0, 0, 0, 1);
+		font-size: 16px;
+		font-family: SourceHanSansSC-Bold;
+		font-weight: 700;
+		text-align: left;
+		white-space: nowrap;
+		line-height: 24px;
+	}
+
+	.text_14 {
+		width: 208px;
+		height: 24px;
+		overflow-wrap: break-word;
+		color: rgba(145, 145, 145, 1);
+		font-size: 13px;
+		font-family: SourceHanSansSC-Regular;
+		font-weight: normal;
+		text-align: left;
+		white-space: nowrap;
+		line-height: 24px;
+		margin-top: 2px;
+	}
+
 	.ai-agent-item {
 		display: flex;
 		align-items: center;
@@ -2598,21 +3083,21 @@
 		cursor: pointer;
 		transition: all 0.3s ease;
 	}
-	
+
 	.ai-agent-item:last-child {
 		margin-bottom: 0;
 	}
-	
+
 	.ai-agent-item:hover {
 		transform: translateX(4px);
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 	}
-	
+
 	.ai-agent-item.active {
 		background: rgba(102, 126, 234, 0.1);
 		border: 1px solid rgba(102, 126, 234, 0.3);
 	}
-	
+
 	.ai-agent-avatar {
 		width: 36px;
 		height: 36px;
@@ -2624,36 +3109,36 @@
 		font-size: 16px;
 		color: white;
 	}
-	
+
 	.ai-agent-avatar.ai-purple {
 		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 	}
-	
+
 	.ai-agent-avatar.ai-orange {
 		background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 	}
-	
+
 	.ai-agent-avatar.ai-blue {
 		background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
 	}
-	
+
 	.ai-agent-avatar.ai-green {
 		background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
 	}
-	
+
 	.ai-agent-info h3 {
 		font-size: 13px;
 		font-weight: 500;
 		margin-bottom: 1px;
 		color: #333;
 	}
-	
+
 	.ai-agent-info p {
 		font-size: 11px;
 		color: #666;
 		line-height: 1.3;
 	}
-	
+
 	/* PPT卡片 */
 	.ai-carousel-card {
 		background: transparent;
@@ -2665,7 +3150,7 @@
 		/* 移除边框 */
 		border: none;
 	}
-	
+
 	/* 使用更高优先级确保覆盖基础ai-card样式 */
 	.ai-card.ai-carousel-card {
 		padding: 0 !important;
@@ -2673,78 +3158,18 @@
 		background: transparent !important;
 		box-shadow: none !important;
 	}
-	
-	/* 轮播项背景色 - 对应效率工具 */
-	.ai-slide-green {
-		background: linear-gradient(135deg, #e8fce8 0%, #c5f4c5 50%, #a8e6a8 100%);
+
+	/* 轮播项统一背景色 */
+	.ai-slide-unified {
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngc63d2a45667504544b2d7a0077876387e565b0bf1a7ca1ddc549f1059f25bddd) 100% no-repeat;
+		background-size: 100% 100%;
 		position: relative;
 		overflow: hidden;
 	}
-	
-	.ai-slide-green::before {
-		content: '';
-		position: absolute;
-		top: -50%;
-		right: -50%;
-		width: 200%;
-		height: 200%;
-		background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-		animation: float 20s ease-in-out infinite;
-	}
-	
-	.ai-slide-purple {
-		background: linear-gradient(135deg, #fce8fc 0%, #f4c5f4 50%, #e6a8e6 100%);
-		position: relative;
-		overflow: hidden;
-	}
-	
-	.ai-slide-purple::before {
-		content: '';
-		position: absolute;
-		top: -50%;
-		left: -50%;
-		width: 200%;
-		height: 200%;
-		background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-		animation: float 20s ease-in-out infinite reverse;
-	}
-	
-	.ai-slide-yellow {
-		background: linear-gradient(135deg, #fff8dc 0%, #ffe4a1 50%, #ffd074 100%);
-		position: relative;
-		overflow: hidden;
-	}
-	
-	.ai-slide-yellow::before {
-		content: '';
-		position: absolute;
-		bottom: -50%;
-		right: -50%;
-		width: 200%;
-		height: 200%;
-		background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
-		animation: float 20s ease-in-out infinite;
-	}
-	
-	.ai-slide-blue {
-		background: linear-gradient(135deg, #e8e8ff 0%, #c5c5ff 50%, #a8a8ff 100%);
-		position: relative;
-		overflow: hidden;
-	}
-	
-	.ai-slide-blue::before {
-		content: '';
-		position: absolute;
-		bottom: -50%;
-		left: -50%;
-		width: 200%;
-		height: 200%;
-		background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-		animation: float 20s ease-in-out infinite reverse;
-	}
-	
+
 	@keyframes float {
-		0%, 100% {
+		0%,
+		100% {
 			transform: translate(0, 0) rotate(0deg);
 		}
 		25% {
@@ -2757,7 +3182,7 @@
 			transform: translate(20%, -10%) rotate(270deg);
 		}
 	}
-	
+
 	.ai-carousel-container {
 		position: relative;
 		z-index: 1;
@@ -2767,13 +3192,13 @@
 		border-radius: 12px;
 		/* 移除阴影，避免重复 */
 	}
-	
+
 	.ai-carousel-slides {
 		display: flex;
 		transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 		height: 100%;
 	}
-	
+
 	.ai-carousel-slide {
 		flex: 0 0 100%;
 		display: flex;
@@ -2786,7 +3211,7 @@
 		box-sizing: border-box;
 		position: relative;
 	}
-	
+
 	.ai-carousel-content {
 		text-align: center;
 		flex: 1;
@@ -2796,7 +3221,7 @@
 		position: relative;
 		z-index: 2;
 	}
-	
+
 	.ai-carousel-title {
 		font-size: 18px;
 		font-weight: 600;
@@ -2804,7 +3229,7 @@
 		color: #1a1a1a;
 		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 	}
-	
+
 	.ai-carousel-desc {
 		font-size: 14px;
 		color: #4a4a4a;
@@ -2812,7 +3237,7 @@
 		line-height: 1.5;
 		text-shadow: 0 1px 1px rgba(0, 0, 0, 0.03);
 	}
-	
+
 	.ai-carousel-feature {
 		display: flex;
 		justify-content: center;
@@ -2820,7 +3245,7 @@
 		margin-bottom: 20px;
 		flex-wrap: wrap;
 	}
-	
+
 	.ai-feature-tag {
 		background: rgba(255, 255, 255, 0.6);
 		backdrop-filter: blur(10px);
@@ -2832,12 +3257,12 @@
 		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 		transition: all 0.3s ease;
 	}
-	
+
 	.ai-feature-tag:hover {
 		transform: translateY(-1px);
 		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 	}
-	
+
 	.ai-carousel-button {
 		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 		color: white;
@@ -2856,7 +3281,7 @@
 		position: relative;
 		overflow: hidden;
 	}
-	
+
 	.ai-carousel-button::before {
 		content: '';
 		position: absolute;
@@ -2867,19 +3292,21 @@
 		background: rgba(255, 255, 255, 0.2);
 		border-radius: 50%;
 		transform: translate(-50%, -50%);
-		transition: width 0.6s ease, height 0.6s ease;
+		transition:
+			width 0.6s ease,
+			height 0.6s ease;
 	}
-	
+
 	.ai-carousel-button:hover::before {
 		width: 300px;
 		height: 300px;
 	}
-	
+
 	.ai-carousel-button:hover {
 		transform: translateY(-2px);
 		box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 	}
-	
+
 	.ai-carousel-icon {
 		font-size: 48px;
 		margin-top: 10px;
@@ -2888,127 +3315,67 @@
 		position: relative;
 		z-index: 2;
 	}
-	
+
 	@keyframes bounce {
-		0%, 100% {
+		0%,
+		100% {
 			transform: translateY(0);
 		}
 		50% {
 			transform: translateY(-10px);
 		}
 	}
-	
+
 	.ai-carousel-indicators {
 		display: flex;
 		justify-content: center;
 		gap: 8px;
-		margin-top: 10px;
-		position: relative;
+		position: absolute;
+		bottom: 16px;
+		left: 50%;
+		transform: translateX(-50%);
 		z-index: 3;
 	}
-	
+
 	.ai-carousel-dot {
-		width: 8px;
-		height: 8px;
+		width: 10px;
+		height: 10px;
 		border-radius: 50%;
-		background: rgba(0, 0, 0, 0.2);
+		background: rgba(0, 0, 0, 0.3);
 		border: none;
 		cursor: pointer;
 		transition: all 0.3s ease;
 		padding: 0;
 		position: relative;
 	}
-	
-	.ai-carousel-dot::after {
-		content: '';
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		width: 16px;
-		height: 16px;
-		border-radius: 50%;
-		background: transparent;
-		border: 2px solid rgba(0, 0, 0, 0.3);
-		transform: translate(-50%, -50%) scale(0);
-		transition: all 0.3s ease;
-	}
-	
+
 	.ai-carousel-dot.active {
-		background: rgba(0, 0, 0, 0.5);
-		width: 24px;
-		border-radius: 12px;
-	}
-	
-	.ai-carousel-dot.active::after {
-		transform: translate(-50%, -50%) scale(1);
-		border-color: rgba(0, 0, 0, 0.5);
-	}
-	
-	.ai-carousel-dot:hover {
-		background: rgba(0, 0, 0, 0.3);
-	}
-	
-	.ai-carousel-nav {
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-		background: rgba(255, 255, 255, 0.9);
-		backdrop-filter: blur(10px);
-		border: none;
-		width: 36px;
-		height: 36px;
+		background: #6653fe;
+		width: 10px;
+		height: 10px;
 		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		cursor: pointer;
-		transition: all 0.3s ease;
-		z-index: 2;
-		color: #333;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 	}
-	
-	.ai-carousel-nav:hover {
-		background: rgba(255, 255, 255, 1);
-		transform: translateY(-50%) scale(1.1);
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+	.ai-carousel-dot:hover {
+		background: rgba(102, 83, 254, 0.6);
+		transform: scale(1.1);
 	}
-	
-	.ai-carousel-nav-prev {
-		left: 10px;
-	}
-	
-	.ai-carousel-nav-next {
-		right: 10px;
-	}
-	
-	:global(.dark) .ai-carousel-nav {
-		background: rgba(30, 30, 30, 0.9);
-		color: #e0e0e0;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-	}
-	
-	:global(.dark) .ai-carousel-nav:hover {
-		background: rgba(40, 40, 40, 1);
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-	}
-	
+
+
+
 	:global(.dark) .ai-carousel-dot {
-		background: rgba(255, 255, 255, 0.2);
+		background: rgba(255, 255, 255, 0.3);
 	}
-	
+
 	:global(.dark) .ai-carousel-dot.active {
-		background: rgba(255, 255, 255, 0.6);
+		background: #6653fe;
 	}
-	
-	:global(.dark) .ai-carousel-dot.active::after {
-		border-color: rgba(255, 255, 255, 0.6);
-	}
-	
+
 	:global(.dark) .ai-carousel-dot:hover {
-		background: rgba(255, 255, 255, 0.4);
+		background: rgba(102, 83, 254, 0.8);
+		transform: scale(1.1);
 	}
-	
+
 	.ai-avatar-decoration {
 		position: absolute;
 		bottom: 16px;
@@ -3017,16 +3384,16 @@
 		height: 80px;
 		opacity: 0.6;
 	}
-	
+
 	.ai-avatar-decoration::before {
-		content: "👨‍💼";
+		content: '👨‍💼';
 		font-size: 60px;
 		position: absolute;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
 	}
-	
+
 	/* 装饰性元素 */
 	.ai-decorator-dot {
 		position: absolute;
@@ -3035,215 +3402,227 @@
 		background: rgba(255, 255, 255, 0.4);
 		border-radius: 50%;
 	}
-	
+
 	.ai-decorator-line {
 		position: absolute;
 		height: 1px;
-		background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+		background: linear-gradient(
+			90deg,
+			transparent 0%,
+			rgba(255, 255, 255, 0.3) 50%,
+			transparent 100%
+		);
 	}
-	
+
 	/* 响应式设计 */
 	@media (max-width: 1024px) {
 		.ai-main-content {
 			grid-template-columns: 1fr 1fr;
 		}
-		
+
 		.ai-carousel-card {
 			grid-column: 1 / -1;
 		}
 	}
-	
+
 	@media (max-width: 768px) {
 		.ai-main-content {
 			grid-template-columns: 1fr;
 			gap: 12px;
 		}
-		
+
 		.ai-tools-grid {
 			grid-template-columns: repeat(2, 1fr);
 		}
-		
+
 		.ai-assistant-content {
 			padding: 16px;
 		}
-		
+
 		.ai-header {
 			margin-bottom: 16px;
 		}
-		
+
 		.ai-card {
 			padding: 12px;
 		}
-		
+
 		/* 确保轮播卡片在移动端也没有padding */
 		.ai-card.ai-carousel-card {
 			padding: 0 !important;
 		}
 	}
-	
+
 	/* 暗色模式适配 */
 	:global(.dark) .ai-assistant-container {
 		background-color: transparent;
 	}
-	
+
 	:global(.dark) .ai-card {
 		background: rgba(30, 30, 30, 0.7);
 		backdrop-filter: blur(10px);
 		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 		border: 1px solid rgba(255, 255, 255, 0.05);
 	}
-	
-	:global(.dark) .ai-card-title,
-	:global(.dark) .ai-header-text h1 {
+
+	:global(.dark) .ai-card-title {
 		color: #f0f0f0;
 	}
-	
+
+	/* 暗色模式下的头部样式 */
+	:global(.dark) .text_1 {
+		color: rgba(255, 255, 255, 1);
+	}
+
+	:global(.dark) .text_2 {
+		color: rgba(145, 145, 145, 1);
+	}
+
 	:global(.dark) .ai-header-text p,
 	:global(.dark) .ai-agent-info p {
 		color: #999;
 	}
-	
+
 	:global(.dark) .ai-tool-name,
 	:global(.dark) .ai-agent-info h3,
 	:global(.dark) .ai-carousel-input {
 		color: #e0e0e0;
 	}
-	
+
 	:global(.dark) .ai-tools-card {
-		background: linear-gradient(135deg, rgba(26, 26, 26, 0.8) 0%, rgba(37, 37, 37, 0.8) 100%);
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng16218c3a4f53bbc4ea44cd220c0a693bdaa23074038e9c0ded886ea077c268a8) 100% no-repeat;
+		background-size: 100% 100%;
 	}
-	
+
 	:global(.dark) .ai-agents-card {
 		background: linear-gradient(135deg, rgba(30, 26, 36, 0.8) 0%, rgba(37, 32, 40, 0.8) 100%);
 	}
-	
+
+	/* 暗色模式下的精选工具样式 */
+	:global(.dark) .text_3 {
+		color: rgba(255, 255, 255, 1);
+	}
+	:global(.dark) .text_4 {
+		color: rgba(235, 146, 54, 1);
+	}
+	:global(.dark) .text_5 {
+		color: rgba(255, 255, 255, 1);
+	}
+	:global(.dark) .text_6 {
+		color: rgba(255, 255, 255, 1);
+	}
+	:global(.dark) .paragraph_1 {
+		color: rgba(145, 145, 145, 1);
+	}
+	:global(.dark) .text_7 {
+		color: rgba(145, 145, 145, 1);
+	}
+
+	/* 暗色模式下的效率工具样式 */
+	:global(.dark) .text_8 {
+		color: rgba(255, 255, 255, 1);
+	}
+	:global(.dark) .text_9 {
+		color: rgba(255, 255, 255, 1);
+	}
+	:global(.dark) .text_10 {
+		color: rgba(145, 145, 145, 1);
+	}
+	:global(.dark) .text_11 {
+		color: rgba(255, 255, 255, 1);
+	}
+	:global(.dark) .text_12 {
+		color: rgba(145, 145, 145, 1);
+	}
+	:global(.dark) .text_13 {
+		color: rgba(255, 255, 255, 1);
+	}
+	:global(.dark) .text_14 {
+		color: rgba(145, 145, 145, 1);
+	}
+	:global(.dark) .box_6 {
+		background-color: rgba(42, 42, 42, 1);
+	}
+	:global(.dark) .box_7 {
+		background-color: rgba(42, 42, 42, 1);
+	}
+
 	:global(.dark) .ai-tool-item,
 	:global(.dark) .ai-agent-item {
 		background: rgba(30, 30, 30, 0.8);
 		border-color: rgba(255, 255, 255, 0.03);
 	}
-	
+
 	:global(.dark) .ai-agent-item {
 		background: rgba(30, 30, 30, 0.8);
 	}
-	
+
 	:global(.dark) .ai-tool-item:nth-child(1) {
 		background: linear-gradient(135deg, rgba(60, 50, 30, 0.8) 0%, rgba(50, 40, 20, 0.8) 100%);
 	}
-	
+
 	:global(.dark) .ai-tool-item:nth-child(2) {
 		background: linear-gradient(135deg, rgba(30, 60, 30, 0.8) 0%, rgba(20, 50, 20, 0.8) 100%);
 	}
-	
+
 	:global(.dark) .ai-tool-item:nth-child(3) {
 		background: linear-gradient(135deg, rgba(30, 30, 60, 0.8) 0%, rgba(20, 20, 50, 0.8) 100%);
 	}
-	
+
 	:global(.dark) .ai-tool-item:nth-child(4) {
 		background: linear-gradient(135deg, rgba(60, 30, 60, 0.8) 0%, rgba(50, 20, 50, 0.8) 100%);
 	}
-	
+
 	:global(.dark) .ai-tool-item:hover {
 		transform: translateY(-3px);
 		box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 		border-color: rgba(255, 255, 255, 0.06);
 	}
-	
+
 	:global(.dark) .ai-tool-icon {
 		background: rgba(0, 0, 0, 0.3);
 	}
-	
+
 	:global(.dark) .ai-carousel-input-area {
 		background: rgba(30, 30, 30, 0.95);
 	}
-	
+
 	:global(.dark) .ai-carousel-button {
 		background: #2a2a2a;
 		color: #e0e0e0;
 	}
-	
+
 	:global(.dark) .ai-carousel-icon {
 		background: #e0e0e0;
 	}
-	
+
 	:global(.dark) .ai-carousel-button:hover {
 		background: #3a3a3a;
 	}
-	
+
 	:global(.dark) .ai-carousel-title {
 		color: #f0f0f0;
 	}
-	
+
 	:global(.dark) .ai-carousel-desc {
 		color: rgba(255, 255, 255, 0.7);
 	}
-	
+
 	:global(.dark) .ai-feature-tag {
 		background: rgba(255, 255, 255, 0.1);
 		color: #e0e0e0;
 	}
-	
-	:global(.dark) .ai-carousel-dot {
-		background: rgba(255, 255, 255, 0.2);
-	}
-	
-	:global(.dark) .ai-carousel-dot.active {
-		background: rgba(255, 255, 255, 0.8);
-	}
-	
-	:global(.dark) .ai-carousel-dot:hover {
-		background: rgba(255, 255, 255, 0.4);
-	}
-	
+
 	.ai-carousel-dot:hover {
 		background: rgba(255, 255, 255, 0.6);
 	}
-	
-	.ai-carousel-nav {
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-		background: rgba(0, 0, 0, 0.1);
-		border: none;
-		width: 36px;
-		height: 36px;
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		cursor: pointer;
-		transition: all 0.3s ease;
-		backdrop-filter: blur(10px);
-		z-index: 2;
-		color: #333;
-	}
-	
-	.ai-carousel-nav:hover {
-		background: rgba(0, 0, 0, 0.2);
-		transform: translateY(-50%) scale(1.1);
-	}
-	
-	.ai-carousel-nav-prev {
-		left: 10px;
-	}
-	
-	.ai-carousel-nav-next {
-		right: 10px;
-	}
-	
-	:global(.dark) .ai-carousel-nav {
-		background: rgba(255, 255, 255, 0.1);
-		color: #e0e0e0;
-	}
-	
-	:global(.dark) .ai-carousel-nav:hover {
-		background: rgba(255, 255, 255, 0.2);
-	}
-	
+
+
+
 	:global(.dark) .ai-carousel-card {
 		background: transparent;
 	}
-	
+
 	/* 暗色模式下也要覆盖基础卡片样式 */
 	:global(.dark) .ai-card.ai-carousel-card {
 		padding: 0 !important;
@@ -3251,84 +3630,321 @@
 		background: transparent !important;
 		box-shadow: none !important;
 	}
-	
-	:global(.dark) .ai-slide-green {
-		background: linear-gradient(135deg, #1a3a1a 0%, #245024 50%, #2d6a2d 100%);
+
+	:global(.dark) .ai-slide-unified {
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngc63d2a45667504544b2d7a0077876387e565b0bf1a7ca1ddc549f1059f25bddd) 100% no-repeat;
+		background-size: 100% 100%;
 	}
-	
-	:global(.dark) .ai-slide-purple {
-		background: linear-gradient(135deg, #3a1a3a 0%, #502450 50%, #6a2d6a 100%);
-	}
-	
-	:global(.dark) .ai-slide-yellow {
-		background: linear-gradient(135deg, #3a2f1a 0%, #504024 50%, #6a552d 100%);
-	}
-	
-	:global(.dark) .ai-slide-blue {
-		background: linear-gradient(135deg, #1a1a3a 0%, #242450 50%, #2d2d6a 100%);
-	}
-	
-	:global(.dark) .ai-slide-green::before,
-	:global(.dark) .ai-slide-purple::before,
-	:global(.dark) .ai-slide-yellow::before,
-	:global(.dark) .ai-slide-blue::before {
-		background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-	}
-	
+
 	:global(.dark) .ai-carousel-container {
 		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 	}
-	
+
 	:global(.dark) .ai-carousel-title {
 		color: #f0f0f0;
 		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 	}
-	
+
 	:global(.dark) .ai-carousel-desc {
 		color: #d0d0d0;
 		text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 	}
-	
+
 	:global(.dark) .ai-feature-tag {
 		background: rgba(255, 255, 255, 0.1);
 		color: #e0e0e0;
 		border: 1px solid rgba(255, 255, 255, 0.1);
 		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 	}
-	
+
 	:global(.dark) .ai-carousel-button {
 		background: linear-gradient(135deg, #5a6ad8 0%, #6b4ba2 100%);
 		box-shadow: 0 4px 15px rgba(90, 106, 216, 0.3);
 	}
-	
+
 	:global(.dark) .ai-carousel-button:hover {
 		box-shadow: 0 6px 20px rgba(90, 106, 216, 0.4);
 	}
-	
-	:global(.dark) .ai-carousel-nav {
-		background: rgba(30, 30, 30, 0.9);
-		color: #e0e0e0;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+	/* PPT轮播模块的新样式 */
+	.group_10 {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngc63d2a45667504544b2d7a0077876387e565b0bf1a7ca1ddc549f1059f25bddd) 100% no-repeat;
+		background-size: 100% 100%;
+		display: flex;
+		flex-direction: column;
+		border-radius: 20px;
+		overflow: hidden;
 	}
-	
-	:global(.dark) .ai-carousel-nav:hover {
-		background: rgba(40, 40, 40, 1);
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+
+	.group_11 {
+		background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/f72655eaa7db426b8e168804121a39ac_mergeImage.png);
+		height: 212px;
+		width: 261px;
+		position: relative;
+		margin: 8px 0 0 24px;
 	}
-	
-	:global(.dark) .ai-carousel-dot {
-		background: rgba(255, 255, 255, 0.2);
+
+	.box_9 {
+		width: 69px;
+		height: 18px;
+		margin-left: 158px;
 	}
-	
-	:global(.dark) .ai-carousel-dot.active {
-		background: rgba(255, 255, 255, 0.6);
+
+	.text-wrapper_3 {
+		height: 18px;
+		border: 0.5px solid rgba(255, 255, 255, 0.3);
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng985b4c231ecc7fed8c93031cd1c0ed6f13f7f0dc8947bb22f888de4fa5730104) -8px 0px no-repeat;
+		background-size: 85px 32px;
+		width: 69px;
 	}
-	
-	:global(.dark) .ai-carousel-dot.active::after {
-		border-color: rgba(255, 255, 255, 0.6);
+
+	.text_15 {
+		width: 44px;
+		height: 16px;
+		overflow-wrap: break-word;
+		color: rgba(255, 255, 255, 1);
+		font-size: 11px;
+		font-family: PingFangSC-Semibold;
+		font-weight: 600;
+		text-align: center;
+		white-space: nowrap;
+		line-height: 16px;
+		margin: 1px 0 0 13px;
 	}
-	
-	:global(.dark) .ai-carousel-dot:hover {
-		background: rgba(255, 255, 255, 0.4);
+
+	.box_10 {
+		width: 78px;
+		height: 27px;
+		margin: 134px 0 33px 156px;
 	}
+
+	.text-wrapper_4 {
+		height: 27px;
+		border: 0.5px solid rgba(255, 255, 255, 0.6);
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng2d0263e444eb529db084578573e8011cf74c7959489e788fd1593e9e669c5209) -8px -2px no-repeat;
+		background-size: 94px 43px;
+		width: 78px;
+	}
+
+	.text_16 {
+		width: 56px;
+		height: 16px;
+		overflow-wrap: break-word;
+		color: rgba(255, 255, 255, 1);
+		font-size: 14px;
+		font-family: PingFangSC-Semibold;
+		font-weight: 600;
+		text-align: center;
+		white-space: nowrap;
+		line-height: 16px;
+		margin: 6px 0 0 11px;
+	}
+
+	.box_11 {
+		position: absolute;
+		left: 6px;
+		top: 24px;
+		width: 197px;
+		height: 145px;
+	}
+
+	.group_12 {
+		box-shadow: inset 0px 0px 23px 6px rgba(255, 255, 255, 1);
+		border-radius: 50%;
+		position: relative;
+		width: 145px;
+		height: 145px;
+		border: 0.5px solid rgba(255, 255, 255, 1);
+		margin-left: 52px;
+	}
+
+	.text_17 {
+		width: 28px;
+		height: 10px;
+		overflow-wrap: break-word;
+		color: rgba(255, 255, 255, 1);
+		font-size: 10px;
+		font-family: AlimamaFangYuanTiVF-Light;
+		font-weight: 300;
+		text-align: left;
+		white-space: nowrap;
+		line-height: 12px;
+		margin: 20px 0 0 83px;
+	}
+
+	.group_13 {
+		width: 94px;
+		height: 29px;
+		margin: 7px 0 0 30px;
+	}
+
+	.text_18 {
+		width: 27px;
+		height: 10px;
+		overflow-wrap: break-word;
+		color: rgba(255, 255, 255, 1);
+		font-size: 10px;
+		font-family: AlimamaFangYuanTiVF-Light;
+		font-weight: 300;
+		text-align: left;
+		white-space: nowrap;
+		line-height: 12px;
+	}
+
+	.image_4 {
+		width: 60px;
+		height: 28px;
+		margin-top: 1px;
+	}
+
+	.group_14 {
+		height: 48px;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngfeb32009b3627ee8628971fae8b64b9a0a487f1607309e61876e57dbe8516d41) -4px -4px no-repeat;
+		background-size: 119px 64px;
+		width: 104px;
+		margin: 12px 0 19px 21px;
+	}
+
+	.section_2 {
+		height: 33px;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngf266a44fd5d5ec5ff10c584d99671accc631c3d134f9addff7fd3be0765e7d16) -1px -1px no-repeat;
+		background-size: 105px 34px;
+		margin-top: -16px;
+		width: 104px;
+		position: relative;
+	}
+
+	.text_19 {
+		width: 35px;
+		height: 10px;
+		overflow-wrap: break-word;
+		color: rgba(245, 246, 255, 1);
+		font-size: 10px;
+		font-family: AlimamaFangYuanTiVF-Light;
+		font-weight: 300;
+		text-align: left;
+		white-space: nowrap;
+		line-height: 12px;
+		margin: 20px 0 0 31px;
+	}
+
+	.image_5 {
+		position: absolute;
+		left: 54px;
+		top: -32px;
+		width: 1px;
+		height: 49px;
+	}
+
+	.label_6 {
+		position: absolute;
+		left: 41px;
+		top: -14px;
+		width: 30px;
+		height: 40px;
+	}
+
+	.image_6 {
+		position: absolute;
+		left: 3px;
+		top: -12px;
+		width: 43px;
+		height: 18px;
+	}
+
+	.label_7 {
+		position: absolute;
+		left: 24px;
+		top: 57px;
+		width: 43px;
+		height: 22px;
+	}
+
+	.text-wrapper_5 {
+		height: 24px;
+		border: 0.5px solid rgba(255, 255, 255, 0.6);
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngd209ee63e567e166d9f610b9f008687f1796238623a82be07f79af21d8c4d406) -6px -2px no-repeat;
+		background-size: 107px 40px;
+		width: 93px;
+		position: absolute;
+		left: 0;
+		top: 30px;
+	}
+
+	.text_20 {
+		width: 72px;
+		height: 16px;
+		overflow-wrap: break-word;
+		color: rgba(255, 255, 255, 1);
+		font-size: 12px;
+		font-family: PingFangSC-Semibold;
+		font-weight: 600;
+		text-align: center;
+		white-space: nowrap;
+		line-height: 16px;
+		margin: 4px 0 0 11px;
+	}
+
+	.text-wrapper_6 {
+		height: 44px;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng4e60653ee5f89d95909bfdebb67c43903c3f56c31e00e4cdb0ddf44e2caa1f69) -7px -6px no-repeat;
+		background-size: 314px 56px;
+		width: 304px;
+		position: absolute;
+		left: 6px;
+		top: 200px;
+	}
+
+	.text_21 {
+		width: 128px;
+		height: 24px;
+		overflow-wrap: break-word;
+		color: rgba(0, 0, 0, 1);
+		font-size: 16px;
+		font-family: SourceHanSansSC-Bold;
+		font-weight: 700;
+		text-align: left;
+		white-space: nowrap;
+		line-height: 24px;
+		margin: 10px 0 0 88px;
+	}
+
+	/* 暗色模式下的PPT轮播样式 */
+	:global(.dark) .text_15,
+	:global(.dark) .text_16,
+	:global(.dark) .text_17,
+	:global(.dark) .text_18,
+	:global(.dark) .text_19,
+	:global(.dark) .text_20 {
+		color: rgba(255, 255, 255, 1);
+	}
+
+	:global(.dark) .text_21 {
+		color: rgba(255, 255, 255, 1);
+	}
+
+	:global(.dark) .group_10 {
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngc63d2a45667504544b2d7a0077876387e565b0bf1a7ca1ddc549f1059f25bddd) 100% no-repeat;
+		background-size: 100% 100%;
+	}
+
+	/* Flex布局工具类 */
+	.flex-col {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.flex-row {
+		display: flex;
+		flex-direction: row;
+	}
+
+	.justify-between {
+		display: flex;
+		justify-content: space-between;
+	}
+
 </style>
