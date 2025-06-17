@@ -302,7 +302,8 @@
 	<div
 		class="{($settings?.widescreenMode ?? null)
 			? 'max-w-full'
-			: 'max-w-6xl'} px-2.5 mx-auto inset-x-0 relative"
+			: 'max-w-full'} px-2.5 mx-auto inset-x-0 relative"
+			style="display: flex; justify-content: center;"
 	>
 		<div class="absolute top-0 left-0 right-0 mx-auto inset-x-0 bg-transparent flex justify-center">
 			<div class="flex flex-col px-3 w-full">
@@ -371,7 +372,8 @@
 				/>
 			{:else}
 				<form
-					class="w-full flex gap-1.5"
+					class="w-full flex gap-1.5 justify-center"
+					style="width: 1366px;"
 					on:submit|preventDefault={() => {
 						submitHandler();
 					}}

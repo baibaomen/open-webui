@@ -2092,7 +2092,7 @@
 					{initNewChat}
 				/>
 
-				<div class="flex flex-col flex-auto z-10 w-full @container">
+				<div class="flex flex-col flex-auto z-10 w-full items-center @container mt-24">
 					{#if $settings?.landingPageMode === 'chat' || createMessagesList(history, history.currentId).length > 0}
 						<div
 							class=" pb-2.5 flex flex-col justify-between w-full flex-auto overflow-auto h-0 max-w-full z-10 scrollbar-hidden"
@@ -2125,61 +2125,63 @@
 							</div>
 						</div>
 
-						<div class=" pb-[1rem]">
-							<MessageInput
-								{history}
-								{taskIds}
-								{selectedModels}
-								bind:files
-								bind:prompt
-								bind:autoScroll
-								bind:selectedToolIds
-								bind:selectedFilterIds
-								bind:imageGenerationEnabled
-								bind:codeInterpreterEnabled
-								bind:webSearchEnabled
-								bind:atSelectedModel
-								toolServers={$toolServers}
-								transparentBackground={$settings?.backgroundImageUrl ?? false}
-								{stopResponse}
-								{createMessagePair}
-								onChange={(input) => {
-									if (input.prompt !== null) {
-										localStorage.setItem(
-											`chat-input${$chatId ? `-${$chatId}` : ''}`,
-											JSON.stringify(input)
-										);
-									} else {
-										localStorage.removeItem(`chat-input${$chatId ? `-${$chatId}` : ''}`);
-									}
-								}}
-								on:upload={async (e) => {
-									const { type, data } = e.detail;
+						<div class="pb-[1rem] flex justify-center">
+							<div class="w-full" style="max-width: 1366px;">
+								<MessageInput
+									{history}
+									{taskIds}
+									{selectedModels}
+									bind:files
+									bind:prompt
+									bind:autoScroll
+									bind:selectedToolIds
+									bind:selectedFilterIds
+									bind:imageGenerationEnabled
+									bind:codeInterpreterEnabled
+									bind:webSearchEnabled
+									bind:atSelectedModel
+									toolServers={$toolServers}
+									transparentBackground={$settings?.backgroundImageUrl ?? false}
+									{stopResponse}
+									{createMessagePair}
+									onChange={(input) => {
+										if (input.prompt !== null) {
+											localStorage.setItem(
+												`chat-input${$chatId ? `-${$chatId}` : ''}`,
+												JSON.stringify(input)
+											);
+										} else {
+											localStorage.removeItem(`chat-input${$chatId ? `-${$chatId}` : ''}`);
+										}
+									}}
+									on:upload={async (e) => {
+										const { type, data } = e.detail;
 
-									if (type === 'web') {
-										await uploadWeb(data);
-									} else if (type === 'youtube') {
-										await uploadYoutubeTranscription(data);
-									} else if (type === 'google-drive') {
-										await uploadGoogleDriveFile(data);
-									}
-								}}
-								on:submit={async (e) => {
-									if (e.detail || files.length > 0) {
-										await tick();
-										submitPrompt(
-											($settings?.richTextInput ?? true)
-												? e.detail.replaceAll('\n\n', '\n')
-												: e.detail
-										);
-									}
-								}}
-							/>
+										if (type === 'web') {
+											await uploadWeb(data);
+										} else if (type === 'youtube') {
+											await uploadYoutubeTranscription(data);
+										} else if (type === 'google-drive') {
+											await uploadGoogleDriveFile(data);
+										}
+									}}
+									on:submit={async (e) => {
+										if (e.detail || files.length > 0) {
+											await tick();
+											submitPrompt(
+												($settings?.richTextInput ?? true)
+													? e.detail.replaceAll('\n\n', '\n')
+													: e.detail
+											);
+										}
+									}}
+								/>
 
-							<div
-								class="absolute bottom-1 text-xs text-gray-500 text-center line-clamp-1 right-0 left-0"
-							>
-								<!-- {$i18n.t('LLMs can make mistakes. Verify important information.')} -->
+								<div
+									class="absolute bottom-1 text-xs text-gray-500 text-center line-clamp-1 right-0 left-0"
+								>
+									<!-- {$i18n.t('LLMs can make mistakes. Verify important information.')} -->
+								</div>
 							</div>
 						</div>
 					{:else}
@@ -2204,72 +2206,74 @@
 
 									<!-- 主内容 -->
 									<div class="ai-main-content">
-																			<!-- 精选工具卡片 -->
+										<!-- 精选工具卡片 -->
 										<div class="ai-card ai-agents-card">
-										<div class="group_4 flex-col">
-											<div class="text-wrapper_2 flex-row justify-between">
-												<span class="text_3">精选工具</span>
-												<span class="text_4">发现更多</span>
+											<div class="group_4 flex-col">
+												<div class="text-wrapper_2 flex-row justify-between">
+													<span class="text_3">精选工具</span>
+													<span class="text_4">发现更多</span>
 												</div>
-											<div class="group_5 flex-row justify-between">
-												<div class="group_6 flex-row">
-													<div class="image-text_1 flex-col justify-between">
-														<div class="box_4 flex-col"></div>
-														<div class="text-group_1 flex-col justify-between">
-															<span class="text_5">集团制度助手</span>
-															<span class="paragraph_1">智能解答集团制度疑问<br />秒查最新条款，事务处理快人一步。</span>
-											</div>
+												<div class="group_5 flex-row justify-between">
+													<div class="group_6 flex-row">
+														<div class="image-text_1 flex-col justify-between">
+															<div class="box_4 flex-col"></div>
+															<div class="text-group_1 flex-col justify-between">
+																<span class="text_5">集团制度助手</span>
+																<span class="paragraph_1"
+																	>智能解答集团制度疑问<br />秒查最新条款，事务处理快人一步。</span
+																>
+															</div>
+														</div>
+													</div>
+													<div class="group_7 flex-row">
+														<div class="image-text_2 flex-col justify-between">
+															<div class="block_1 flex-col"></div>
+															<div class="text-group_2 flex-col justify-between">
+																<span class="text_6">董事会议题比对助手</span>
+																<span class="text_7">一键核验议题变更，决策更高效</span>
+															</div>
+														</div>
+													</div>
 												</div>
-											</div>
-												<div class="group_7 flex-row">
-													<div class="image-text_2 flex-col justify-between">
-														<div class="block_1 flex-col"></div>
-														<div class="text-group_2 flex-col justify-between">
-															<span class="text_6">董事会议题比对助手</span>
-															<span class="text_7">一键核验议题变更，决策更高效</span>
-												</div>
-											</div>
-												</div>
-											</div>
-											<img
-												class="image_2"
-												referrerpolicy="no-referrer"
-												src="https://lanhu-oss-2537-2.lanhuapp.com/SketchPng8db48e952174a87d5ea81dc246b55158f38b22405e9b67a285cbdbaf3aab799c"
-											/>
-											<img
-												class="image_3"
-												referrerpolicy="no-referrer"
-												src="https://lanhu-oss-2537-2.lanhuapp.com/SketchPngd20cd1176d11fb7132789a0bd7237be99d436cacf332c672efb8a41928c65379"
-											/>
+												<img
+													class="image_2"
+													referrerpolicy="no-referrer"
+													src="https://lanhu-oss-2537-2.lanhuapp.com/SketchPng8db48e952174a87d5ea81dc246b55158f38b22405e9b67a285cbdbaf3aab799c"
+												/>
+												<img
+													class="image_3"
+													referrerpolicy="no-referrer"
+													src="https://lanhu-oss-2537-2.lanhuapp.com/SketchPngd20cd1176d11fb7132789a0bd7237be99d436cacf332c672efb8a41928c65379"
+												/>
 											</div>
 										</div>
 										<!-- 效率工具卡片 -->
 										<div class="ai-card ai-tools-card">
-										<span class="text_8">效率工具</span>
-										<div class="box_5 flex-row">
-											<div class="text-group_3 flex-col justify-between">
-												<span class="text_9">图文识别助手</span>
-												<span class="text_10">秒级识别多语言/表格/手写体，解放人力</span>
-												</div>
-												</div>
-										<div class="box_6 flex-row">
-											<div class="image-text_3 flex-row justify-between">
-												<div class="group_9 flex-col">
-													<div class="section_1 flex-col"></div>
-												</div>
-												<div class="text-group_4 flex-col justify-between">
-													<span class="text_11">睿宝儿童生长发育专家</span>
-													<span class="text_12">精准预警偏离风险，科学育儿不焦虑</span>
+											<span class="text_8">效率工具</span>
+											<div class="box_5 flex-row">
+												<div class="text-group_3 flex-col justify-between">
+													<span class="text_9">图文识别助手</span>
+													<span class="text_10">秒级识别多语言/表格/手写体，解放人力</span>
 												</div>
 											</div>
-										</div>
-										<div class="box_7 flex-row">
-											<div class="image-text_4 flex-row justify-between">
-												<div class="box_8 flex-col"></div>
-												<div class="text-group_5 flex-col justify-between">
-													<span class="text_13">家庭财富配置助手</span>
-													<span class="text_14">定制家庭资产方案，平衡风险与收益</span>
+											<div class="box_6 flex-row">
+												<div class="image-text_3 flex-row justify-between">
+													<div class="group_9 flex-col">
+														<div class="section_1 flex-col"></div>
+													</div>
+													<div class="text-group_4 flex-col justify-between">
+														<span class="text_11">睿宝儿童生长发育专家</span>
+														<span class="text_12">精准预警偏离风险，科学育儿不焦虑</span>
+													</div>
 												</div>
+											</div>
+											<div class="box_7 flex-row">
+												<div class="image-text_4 flex-row justify-between">
+													<div class="box_8 flex-col"></div>
+													<div class="text-group_5 flex-col justify-between">
+														<span class="text_13">家庭财富配置助手</span>
+														<span class="text_14">定制家庭资产方案，平衡风险与收益</span>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -2292,8 +2296,8 @@
 																<div class="box_9 flex-row">
 																	<div class="text-wrapper_3 flex-col">
 																		<span class="text_15">批量处理</span>
-															</div>
-														</div>
+																	</div>
+																</div>
 																<div class="box_10 flex-row">
 																	<div class="text-wrapper_4 flex-col">
 																		<span class="text_16">智能文档</span>
@@ -2454,6 +2458,10 @@
 							/>
 						</div>
 					{/if}
+				</div>
+
+				<div class="flex justify-center h-5 text-xs text-gray-500">
+					内容由AI模型生成，其准确性和完整性无法保证，仅供参考
 				</div>
 			</Pane>
 
@@ -2617,7 +2625,8 @@
 
 	/* 效率工具卡片 */
 	.ai-tools-card {
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng16218c3a4f53bbc4ea44cd220c0a693bdaa23074038e9c0ded886ea077c268a8) 100% no-repeat;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng16218c3a4f53bbc4ea44cd220c0a693bdaa23074038e9c0ded886ea077c268a8)
+			100% no-repeat;
 		background-size: 100% 100%;
 		width: 369px;
 		height: 302px;
@@ -2709,7 +2718,8 @@
 
 	/* 精选智能体卡片 */
 	.ai-agents-card {
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngd8121537deb00481af86b1ed83619d70f6bfd597805b5360add9aa73ab2eb9ca) 100% no-repeat;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngd8121537deb00481af86b1ed83619d70f6bfd597805b5360add9aa73ab2eb9ca)
+			100% no-repeat;
 		background-size: 100% 100%;
 		height: 301px;
 		padding: 0;
@@ -2728,19 +2738,19 @@
 		display: flex;
 		justify-content: space-between;
 	}
-	
+
 	.group_4 {
 		position: relative;
 		height: 301px;
 		width: 100%;
 	}
-	
+
 	.text-wrapper_2 {
 		width: 557px;
 		height: 29px;
 		margin: 16px 0 0 16px;
 	}
-	
+
 	.text_3 {
 		width: 80px;
 		height: 29px;
@@ -2753,7 +2763,7 @@
 		white-space: nowrap;
 		line-height: 29px;
 	}
-	
+
 	.text_4 {
 		width: 64px;
 		height: 24px;
@@ -2768,29 +2778,31 @@
 		margin-top: 4px;
 		cursor: pointer;
 	}
-	
+
 	.group_5 {
 		width: 558px;
 		height: 187px;
 		margin: 47px 0 22px 16px;
 		position: relative;
 	}
-	
+
 	.group_6 {
 		width: 271px;
 		height: 187px;
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng2a4fa2df9080010b676e8e846b7d3e12397da4efe879d50740653d979179b4a9) 100% no-repeat;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng2a4fa2df9080010b676e8e846b7d3e12397da4efe879d50740653d979179b4a9)
+			100% no-repeat;
 		background-size: 100% 100%;
 	}
-	
+
 	.group_7 {
 		width: 271px;
 		height: 187px;
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng2a4fa2df9080010b676e8e846b7d3e12397da4efe879d50740653d979179b4a9) 100% no-repeat;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng2a4fa2df9080010b676e8e846b7d3e12397da4efe879d50740653d979179b4a9)
+			100% no-repeat;
 		background-size: 100% 100%;
 		margin-left: 16px;
 	}
-	
+
 	.image-text_1 {
 		width: 229px;
 		height: 145px;
@@ -2800,7 +2812,8 @@
 	.box_4 {
 		width: 114px;
 		height: 64px;
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng8c5456740b389e3babd5229477b17d62e3f169ea345ccd39660a0f83867b9de0) -39px -43px no-repeat;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng8c5456740b389e3babd5229477b17d62e3f169ea345ccd39660a0f83867b9de0) -39px -43px
+			no-repeat;
 		background-size: 192px 150px;
 	}
 
@@ -2809,7 +2822,7 @@
 		height: 81px;
 		margin-left: 5px;
 	}
-	
+
 	.text_5 {
 		width: 96px;
 		height: 24px;
@@ -2822,7 +2835,7 @@
 		white-space: nowrap;
 		line-height: 24px;
 	}
-	
+
 	.paragraph_1 {
 		width: 224px;
 		height: 48px;
@@ -2835,7 +2848,7 @@
 		line-height: 24px;
 		margin-top: 9px;
 	}
-	
+
 	.image-text_2 {
 		width: 201px;
 		height: 121px;
@@ -2845,7 +2858,8 @@
 	.block_1 {
 		width: 114px;
 		height: 64px;
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngdc973b30122c2591965fad22f61f22b62c948bcb1999995f9618abf53d524486) -81px -88px no-repeat;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngdc973b30122c2591965fad22f61f22b62c948bcb1999995f9618abf53d524486) -81px -88px
+			no-repeat;
 		background-size: 276px 240px;
 	}
 
@@ -2854,7 +2868,7 @@
 		height: 57px;
 		margin-left: 5px;
 	}
-	
+
 	.text_6 {
 		width: 144px;
 		height: 24px;
@@ -2867,7 +2881,7 @@
 		white-space: nowrap;
 		line-height: 24px;
 	}
-	
+
 	.text_7 {
 		width: 196px;
 		height: 24px;
@@ -2881,7 +2895,7 @@
 		line-height: 24px;
 		margin-top: 9px;
 	}
-	
+
 	.image_2 {
 		position: absolute;
 		left: 40px;
@@ -3161,7 +3175,8 @@
 
 	/* 轮播项统一背景色 */
 	.ai-slide-unified {
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngc63d2a45667504544b2d7a0077876387e565b0bf1a7ca1ddc549f1059f25bddd) 100% no-repeat;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngc63d2a45667504544b2d7a0077876387e565b0bf1a7ca1ddc549f1059f25bddd)
+			100% no-repeat;
 		background-size: 100% 100%;
 		position: relative;
 		overflow: hidden;
@@ -3361,8 +3376,6 @@
 		transform: scale(1.1);
 	}
 
-
-
 	:global(.dark) .ai-carousel-dot {
 		background: rgba(255, 255, 255, 0.3);
 	}
@@ -3490,7 +3503,8 @@
 	}
 
 	:global(.dark) .ai-tools-card {
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng16218c3a4f53bbc4ea44cd220c0a693bdaa23074038e9c0ded886ea077c268a8) 100% no-repeat;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng16218c3a4f53bbc4ea44cd220c0a693bdaa23074038e9c0ded886ea077c268a8)
+			100% no-repeat;
 		background-size: 100% 100%;
 	}
 
@@ -3617,8 +3631,6 @@
 		background: rgba(255, 255, 255, 0.6);
 	}
 
-
-
 	:global(.dark) .ai-carousel-card {
 		background: transparent;
 	}
@@ -3632,7 +3644,8 @@
 	}
 
 	:global(.dark) .ai-slide-unified {
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngc63d2a45667504544b2d7a0077876387e565b0bf1a7ca1ddc549f1059f25bddd) 100% no-repeat;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngc63d2a45667504544b2d7a0077876387e565b0bf1a7ca1ddc549f1059f25bddd)
+			100% no-repeat;
 		background-size: 100% 100%;
 	}
 
@@ -3671,7 +3684,8 @@
 		position: relative;
 		width: 100%;
 		height: 100%;
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngc63d2a45667504544b2d7a0077876387e565b0bf1a7ca1ddc549f1059f25bddd) 100% no-repeat;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngc63d2a45667504544b2d7a0077876387e565b0bf1a7ca1ddc549f1059f25bddd)
+			100% no-repeat;
 		background-size: 100% 100%;
 		display: flex;
 		flex-direction: column;
@@ -3696,7 +3710,8 @@
 	.text-wrapper_3 {
 		height: 18px;
 		border: 0.5px solid rgba(255, 255, 255, 0.3);
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng985b4c231ecc7fed8c93031cd1c0ed6f13f7f0dc8947bb22f888de4fa5730104) -8px 0px no-repeat;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng985b4c231ecc7fed8c93031cd1c0ed6f13f7f0dc8947bb22f888de4fa5730104) -8px
+			0px no-repeat;
 		background-size: 85px 32px;
 		width: 69px;
 	}
@@ -3724,7 +3739,8 @@
 	.text-wrapper_4 {
 		height: 27px;
 		border: 0.5px solid rgba(255, 255, 255, 0.6);
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng2d0263e444eb529db084578573e8011cf74c7959489e788fd1593e9e669c5209) -8px -2px no-repeat;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng2d0263e444eb529db084578573e8011cf74c7959489e788fd1593e9e669c5209) -8px -2px
+			no-repeat;
 		background-size: 94px 43px;
 		width: 78px;
 	}
@@ -3802,7 +3818,8 @@
 
 	.group_14 {
 		height: 48px;
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngfeb32009b3627ee8628971fae8b64b9a0a487f1607309e61876e57dbe8516d41) -4px -4px no-repeat;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngfeb32009b3627ee8628971fae8b64b9a0a487f1607309e61876e57dbe8516d41) -4px -4px
+			no-repeat;
 		background-size: 119px 64px;
 		width: 104px;
 		margin: 12px 0 19px 21px;
@@ -3810,7 +3827,8 @@
 
 	.section_2 {
 		height: 33px;
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngf266a44fd5d5ec5ff10c584d99671accc631c3d134f9addff7fd3be0765e7d16) -1px -1px no-repeat;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngf266a44fd5d5ec5ff10c584d99671accc631c3d134f9addff7fd3be0765e7d16) -1px -1px
+			no-repeat;
 		background-size: 105px 34px;
 		margin-top: -16px;
 		width: 104px;
@@ -3866,7 +3884,8 @@
 	.text-wrapper_5 {
 		height: 24px;
 		border: 0.5px solid rgba(255, 255, 255, 0.6);
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngd209ee63e567e166d9f610b9f008687f1796238623a82be07f79af21d8c4d406) -6px -2px no-repeat;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngd209ee63e567e166d9f610b9f008687f1796238623a82be07f79af21d8c4d406) -6px -2px
+			no-repeat;
 		background-size: 107px 40px;
 		width: 93px;
 		position: absolute;
@@ -3890,7 +3909,8 @@
 
 	.text-wrapper_6 {
 		height: 44px;
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng4e60653ee5f89d95909bfdebb67c43903c3f56c31e00e4cdb0ddf44e2caa1f69) -7px -6px no-repeat;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng4e60653ee5f89d95909bfdebb67c43903c3f56c31e00e4cdb0ddf44e2caa1f69) -7px -6px
+			no-repeat;
 		background-size: 314px 56px;
 		width: 304px;
 		position: absolute;
@@ -3927,7 +3947,8 @@
 	}
 
 	:global(.dark) .group_10 {
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngc63d2a45667504544b2d7a0077876387e565b0bf1a7ca1ddc549f1059f25bddd) 100% no-repeat;
+		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngc63d2a45667504544b2d7a0077876387e565b0bf1a7ca1ddc549f1059f25bddd)
+			100% no-repeat;
 		background-size: 100% 100%;
 	}
 
@@ -3946,5 +3967,4 @@
 		display: flex;
 		justify-content: space-between;
 	}
-
 </style>

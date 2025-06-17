@@ -397,7 +397,7 @@
 			<div
 				class="flex flex-col px-3 {($settings?.widescreenMode ?? null)
 					? 'max-w-full'
-					: 'max-w-6xl'} w-full"
+					: 'max-w-full'} w-full"
 			>
 				<div class="relative">
 					{#if autoScroll === false && history?.currentId}
@@ -489,7 +489,8 @@
 			<div
 				class="{($settings?.widescreenMode ?? null)
 					? 'max-w-full'
-					: 'max-w-6xl'} px-2.5 mx-auto inset-x-0"
+					: 'max-w-full'} px-2.5 mx-auto inset-x-0"
+			style="display: flex; justify-content: center;"
 			>
 				<div class="">
 					<input
@@ -535,7 +536,7 @@
 						/>
 					{:else}
 						<form
-							class="w-full flex gap-1.5"
+							class="w-full flex gap-1.5 justify-center"
 							on:submit|preventDefault={() => {
 								// check if selectedModels support image input
 								dispatch('submit', prompt);
@@ -544,6 +545,7 @@
 							<div
 								class="flex-1 flex flex-col relative w-full shadow-lg rounded-3xl border border-gray-50 dark:border-gray-850 hover:border-gray-100 focus-within:border-gray-100 hover:dark:border-gray-800 focus-within:dark:border-gray-800 transition px-1 bg-white/90 dark:bg-gray-400/5 dark:text-gray-100"
 								dir={$settings?.chatDirection ?? 'auto'}
+								style="background-color: rgba(255, 252, 249, 1); border-radius: 16px; height: 150px; border: 1px solid rgba(222, 222, 222, 1); width: 1366px;"
 							>
 								{#if files.length > 0}
 									<div class="mx-2 mt-2.5 -mb-1 flex items-center flex-wrap gap-2">
@@ -638,7 +640,7 @@
 									</div>
 								{/if}
 
-								<div class="px-2.5">
+								<div class="p-4">
 									{#if $settings?.richTextInput ?? true}
 										<div
 											class="scrollbar-hidden rtl:text-right ltr:text-left bg-transparent dark:text-gray-100 outline-hidden w-full pt-3 px-1 resize-none h-fit max-h-80 overflow-auto"
@@ -1091,7 +1093,7 @@
 									{/if}
 								</div>
 
-								<div class=" flex justify-between mt-1 mb-2.5 mx-0.5 max-w-full" dir="ltr">
+								<div class=" flex justify-between mt-6 px-2 max-w-full" dir="ltr">
 									<div class="ml-1 self-end flex items-center flex-1 max-w-[80%] gap-0.5">
 										<!-- 隐藏"+"号按钮
 										<InputMenu
@@ -1275,8 +1277,8 @@
 																(codeInterpreterEnabled = !codeInterpreterEnabled)}
 															type="button"
 															class="px-1.5 @xl:px-2.5 py-1.5 flex gap-1.5 items-center text-sm rounded-full font-medium transition-colors duration-300 focus:outline-hidden max-w-full overflow-hidden border {codeInterpreterEnabled
-																? 'bg-gray-50 dark:bg-gray-400/10 border-gray-100  dark:border-gray-700 text-gray-600 dark:text-gray-400  '
-																: 'bg-transparent border-transparent text-gray-600 dark:text-gray-300  hover:bg-gray-50 dark:hover:bg-gray-800 '}"
+																? 'bg-[#fff8ef] border-[#ec9a43]  text-[#6668fc]'
+																: 'bg-[#f6f8fe] border-[#c5c5c5]  text-[#919191]'}"
 														>
 															<CommandLine className="size-5" strokeWidth="1.75" />
 															<span
@@ -1372,23 +1374,19 @@
 													<button
 														id="send-message-button"
 														class="{!(prompt === '' && files.length === 0)
-															? 'bg-black text-white hover:bg-gray-900 dark:bg-white dark:text-black dark:hover:bg-gray-100 '
-															: 'text-white bg-gray-200 dark:text-gray-900 dark:bg-gray-700 disabled'} transition rounded-full p-1.5 self-center"
+															? 'text-white hover:opacity-80'
+															: 'text-white opacity-50 disabled'} transition rounded-full self-center w-auto h-auto"
+														style="background-color: #eb9236;"
 														type="submit"
 														disabled={prompt === '' && files.length === 0}
 													>
-														<svg
-															xmlns="http://www.w3.org/2000/svg"
-															viewBox="0 0 16 16"
-															fill="currentColor"
+														<img
 															class="size-5"
-														>
-															<path
-																fill-rule="evenodd"
-																d="M8 14a.75.75 0 0 1-.75-.75V4.56L4.03 7.78a.75.75 0 0 1-1.06-1.06l4.5-4.5a.75.75 0 0 1 1.06 0l4.5 4.5a.75.75 0 0 1-1.06 1.06L8.75 4.56v8.69A.75.75 0 0 1 8 14Z"
-																clip-rule="evenodd"
-															/>
-														</svg>
+															referrerpolicy="no-referrer"
+															src="https://lanhu-oss-2537-2.lanhuapp.com/SketchPng1bdf667034e79afc83da0c20fce61ad49201015659640bf3094956583b3e99e9"
+															alt="Send"
+															style="width:48px;height:32px;"
+														/>
 													</button>
 												</Tooltip>
 											</div>
