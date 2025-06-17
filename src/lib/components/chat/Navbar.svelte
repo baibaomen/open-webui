@@ -57,7 +57,7 @@
 			<div class="flex items-center w-full max-w-full">
 				<div
 					class="{$showSidebar
-						? 'md:hidden'
+						? ''
 						: ''} mr-1 self-start flex flex-none items-center text-gray-600 dark:text-gray-400"
 				>
 					<button

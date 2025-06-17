@@ -594,8 +594,8 @@
 {#if dragged}
 	<div
 		class="fixed {$showSidebar
-			? 'left-0 md:left-[260px] md:w-[calc(100%-260px)]'
-			: 'left-0'}  w-full h-full flex z-50 touch-none pointer-events-none"
+			? 'left-0 md:left-[240px] md:w-[calc(100%-240px)]'
+			: 'left-0 md:left-[100px] md:w-[calc(100%-100px)]'}  w-full h-full flex z-50 touch-none pointer-events-none"
 		id="dropzone"
 		role="region"
 		aria-label="Drag and Drop Container"

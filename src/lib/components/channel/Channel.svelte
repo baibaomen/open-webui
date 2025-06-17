@@ -200,8 +200,8 @@
 
 <div
 	class="h-screen max-h-[100dvh] transition-width duration-200 ease-in-out {$showSidebar
-		? 'md:max-w-[calc(100%-260px)]'
-		: ''} w-full max-w-full flex flex-col"
+		? 'md:max-w-[calc(100%-240px)] md:ml-[240px]'
+		: 'md:max-w-[calc(100%-100px)] md:ml-[100px]'} w-full max-w-full flex flex-col"
 	id="channel-container"
 >
 	<PaneGroup direction="horizontal" class="w-full h-full">
