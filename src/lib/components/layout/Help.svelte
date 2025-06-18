@@ -18,23 +18,6 @@
 			showShortcuts = !showShortcuts;
 		}}
 	/>
-
-	<HelpMenu
-		showDocsHandler={() => {
-			showShortcuts = !showShortcuts;
-		}}
-		showShortcutsHandler={() => {
-			showShortcuts = !showShortcuts;
-		}}
-	>
-		<Tooltip content={$i18n.t('Help')} placement="left">
-			<button
-				class="text-gray-600 dark:text-gray-300 bg-gray-300/20 size-4 flex items-center justify-center text-[0.7rem] rounded-full"
-			>
-				?
-			</button>
-		</Tooltip>
-	</HelpMenu>
 </div>
 
 <ShortcutsModal bind:show={showShortcuts} />

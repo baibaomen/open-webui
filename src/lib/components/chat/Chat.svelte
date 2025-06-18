@@ -2047,13 +2047,14 @@
 		eventCallback(false);
 	}}
 />
-
 <div
 	class="h-screen max-h-[100dvh] transition-all duration-300 ease-in-out {$showSidebar
 		? 'md:max-w-[calc(100%-180px)]'
-		: 'md:max-w-[calc(100%-100px)]'} w-full max-w-full flex flex-col"
+		: 'md:max-w-[calc(100%-100px)]'} w-full max-w-full flex flex-col "
 	id="chat-container"
 >
+<div class="flex h-6"></div>
+<div class="bg-white  w-full max-w-full flex flex-col rounded-tl-[20px] rounded-bl-[20px] h-screen py-2">
 	{#if !loading}
 		{#if $settings?.backgroundImageUrl ?? null}
 			<div
@@ -2495,7 +2496,8 @@
 		</div>
 	{/if}
 </div>
-
+<div class="flex h-6"></div>
+</div>
 <style>
 	/* AI助手导航页面样式 */
 	.ai-assistant-container {

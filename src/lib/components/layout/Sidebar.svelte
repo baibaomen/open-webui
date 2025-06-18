@@ -98,6 +98,32 @@
 		}
 	}
 
+	// 统一的菜单激活状态判断函数
+	const isMenuActive = (menuType: 'home' | 'newchat' | 'chats') => {
+		const pathname = $page.url.pathname;
+		
+		switch (menuType) {
+			case 'home':
+				// 首页：当路径是 '/' 且没有有效的 chatId，或者路径是 '/home' 时激活
+				return (pathname === '/' && (!$chatId || $chatId === '')) || pathname === '/home';
+			
+			case 'newchat':
+				// 新会话：作为操作按钮，不需要激活状态
+				return false;
+			
+			case 'chats':
+				// 会话历史：当路径是 '/' 且有有效的 chatId，或者路径以 '/c/' 开头时激活
+				return (pathname === '/' && $chatId && $chatId !== '') || pathname.startsWith('/c/');
+			
+			default:
+				return false;
+		}
+	};
+
+	// 反应式计算激活状态，确保及时更新
+	$: isHomeActive = ($page.url.pathname === '/' && (!$chatId || $chatId === '')) || $page.url.pathname === '/home';
+	$: isChatsActive = ($page.url.pathname === '/' && $chatId && $chatId !== '') || $page.url.pathname.startsWith('/c/');
+
 	const initFolders = async () => {
 		const folderList = await getFolders(localStorage.token).catch((error) => {
 			toast.error(`${error}`);
@@ -468,7 +494,7 @@
 		? 'md:relative w-[180px] max-w-[180px]'
 		: 'md:relative w-[100px] max-w-[100px]'} {$isApp
 		? `ml-[4.5rem] md:ml-0 `
-		: 'transition-all duration-300 ease-in-out'} shrink-0 bg-gradient-to-b from-orange-400 to-orange-600 text-white text-sm fixed z-50 top-0 left-0 overflow-x-hidden
+		: 'transition-all duration-300 ease-in-out'} text-white text-sm fixed z-50 top-0 left-0 overflow-x-hidden
         "
 	data-state={$showSidebar}
 >
@@ -496,10 +522,12 @@
 			<div class="flex flex-col space-y-2 w-full">
 				<!-- 首页 -->
 				<a
-					class="flex items-center {$showSidebar ? 'justify-start px-4' : 'justify-center px-2'} py-3 rounded-xl transition group {($page.url.pathname === '/' && !$chatId) || $page.url.pathname === '/home' ? 'font-bold' : 'hover:bg-white hover:text-orange-600'}"
+					class="flex items-center {$showSidebar ? 'justify-start px-4' : 'justify-center px-2'} py-3 rounded-xl transition group {isHomeActive ? 'font-bold' : 'hover:font-bold'}"
 					href="/"
 					on:click={async () => {
 						selectedChatId = null;
+						// 清空 chatId 以确保首页激活状态正确
+						chatId.set('');
 						await goto('/');
 						const newChatButton = document.getElementById('new-chat-button');
 						setTimeout(() => {
@@ -511,31 +539,18 @@
 					}}
 					draggable="false"
 				>
-					<div class={`p-1.5 self-center ${($page.url.pathname === '/' && !$chatId) || $page.url.pathname === '/home' ? 'text-orange-600 bg-white rounded-lg' : ''}`}>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="2"
-							stroke="currentColor"
-							class="size-6"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
-							/>
-						</svg>
+					<div class={`p-1.5 self-center ${isHomeActive ? 'text-orange-600 bg-white rounded-lg' : ''}`}>
+						<img src={isHomeActive ? '/home-active.png' : '/home.png'} class="size-6" alt="首页" />
 					</div>
 					{#if $showSidebar}
-						<div class="ml-4">{$i18n.t('首页')}</div>
+						<div class="ml-3">{$i18n.t('首页')}</div>
 					{/if}
 				</a>
 
 				<!-- 新会话 -->
 				<a
 					id="sidebar-new-chat-button"
-					class="flex items-center {$showSidebar ? 'justify-start px-4' : 'justify-center px-2'} py-3 rounded-xl transition group {($page.url.pathname === '/' && !$chatId) || $page.url.pathname === '/home' ? 'font-bold' : 'hover:bg-white hover:text-orange-600'}"
+					class="flex items-center {$showSidebar ? 'justify-start px-4' : 'justify-center px-2'} py-3 rounded-xl transition group hover:font-bold"
 					href="/"
 					draggable="false"
 					on:click={async () => {
@@ -550,17 +565,17 @@
 						}, 0);
 					}}
 				>
-					<div class={`p-1.5 self-center ${($page.url.pathname === '/' && !$chatId) || $page.url.pathname === '/home' ? 'text-orange-600 bg-white rounded-lg' : ''}`}>
-						<PencilSquare className="size-6" strokeWidth="2" />
+					<div class="p-1.5 self-center">
+						<img src="/createmessage.png" class="size-6" alt="新会话" />
 					</div>
 					{#if $showSidebar}
-						<div class="ml-4">{$i18n.t('新会话')}</div>
+						<div class="ml-3">{$i18n.t('新会话')}</div>
 					{/if}
 				</a>
 
 				<!-- 会话 -->
 				<button
-					class="flex items-center {$showSidebar ? 'justify-start px-4' : 'justify-center px-2'} py-3 rounded-xl transition group relative {($page.url.pathname === '/' && $chatId) || $page.url.pathname.startsWith('/c/') ? 'font-bold' : 'hover:bg-white hover:text-orange-600'}"
+					class="flex items-center {$showSidebar ? 'justify-start px-4' : 'justify-center px-2'} py-3 rounded-xl transition group relative {isChatsActive ? 'font-bold' : 'hover:font-bold'}"
 					on:click={() => {
 						if ($showSidebar) {
 							showChatsSection = !showChatsSection;
@@ -568,24 +583,11 @@
 						}
 					}}
 				>
-					<div class={`p-1.5 self-center ${($page.url.pathname === '/' && $chatId) || $page.url.pathname.startsWith('/c/') ? 'text-orange-600 bg-white rounded-lg' : ''}`}>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="2"
-							stroke="currentColor"
-							class="size-6"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.627 2.707-3.227V6.741c0-1.6-1.123-2.994-2.707-3.227A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.514C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"
-							/>
-						</svg>
+					<div class={`p-1.5 self-center ${isChatsActive ? 'text-orange-600 bg-white rounded-lg' : ''}`}>
+						<img src={isChatsActive ? '/message-active.png' : '/message.png'} class="size-6" alt="会话历史" />
 					</div>
 					{#if $showSidebar}
-						<div class="ml-4">{$i18n.t('会话')}</div>
+						<div class="ml-3">{$i18n.t('会话历史')}</div>
 						<div class="ml-auto">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -776,7 +778,7 @@
 
 		<!-- 底部用户菜单 -->
 		<div class="px-2">
-			<div class="flex justify-center font-primary mb-2">
+			<div class="flex justify-center font-primary mb-4">
 				<img
 				class="w-[100px] h-7"
 				src="https://lanhu-oss-2537-2.lanhuapp.com/SketchPng181006df94dffecb6ca57237b66e2d105d0d4e54e768a63eb667227b08bd726f"
