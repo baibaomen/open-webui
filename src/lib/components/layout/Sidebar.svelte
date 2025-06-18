@@ -66,7 +66,7 @@
 
 	let navElement;
 	let shiftKey = false;
-
+	let search = '';
 	let selectedChatId = null;
 	let showDropdown = false;
 	let showPinnedChat = true;
@@ -81,6 +81,28 @@
 
 	let folders = {};
 	let newFolderId = null;
+
+	let filteredChatList = [];
+
+	$:filteredChatList = $chats?.filter((chat) => {
+		if (search === '') {
+			return true;
+		} else {
+			let title = chat.title.toLowerCase();
+			const query = search.toLowerCase();
+
+			let contentMatches = false;
+			// Access the messages within chat.chat.messages
+			if (chat.chat && chat.chat.messages && Array.isArray(chat.chat.messages)) {
+				contentMatches = chat.chat.messages.some((message) => {
+					// Check if message.content exists and includes the search query
+					return message.content && message.content.toLowerCase().includes(query);
+				});
+			}
+
+			return title.includes(query) || contentMatches;
+		}
+	})
 
 	// 根据当前路径确定活动的导航项
 	$: {
@@ -724,7 +746,33 @@
 						<div class="space-y-1">
 							{#if $chats}
 								{#each $chats as chat, idx}
-									
+								{#if idx === 0 || (idx > 0 && chat.time_range !== filteredChatList[idx - 1].time_range)}
+								<div
+									class="w-full pl-2.5 text-xs text-white opacity-80 font-medium {idx === 0
+										? ''
+										: 'pt-5'} pb-0.5"
+								>
+									{$i18n.t(chat.time_range)}
+									<!-- localisation keys for time_range to be recognized from the i18next parser (so they don't get automatically removed):
+									{$i18n.t('Today')}
+									{$i18n.t('Yesterday')}
+									{$i18n.t('Previous 7 days')}
+									{$i18n.t('Previous 30 days')}
+									{$i18n.t('January')}
+									{$i18n.t('February')}
+									{$i18n.t('March')}
+									{$i18n.t('April')}
+									{$i18n.t('May')}
+									{$i18n.t('June')}
+									{$i18n.t('July')}
+									{$i18n.t('August')}
+									{$i18n.t('September')}
+									{$i18n.t('October')}
+									{$i18n.t('November')}
+									{$i18n.t('December')}
+									-->
+								</div>
+							{/if}
 
 									<ChatItem
 										className=""
