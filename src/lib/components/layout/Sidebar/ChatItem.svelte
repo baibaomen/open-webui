@@ -375,7 +375,7 @@
 			draggable="false"
 		>
 			<div class=" flex self-center flex-1 w-full">
-				<div dir="auto" class="text-left self-center overflow-hidden w-full h-[20px]">
+				<div dir="auto" class={`text-left self-center overflow-hidden w-full h-[20px] ${id === $chatId ? 'text-orange-600' : ''}`}>
 					{title}
 				</div>
 			</div>
@@ -386,7 +386,7 @@
 	<div
 		class="
         {id === $chatId || confirmEdit
-			? 'bg-white text-orange-400'
+			? 'bg-white text-orange-600'
 			: selected
 				? ''
 				: 'invisible group-hover:visible '}

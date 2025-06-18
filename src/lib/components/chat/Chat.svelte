@@ -2050,7 +2050,7 @@
 
 <div
 	class="h-screen max-h-[100dvh] transition-all duration-300 ease-in-out {$showSidebar
-		? 'md:max-w-[calc(100%-240px)] md:ml-[10px]'
+		? 'md:max-w-[calc(100%-180px)] md:ml-[10px]'
 		: 'md:max-w-[calc(100%-100px)] md:ml-[10px]'} w-full max-w-full flex flex-col"
 	id="chat-container"
 >
@@ -2058,7 +2058,7 @@
 		{#if $settings?.backgroundImageUrl ?? null}
 			<div
 				class="absolute {$showSidebar
-					? 'md:max-w-[calc(100%-240px)] md:translate-x-[240px]'
+					? 'md:max-w-[calc(100%-180px)] md:translate-x-[180px]'
 					: 'md:max-w-[calc(100%-100px)] md:translate-x-[100px]'} top-0 left-0 w-full h-full bg-cover bg-center bg-no-repeat"
 				style="background-image: url({$settings.backgroundImageUrl})  "
 			/>

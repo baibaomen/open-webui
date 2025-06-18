@@ -14,7 +14,7 @@
 
 	export let show = false;
 	export let role = '';
-	export let className = 'max-w-[240px]';
+	export let className = 'max-w-[180px]';
 
 	const dispatch = createEventDispatcher();
 </script>

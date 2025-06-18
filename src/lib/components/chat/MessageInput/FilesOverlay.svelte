@@ -18,7 +18,7 @@
 	<div
 		bind:this={overlayElement}
 		class="fixed {$showSidebar
-			? 'left-0 md:left-[240px] md:w-[calc(100%-240px)]'
+			? 'left-0 md:left-[180px] md:w-[calc(100%-180px)]'
 			: 'left-0 md:left-[100px] md:w-[calc(100%-100px)]'} fixed top-0 right-0 bottom-0 w-full h-full flex z-9999 touch-none pointer-events-none"
 		id="dropzone"
 		role="region"

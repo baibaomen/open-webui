@@ -465,7 +465,7 @@
 	bind:this={navElement}
 	id="sidebar"
 	class="h-screen max-h-[100dvh] min-h-screen select-none {$showSidebar
-		? 'md:relative w-[240px] max-w-[240px]'
+		? 'md:relative w-[180px] max-w-[180px]'
 		: 'md:relative w-[100px] max-w-[100px]'} {$isApp
 		? `ml-[4.5rem] md:ml-0 `
 		: 'transition-all duration-300 ease-in-out'} shrink-0 bg-gradient-to-b from-orange-400 to-orange-600 text-white text-sm fixed z-50 top-0 left-0 overflow-x-hidden
@@ -474,7 +474,7 @@
 >
 	<div
 		class="py-2 my-auto flex flex-col justify-between h-screen max-h-[100dvh] {$showSidebar
-			? 'w-[240px]'
+			? 'w-[180px]'
 			: 'w-[100px]'} overflow-x-hidden z-50"
 	>
 		<!-- 顶部Logo区域 -->
@@ -496,7 +496,7 @@
 			<div class="flex flex-col space-y-2 w-full">
 				<!-- 首页 -->
 				<a
-					class="flex items-center {$showSidebar ? 'justify-start px-4' : 'justify-center px-2'} py-3 rounded-xl transition group {($page.url.pathname === '/' && !$chatId) || $page.url.pathname === '/home' ? 'bg-white text-orange-600' : 'hover:bg-white hover:text-orange-600'}"
+					class="flex items-center {$showSidebar ? 'justify-start px-4' : 'justify-center px-2'} py-3 rounded-xl transition group {($page.url.pathname === '/' && !$chatId) || $page.url.pathname === '/home' ? 'font-bold' : 'hover:bg-white hover:text-orange-600'}"
 					href="/"
 					on:click={async () => {
 						selectedChatId = null;
@@ -511,7 +511,7 @@
 					}}
 					draggable="false"
 				>
-					<div class="self-center">
+					<div class={`p-1.5 self-center ${($page.url.pathname === '/' && !$chatId) || $page.url.pathname === '/home' ? 'text-orange-600 bg-white rounded-lg' : ''}`}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"
@@ -528,14 +528,14 @@
 						</svg>
 					</div>
 					{#if $showSidebar}
-						<div class="ml-4 font-medium">{$i18n.t('首页')}</div>
+						<div class="ml-4">{$i18n.t('首页')}</div>
 					{/if}
 				</a>
 
 				<!-- 新会话 -->
 				<a
 					id="sidebar-new-chat-button"
-					class="flex items-center {$showSidebar ? 'justify-start px-4' : 'justify-center px-2'} py-3 rounded-xl transition group hover:bg-white hover:text-orange-600"
+					class="flex items-center {$showSidebar ? 'justify-start px-4' : 'justify-center px-2'} py-3 rounded-xl transition group {($page.url.pathname === '/' && !$chatId) || $page.url.pathname === '/home' ? 'font-bold' : 'hover:bg-white hover:text-orange-600'}"
 					href="/"
 					draggable="false"
 					on:click={async () => {
@@ -550,17 +550,17 @@
 						}, 0);
 					}}
 				>
-					<div class="self-center">
+					<div class={`p-1.5 self-center ${($page.url.pathname === '/' && !$chatId) || $page.url.pathname === '/home' ? 'text-orange-600 bg-white rounded-lg' : ''}`}>
 						<PencilSquare className="size-6" strokeWidth="2" />
 					</div>
 					{#if $showSidebar}
-						<div class="ml-4 font-medium">{$i18n.t('新会话')}</div>
+						<div class="ml-4">{$i18n.t('新会话')}</div>
 					{/if}
 				</a>
 
 				<!-- 会话 -->
 				<button
-					class="flex items-center {$showSidebar ? 'justify-start px-4' : 'justify-center px-2'} py-3 rounded-xl transition group relative {($page.url.pathname === '/' && $chatId) || $page.url.pathname.startsWith('/c/') ? 'bg-white text-orange-600' : 'hover:bg-white hover:text-orange-600'}"
+					class="flex items-center {$showSidebar ? 'justify-start px-4' : 'justify-center px-2'} py-3 rounded-xl transition group relative {($page.url.pathname === '/' && $chatId) || $page.url.pathname.startsWith('/c/') ? 'font-bold' : 'hover:bg-white hover:text-orange-600'}"
 					on:click={() => {
 						if ($showSidebar) {
 							showChatsSection = !showChatsSection;
@@ -568,7 +568,7 @@
 						}
 					}}
 				>
-					<div class="self-center">
+					<div class={`p-1.5 self-center ${($page.url.pathname === '/' && $chatId) || $page.url.pathname.startsWith('/c/') ? 'text-orange-600 bg-white rounded-lg' : ''}`}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"
@@ -585,7 +585,7 @@
 						</svg>
 					</div>
 					{#if $showSidebar}
-						<div class="ml-4 font-medium font-bold">{$i18n.t('会话')}</div>
+						<div class="ml-4">{$i18n.t('会话')}</div>
 						<div class="ml-auto">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
