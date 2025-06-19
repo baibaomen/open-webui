@@ -253,7 +253,7 @@ async def verify_connection(
         except aiohttp.ClientError as e:
             log.exception(f"Client error: {str(e)}")
             raise HTTPException(
-                status_code=500, detail="Open WebUI: Server Connection Error"
+                status_code=500, detail="金融街集团: 服务器连接错误"
             )
         except Exception as e:
             log.exception(f"Unexpected error: {e}")
@@ -535,7 +535,7 @@ async def get_ollama_versions(request: Request, url_idx: Optional[int] = None):
 
                 raise HTTPException(
                     status_code=r.status_code if r else 500,
-                    detail=detail if detail else "Open WebUI: Server Connection Error",
+                    detail=detail if detail else "金融街集团: 服务器连接错误",
                 )
     else:
         return {"version": False}
@@ -723,7 +723,7 @@ async def copy_model(
 
         raise HTTPException(
             status_code=r.status_code if r else 500,
-            detail=detail if detail else "Open WebUI: Server Connection Error",
+            detail=detail if detail else "金融街集团: 服务器连接错误",
         )
 
 
@@ -1436,7 +1436,7 @@ async def get_openai_models(
             ]
         except Exception as e:
             log.exception(e)
-            error_detail = "Open WebUI: Server Connection Error"
+            error_detail = "金融街集团: 服务器连接错误"
             if r is not None:
                 try:
                     res = r.json()

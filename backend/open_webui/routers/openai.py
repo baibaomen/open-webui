@@ -218,7 +218,7 @@ async def speech(request: Request, user=Depends(get_verified_user)):
                     **(
                         {
                             "HTTP-Referer": "https://openwebui.com/",
-                            "X-Title": "Open WebUI",
+                            "X-Title": "金融街集团",
                         }
                         if "openrouter.ai" in url
                         else {}
@@ -264,7 +264,7 @@ async def speech(request: Request, user=Depends(get_verified_user)):
 
             raise HTTPException(
                 status_code=r.status_code if r else 500,
-                detail=detail if detail else "Open WebUI: Server Connection Error",
+                detail=detail if detail else "金融街集团: 服务器连接错误",
             )
 
     except ValueError:
@@ -795,7 +795,7 @@ async def generate_chat_completion(
         **(
             {
                 "HTTP-Referer": "https://openwebui.com/",
-                "X-Title": "Open WebUI",
+                                    "X-Title": "金融街集团",
             }
             if "openrouter.ai" in url
             else {}
