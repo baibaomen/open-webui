@@ -2088,13 +2088,12 @@
 					title={$chatTitle}
 					bind:selectedModels
 					shareEnabled={!!history.currentId}
-					showModelSelector={$settings?.landingPageMode === 'chat' ||
-						createMessagesList(history, history.currentId).length > 0}
+					showModelSelector={createMessagesList(history, history.currentId).length > 0 || (chatIdProp && $settings?.landingPageMode !== 'chat')}
 					{initNewChat}
 				/>
 
 				<div class="flex flex-col flex-auto z-10 w-full items-center @container mt-24">
-					{#if $settings?.landingPageMode === 'chat' || createMessagesList(history, history.currentId).length > 0}
+					{#if createMessagesList(history, history.currentId).length > 0}
 						<div
 							class=" pb-2.5 flex flex-col justify-between w-full flex-auto overflow-auto h-0 max-w-full z-10 scrollbar-hidden"
 							id="messages-container"
@@ -2182,6 +2181,72 @@
 									class="absolute bottom-1 text-xs text-gray-500 text-center line-clamp-1 right-0 left-0"
 								>
 									<!-- {$i18n.t('LLMs can make mistakes. Verify important information.')} -->
+								</div>
+							</div>
+						</div>
+					{:else if chatIdProp && $settings?.landingPageMode !== 'chat'}
+						<!-- 新聊天会话时显示简洁的消息输入框，位置与有消息时一致 -->
+						<div class="w-full h-full flex flex-col">
+							<!-- 空的消息区域，占据剩余空间 -->
+							<div class="flex-auto"></div>
+							
+							<!-- 消息输入框，位置与有消息时保持一致 -->
+							<div class="pb-[1rem] flex justify-center">
+								<div class="w-full" style="max-width: 1366px;">
+									<MessageInput
+										{history}
+										{taskIds}
+										{selectedModels}
+										bind:files
+										bind:prompt
+										bind:autoScroll
+										bind:selectedToolIds
+										bind:selectedFilterIds
+										bind:imageGenerationEnabled
+										bind:codeInterpreterEnabled
+										bind:webSearchEnabled
+										bind:atSelectedModel
+										toolServers={$toolServers}
+										transparentBackground={$settings?.backgroundImageUrl ?? false}
+										{stopResponse}
+										{createMessagePair}
+										placeholder={$i18n.t('How can I help you today?')}
+										onChange={(input) => {
+											if (input.prompt !== null) {
+												localStorage.setItem(
+													`chat-input${$chatId ? `-${$chatId}` : ''}`,
+													JSON.stringify(input)
+												);
+											} else {
+												localStorage.removeItem(`chat-input${$chatId ? `-${$chatId}` : ''}`);
+											}
+										}}
+										on:upload={async (e) => {
+											const { type, data } = e.detail;
+
+											if (type === 'web') {
+												await uploadWeb(data);
+											} else if (type === 'youtube') {
+												await uploadYoutubeTranscription(data);
+											}
+										}}
+										on:submit={async (e) => {
+											if (e.detail || files.length > 0) {
+												await tick();
+												submitPrompt(
+													($settings?.richTextInput ?? true)
+														? e.detail.replaceAll('\n\n', '\n')
+														: e.detail
+												);
+											}
+										}}
+									/>
+
+									<div
+										class="absolute bottom-1 text-xs text-gray-500 text-center line-clamp-1 right-0 left-0"
+									>
+										<!-- {$i18n.t('LLMs can make mistakes. Verify important information.')} -->
+									</div>
 								</div>
 							</div>
 						</div>
@@ -2496,6 +2561,18 @@
 		</div>
 	{/if}
 </div>
+
+<!-- 隐藏的新会话按钮，供侧边栏调用 -->
+<button 
+	id="new-chat-button" 
+	style="display: none;" 
+	on:click={async () => {
+		await initNewChat();
+	}}
+>
+	New Chat
+</button>
+
 <div class="flex h-6"></div>
 </div>
 <style>

@@ -571,12 +571,50 @@
 
 				<!-- 新会话 -->
 				<a
-					id="sidebar-new-chat-button"
-					class="flex items-center {$showSidebar ? 'justify-start px-4' : 'justify-center px-2'} py-3 rounded-xl transition group hover:font-bold"
-					href="/"
-					draggable="false"
-					on:click={async () => {
-						selectedChatId = null;
+				id="sidebar-new-chat-button"
+				class="flex items-center {$showSidebar ? 'justify-start px-4' : 'justify-center px-2'} py-3 rounded-xl transition group hover:font-bold"
+				href="/"
+				draggable="false"
+				on:click={async (e) => {
+					e.preventDefault();
+					selectedChatId = null;
+					
+					try {
+						// 创建新会话
+						const newChat = await createNewChat(localStorage.token, {
+							title: `新会话`,
+							models: $settings?.models ?? [''],
+							system: $settings?.system ?? undefined,
+							options: {},
+							history: {
+								messages: {},
+								currentId: null
+							},
+							messages: [],
+							timestamp: Date.now()
+						});
+
+						if (newChat) {
+							// 刷新会话列表
+							await initChatList();
+							
+							// 跳转到新创建的会话
+							await goto(`/c/${newChat.id}`);
+							
+							// 设置当前会话ID
+							chatId.set(newChat.id);
+							
+							toast.success($i18n.t('新会话已创建'));
+							
+							if ($mobile) {
+								showSidebar.set(false);
+							}
+						}
+					} catch (error) {
+						console.error('创建新会话失败:', error);
+						toast.error($i18n.t('创建新会话失败，请重试'));
+						
+						// 如果创建失败，仍然跳转到主页开始新会话
 						await goto('/');
 						const newChatButton = document.getElementById('new-chat-button');
 						setTimeout(() => {
@@ -585,8 +623,9 @@
 								showSidebar.set(false);
 							}
 						}, 0);
-					}}
-				>
+					}
+				}}
+			>
 					<div class="p-1.5 self-center">
 						<img src="/createmessage.png" class="size-6" alt="新会话" />
 					</div>
@@ -606,10 +645,10 @@
 					}}
 				>
 					<div class={`p-1.5 self-center ${isChatsActive ? 'text-orange-600 bg-white rounded-lg' : ''}`}>
-						<img src={isChatsActive ? '/message-active.png' : '/message.png'} class="size-6" alt="会话历史" />
+						<img src={isChatsActive ? '/message-active.png' : '/message.png'} class="size-6" alt="历史会话" />
 					</div>
 					{#if $showSidebar}
-						<div class="ml-3">{$i18n.t('会话历史')}</div>
+						<div class="ml-3">{$i18n.t('历史会话')}</div>
 						<div class="ml-auto">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
