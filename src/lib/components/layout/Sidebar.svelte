@@ -868,7 +868,7 @@
 			<div class="flex justify-center font-primary mb-4">
 				<img
 				class="w-[100px] h-7"
-				src="https://lanhu-oss-2537-2.lanhuapp.com/SketchPng181006df94dffecb6ca57237b66e2d105d0d4e54e768a63eb667227b08bd726f"
+				src="/assets/images/SketchPn_5.png"
 			  />
 			</div>
 		</div>

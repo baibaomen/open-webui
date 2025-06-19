@@ -1383,7 +1383,7 @@
 														<img
 															class="size-5"
 															referrerpolicy="no-referrer"
-															src="https://lanhu-oss-2537-2.lanhuapp.com/SketchPng1bdf667034e79afc83da0c20fce61ad49201015659640bf3094956583b3e99e9"
+															src="/assets/images/SketchPn.png"
 															alt="Send"
 															style="width:48px;height:32px;"
 														/>

@@ -2261,7 +2261,7 @@
 											<img
 												class="image_1"
 												referrerpolicy="no-referrer"
-												src="https://lanhu-oss-2537-2.lanhuapp.com/SketchPng8b9c57ab9a8f8319cf57c6674ebebfae62268308392ce6c6f4245142032b3e1a"
+												src="/assets/images/SketchPn_13.png"
 											/>
 											<span class="text_1">万语千言，心领神悟</span>
 										</div>
@@ -2304,12 +2304,12 @@
 												<img
 													class="image_2"
 													referrerpolicy="no-referrer"
-													src="https://lanhu-oss-2537-2.lanhuapp.com/SketchPng8db48e952174a87d5ea81dc246b55158f38b22405e9b67a285cbdbaf3aab799c"
+													src="/assets/images/SketchPn_16.png"
 												/>
 												<img
 													class="image_3"
 													referrerpolicy="no-referrer"
-													src="https://lanhu-oss-2537-2.lanhuapp.com/SketchPngd20cd1176d11fb7132789a0bd7237be99d436cacf332c672efb8a41928c65379"
+													src="/assets/images/SketchPn_14.png"
 												/>
 											</div>
 										</div>
@@ -2377,7 +2377,7 @@
 																			<img
 																				class="image_4"
 																				referrerpolicy="no-referrer"
-																				src="https://lanhu-oss-2537-2.lanhuapp.com/SketchPng644b147b71c8453fabf9aba7e53e27b427959a3bed18b430bff26be749d06072"
+																				src="/assets/images/SketchPn_1.png"
 																			/>
 																		</div>
 																		<div class="group_14 flex-col">
@@ -2386,24 +2386,24 @@
 																				<img
 																					class="image_5"
 																					referrerpolicy="no-referrer"
-																					src="https://lanhu-oss-2537-2.lanhuapp.com/SketchPng7b1df71c1348dd97a34cad7079324afc9f5014d9a9eaca372e2b83735244881b"
+																					src="/assets/images/SketchPn_12.png"
 																				/>
 																				<img
 																					class="label_6"
 																					referrerpolicy="no-referrer"
-																					src="https://lanhu-oss-2537-2.lanhuapp.com/SketchPng06d5060ff0fbabd64a920a1eb3034f3a57ee96e7d85b08d4b32ad4440765de33"
+																					src="/assets/images/SketchPn_11.png"
 																				/>
 																				<img
 																					class="image_6"
 																					referrerpolicy="no-referrer"
-																					src="https://lanhu-oss-2537-2.lanhuapp.com/SketchPng8575291cf8ccd9ad35cbbdc622e132fa467d6b7e50efe28f8f415faa100fb6b6"
+																					src="/assets/images/SketchPn_20.png"
 																				/>
 																			</div>
 																		</div>
 																		<img
 																			class="label_7"
 																			referrerpolicy="no-referrer"
-																			src="https://lanhu-oss-2537-2.lanhuapp.com/SketchPng90382fdb9233b5139c6fb75e7b0df51c2d3ec09f7862cde6140bdaea3cdae209"
+																			src="/assets/images/SketchPn_15.png"
 																		/>
 																	</div>
 																	<div class="text-wrapper_5 flex-col">
@@ -2704,7 +2704,7 @@
 
 	/* 效率工具卡片 */
 	.ai-tools-card {
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng16218c3a4f53bbc4ea44cd220c0a693bdaa23074038e9c0ded886ea077c268a8)
+		background: url(/assets/images/SketchPn_8.png)
 			100% no-repeat;
 		background-size: 100% 100%;
 		width: 369px;
@@ -2797,7 +2797,7 @@
 
 	/* 精选智能体卡片 */
 	.ai-agents-card {
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngd8121537deb00481af86b1ed83619d70f6bfd597805b5360add9aa73ab2eb9ca)
+		background: url(/assets/images/SketchPn_10.png)
 			100% no-repeat;
 		background-size: 100% 100%;
 		height: 301px;
@@ -2868,7 +2868,7 @@
 	.group_6 {
 		width: 271px;
 		height: 187px;
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng2a4fa2df9080010b676e8e846b7d3e12397da4efe879d50740653d979179b4a9)
+		background: url(/assets/images/SketchPn_6.png)
 			100% no-repeat;
 		background-size: 100% 100%;
 	}
@@ -2876,7 +2876,7 @@
 	.group_7 {
 		width: 271px;
 		height: 187px;
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng2a4fa2df9080010b676e8e846b7d3e12397da4efe879d50740653d979179b4a9)
+		background: url(/assets/images/SketchPn_6.png)
 			100% no-repeat;
 		background-size: 100% 100%;
 		margin-left: 16px;
@@ -2891,7 +2891,7 @@
 	.box_4 {
 		width: 114px;
 		height: 64px;
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng8c5456740b389e3babd5229477b17d62e3f169ea345ccd39660a0f83867b9de0) -39px -43px
+		background: url(/assets/images/SketchPn_9.png) -39px -43px
 			no-repeat;
 		background-size: 192px 150px;
 	}
@@ -2937,7 +2937,7 @@
 	.block_1 {
 		width: 114px;
 		height: 64px;
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngdc973b30122c2591965fad22f61f22b62c948bcb1999995f9618abf53d524486) -81px -88px
+		background: url(/assets/images/SketchPn_19.png) -81px -88px
 			no-repeat;
 		background-size: 276px 240px;
 	}
@@ -3010,7 +3010,7 @@
 
 	.box_5 {
 		border-radius: 16px;
-		background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/4dc27692efb042f3978dfd837098adba_mergeImage.png);
+		background-image: url(/assets/images/merge_image_1.png);
 		width: 328px;
 		height: 64px;
 		margin: 25px 0 0 19px;
@@ -3065,7 +3065,7 @@
 
 	.group_9 {
 		border-radius: 50%;
-		background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/2f47c5c1d2a8443d9c64fff3a3dbd9c0_mergeImage.png);
+		background-image: url(/assets/images/merge_image_2.png);
 		height: 40px;
 		border: 1px solid rgba(151, 151, 151, 1);
 		margin-top: 5px;
@@ -3074,7 +3074,7 @@
 
 	.section_1 {
 		border-radius: 8px;
-		background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/f81183809aab4f5da2fdc07d415af73a_mergeImage.png);
+		background-image: url(/assets/images/merge_image_3.png);
 		width: 40px;
 		height: 40px;
 	}
@@ -3127,7 +3127,7 @@
 
 	.box_8 {
 		border-radius: 50%;
-		background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/ec5ca5f2954440a8aae7c1dd9976b0aa_mergeImage.png);
+		background-image: url(/assets/images/merge_image_6.png);
 		width: 40px;
 		height: 40px;
 		border: 1px solid rgba(151, 151, 151, 1);
@@ -3254,7 +3254,7 @@
 
 	/* 轮播项统一背景色 */
 	.ai-slide-unified {
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngc63d2a45667504544b2d7a0077876387e565b0bf1a7ca1ddc549f1059f25bddd)
+		background: url(/assets/images/SketchPn_7.png)
 			100% no-repeat;
 		background-size: 100% 100%;
 		position: relative;
@@ -3582,7 +3582,7 @@
 	}
 
 	:global(.dark) .ai-tools-card {
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng16218c3a4f53bbc4ea44cd220c0a693bdaa23074038e9c0ded886ea077c268a8)
+		background: url(/assets/images/SketchPn_8.png)
 			100% no-repeat;
 		background-size: 100% 100%;
 	}
@@ -3723,7 +3723,7 @@
 	}
 
 	:global(.dark) .ai-slide-unified {
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngc63d2a45667504544b2d7a0077876387e565b0bf1a7ca1ddc549f1059f25bddd)
+		background: url(/assets/images/SketchPn_7.png)
 			100% no-repeat;
 		background-size: 100% 100%;
 	}
@@ -3763,7 +3763,7 @@
 		position: relative;
 		width: 100%;
 		height: 100%;
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngc63d2a45667504544b2d7a0077876387e565b0bf1a7ca1ddc549f1059f25bddd)
+		background: url(/assets/images/SketchPn_7.png)
 			100% no-repeat;
 		background-size: 100% 100%;
 		display: flex;
@@ -3773,7 +3773,7 @@
 	}
 
 	.group_11 {
-		background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/f72655eaa7db426b8e168804121a39ac_mergeImage.png);
+		background-image: url(/assets/images/merge_image_4.png);
 		height: 212px;
 		width: 261px;
 		position: relative;
@@ -3789,7 +3789,7 @@
 	.text-wrapper_3 {
 		height: 18px;
 		border: 0.5px solid rgba(255, 255, 255, 0.3);
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng985b4c231ecc7fed8c93031cd1c0ed6f13f7f0dc8947bb22f888de4fa5730104) -8px
+		background: url(/assets/images/SketchPn_3.png) -8px
 			0px no-repeat;
 		background-size: 85px 32px;
 		width: 69px;
@@ -3818,7 +3818,7 @@
 	.text-wrapper_4 {
 		height: 27px;
 		border: 0.5px solid rgba(255, 255, 255, 0.6);
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng2d0263e444eb529db084578573e8011cf74c7959489e788fd1593e9e669c5209) -8px -2px
+		background: url(/assets/images/SketchPn_4.png) -8px -2px
 			no-repeat;
 		background-size: 94px 43px;
 		width: 78px;
@@ -3897,7 +3897,7 @@
 
 	.group_14 {
 		height: 48px;
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngfeb32009b3627ee8628971fae8b64b9a0a487f1607309e61876e57dbe8516d41) -4px -4px
+		background: url(/assets/images/SketchPn_21.png) -4px -4px
 			no-repeat;
 		background-size: 119px 64px;
 		width: 104px;
@@ -3906,7 +3906,7 @@
 
 	.section_2 {
 		height: 33px;
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngf266a44fd5d5ec5ff10c584d99671accc631c3d134f9addff7fd3be0765e7d16) -1px -1px
+		background: url(/assets/images/SketchPn_18.png) -1px -1px
 			no-repeat;
 		background-size: 105px 34px;
 		margin-top: -16px;
@@ -3963,7 +3963,7 @@
 	.text-wrapper_5 {
 		height: 24px;
 		border: 0.5px solid rgba(255, 255, 255, 0.6);
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngd209ee63e567e166d9f610b9f008687f1796238623a82be07f79af21d8c4d406) -6px -2px
+		background: url(/assets/images/SketchPn_17.png) -6px -2px
 			no-repeat;
 		background-size: 107px 40px;
 		width: 93px;
@@ -3988,7 +3988,7 @@
 
 	.text-wrapper_6 {
 		height: 44px;
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPng4e60653ee5f89d95909bfdebb67c43903c3f56c31e00e4cdb0ddf44e2caa1f69) -7px -6px
+		background: url(/assets/images/SketchPn_2.png) -7px -6px
 			no-repeat;
 		background-size: 314px 56px;
 		width: 304px;
@@ -4026,7 +4026,7 @@
 	}
 
 	:global(.dark) .group_10 {
-		background: url(https://lanhu-oss-2537-2.lanhuapp.com/SketchPngc63d2a45667504544b2d7a0077876387e565b0bf1a7ca1ddc549f1059f25bddd)
+		background: url(/assets/images/SketchPn_7.png)
 			100% no-repeat;
 		background-size: 100% 100%;
 	}
