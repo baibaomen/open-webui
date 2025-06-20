@@ -186,6 +186,14 @@
 		}
 
 		if (model) {
+			// 确保model具有必要的meta结构
+			if (!model.meta) {
+				model.meta = {};
+			}
+			if (!model.params) {
+				model.params = {};
+			}
+
 			name = model.name;
 			await tick();
 
@@ -209,7 +217,7 @@
 
 			system = model?.params?.system ?? '';
 
-			params = { ...params, ...model?.params };
+			params = { ...params, ...(model?.params ?? {}) };
 			params.stop = params?.stop
 				? (typeof params.stop === 'string' ? params.stop.split(',') : (params?.stop ?? [])).join(
 						','
@@ -248,18 +256,28 @@
 			console.log(model?.access_control);
 			console.log(accessControl);
 
+			// 创建安全的model副本，确保所有必要的属性都存在
+			const safeModel = {
+				id: model.id,
+				name: model.name,
+				meta: {
+					profile_image_url: '/static/favicon.png',
+					description: '',
+					suggestion_prompts: null,
+					tags: [],
+					...model.meta
+				},
+				params: {
+					system: '',
+					...model.params
+				},
+				...(model.access_control && { access_control: model.access_control }),
+				...(model.base_model_id && { base_model_id: model.base_model_id })
+			};
+
 			info = {
 				...info,
-				...JSON.parse(
-					JSON.stringify(
-						model
-							? model
-							: {
-									id: model.id,
-									name: model.name
-								}
-					)
-				)
+				...JSON.parse(JSON.stringify(safeModel))
 			};
 
 			console.log(model);

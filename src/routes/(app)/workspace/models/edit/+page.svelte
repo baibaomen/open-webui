@@ -24,6 +24,15 @@
 
 			if (!model) {
 				goto('/workspace/models');
+				return;
+			}
+
+			// 确保模型具有必要的数据结构，防止编辑器中出现错误
+			if (!model.meta) {
+				model.meta = {};
+			}
+			if (!model.params) {
+				model.params = {};
 			}
 		} else {
 			goto('/workspace/models');
