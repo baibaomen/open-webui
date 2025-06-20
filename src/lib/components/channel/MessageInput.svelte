@@ -372,8 +372,7 @@
 				/>
 			{:else}
 				<form
-					class="w-full flex gap-1.5 justify-center"
-					style="width: 1366px;"
+					class="flex gap-1.5 justify-center"
 					on:submit|preventDefault={() => {
 						submitHandler();
 					}}

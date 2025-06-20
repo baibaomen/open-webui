@@ -867,7 +867,7 @@
 		<div class="px-2">
 			<div class="flex justify-center font-primary mb-4">
 				<img
-				class="w-[100px] h-7"
+				class="w-[100px] h-7 mt-4"
 				src="/assets/images/SketchPn_5.png"
 			  />
 			</div>

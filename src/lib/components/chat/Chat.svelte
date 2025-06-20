@@ -128,7 +128,7 @@
 		}
 		slideInterval = setInterval(() => {
 			currentSlide = (currentSlide + 1) % totalSlides;
-		}, 5000);
+		}, 5000000);
 	};
 
 	const pauseCarousel = () => {
@@ -2092,7 +2092,7 @@
 					{initNewChat}
 				/>
 
-				<div class="flex flex-col flex-auto z-10 w-full items-center @container mt-24">
+				<div class="flex flex-col flex-auto z-10 w-full items-center @container">
 					{#if createMessagesList(history, history.currentId).length > 0}
 						<div
 							class=" pb-2.5 flex flex-col justify-between w-full flex-auto overflow-auto h-0 max-w-full z-10 scrollbar-hidden"
@@ -2125,8 +2125,8 @@
 							</div>
 						</div>
 
-						<div class="pb-[1rem] flex justify-center">
-							<div class="w-full" style="max-width: 1366px;">
+						<div class="pb-[1rem] flex justify-center px-6">
+							<div class="w-full">
 								<MessageInput
 									{history}
 									{taskIds}
@@ -2191,8 +2191,8 @@
 							<div class="flex-auto"></div>
 							
 							<!-- 消息输入框，位置与有消息时保持一致 -->
-							<div class="pb-[1rem] flex justify-center">
-								<div class="w-full" style="max-width: 1366px;">
+							<div class="pb-[1rem] flex justify-center px-6">
+								<div class="w-full">
 									<MessageInput
 										{history}
 										{taskIds}
@@ -2251,7 +2251,7 @@
 							</div>
 						</div>
 					{:else}
-						<div class="overflow-auto w-full h-full flex flex-col items-center">
+						<div class="overflow-auto w-full h-full flex flex-col items-center ai-assistant">
 							<!-- AI助手导航页面 -->
 							<div class="ai-assistant-container">
 								<div class="ai-assistant-content">
@@ -2582,7 +2582,6 @@
 		height: auto;
 		background-color: transparent;
 		overflow: visible;
-		padding-top: 50px; /* 添加顶部间距，避免被遮挡 */
 	}
 
 	.ai-assistant-content {
@@ -4045,5 +4044,69 @@
 	.justify-between {
 		display: flex;
 		justify-content: space-between;
+	}
+
+	.ai-assistant::-webkit-scrollbar {
+		width: 0.4rem !important;
+		height: 0.4rem !important;
+	}
+
+
+	@media (min-width: 1366px) and (max-width: 1920px) {
+		.ai-assistant{
+			padding:0 24px !important;
+		}
+		.ai-main-content{
+			gap: 10px !important;
+		}
+	}
+
+	@media (min-width: 1920px) {
+		.ai-assistant{
+			margin-top: 64px !important;
+		}
+	}
+
+	@media (min-width: 1024px) and (max-width: 1366px) {
+		.ai-main-content {
+			width: 1200px;
+		}
+		.ai-assistant{
+			padding:0 24px !important;
+		}
+		.ai-main-content {
+			grid-template-columns: 540px 339px 339px !important;
+		}
+		.text-wrapper_2 {
+			width: 506px !important;
+		}
+		.text-wrapper_6{
+			background-size: 264px 56px !important;
+			left: 25px !important;
+		}
+		.text_21  {
+			margin: 10px 0 0 60px !important;
+		}
+		.group_5{
+			width: 508px !important;
+		}
+		.box_5 {
+			width: 304px !important;
+		}
+		.box_6 {
+			width: 304px !important;
+		}
+		.box_7 {
+			width: 304px !important;
+		}
+		.ai-agents-card {
+			width: 540px !important;
+		}
+		.ai-tools-card {
+			width: 339px !important;
+		}
+		.ai-carousel-card{
+			width: 339px !important;
+		}
 	}
 </style>
