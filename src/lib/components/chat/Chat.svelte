@@ -2570,7 +2570,7 @@
 
 				<div class="flex justify-center h-5 text-xs text-gray-500" style="
 				position: fixed;
-				bottom: 32px;
+				bottom: 20px;
 				left: 45%;
 			">
 					内容由AI模型生成，其准确性和完整性无法保证，仅供参考

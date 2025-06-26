@@ -18,8 +18,11 @@
 		tools,
 		user as _user,
 		showControls,
-		TTSWorker
+		TTSWorker,
+		chatId
 	} from '$lib/stores';
+
+	import { page } from '$app/stores';
 
 	import {
 		blobToFile,
@@ -86,6 +89,7 @@
 	export let webSearchEnabled = false;
 	export let codeInterpreterEnabled = false;
 
+
 	$: onChange({
 		prompt,
 		files: files.filter((file) => file.type !== 'image'),
@@ -114,6 +118,16 @@
 
 	let user = null;
 	export let placeholder = '';
+
+	// 判断当前页面类型
+	let isHomePage = false;
+   	let isChatPage = false;
+   
+   $: {
+       const pathname = $page.url.pathname;
+       isHomePage = (pathname === '/' && (!$chatId || $chatId === '')) || pathname === '/home';
+       isChatPage = (pathname === '/' && $chatId && $chatId !== '') || pathname.startsWith('/c/');
+   	};
 
 	let visionCapableModels = [];
 	$: visionCapableModels = (atSelectedModel?.id ? [atSelectedModel.id] : selectedModels).filter(
@@ -392,7 +406,7 @@
 <ToolServersModal bind:show={showTools} {selectedToolIds} />
 
 {#if loaded}
-	<div class="w-full font-primary">
+	<div class="w-full font-primary {isHomePage ? 'home-page' : ''} {isChatPage ? 'chat-page' : ''}">
 		<div class=" mx-auto inset-x-0 bg-transparent flex justify-center">
 			<div
 				class="flex flex-col px-3 {($settings?.widescreenMode ?? null)
@@ -1410,6 +1424,20 @@
 		}
 		#message-input-form {
 			width: 1242px !important;
+		}
+
+		
+		/* 消息界面：1366分辨率下宽度为1100px */
+		:global(.chat-page) #message-input {
+			width: 1080px !important;
+		}
+		:global(.chat-page) #message-input-form {
+			width: auto !important;
+		}
+		
+		/* 首页：1366分辨率下宽度为1366px */
+		:global(.home-page) #message-input {
+			width: 1368px !important;
 		}
 	}
 
