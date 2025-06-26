@@ -147,6 +147,39 @@
 		startCarousel();
 	};
 
+	// AI助手DPI设置函数
+	const setAIAssistantDPI = () => {
+		const screenWidth = window.innerWidth;
+		let dpiScale = 1;
+		
+		if (screenWidth <= 1366) {
+			if(window.devicePixelRatio >= 2) {
+				dpiScale = 0.6;
+			}	else {
+				dpiScale = 0.7;
+			}
+		} else if (screenWidth >= 1920) {
+			dpiScale = 1;
+		} else {
+			// 1366 到 1920 之间线性插值
+			dpiScale = 0.8 + ((screenWidth - 1366) / (1920 - 1366)) * 0.2;
+		}
+		
+		setTimeout(() => {
+			const aiAssistantElements = document.querySelectorAll('.ai-assistant');
+			aiAssistantElements.forEach(element => {
+				element.style.transform = `scale(${dpiScale})`;
+				element.style.transformOrigin = 'center center';
+				element.style.height = `${100 / dpiScale}%`;
+			});
+		}, 100);
+	};
+
+	// 窗口大小变化处理函数
+	const handleResize = () => {
+		setAIAssistantDPI();
+	};
+
 	let chatIdUnsubscriber: Unsubscriber | undefined;
 
 	let selectedModels = [''];
@@ -461,6 +494,12 @@
 		// 启动轮播
 		startCarousel();
 
+		// 根据屏幕宽度设置AI助手界面DPI
+		setAIAssistantDPI();
+
+		// 监听窗口大小变化
+		window.addEventListener('resize', handleResize);
+
 		if (!$chatId) {
 			chatIdUnsubscriber = chatId.subscribe(async (value) => {
 				if (!value) {
@@ -540,6 +579,9 @@
 		if (slideInterval) {
 			clearInterval(slideInterval);
 		}
+
+		// 清理resize监听器
+		window.removeEventListener('resize', handleResize);
 	});
 
 	// File upload functions
@@ -2526,7 +2568,11 @@
 					{/if}
 				</div>
 
-				<div class="flex justify-center h-5 text-xs text-gray-500">
+				<div class="flex justify-center h-5 text-xs text-gray-500" style="
+				position: fixed;
+				bottom: 32px;
+				left: 45%;
+			">
 					内容由AI模型生成，其准确性和完整性无法保证，仅供参考
 				</div>
 			</Pane>
@@ -4049,6 +4095,12 @@
 	.ai-assistant::-webkit-scrollbar {
 		width: 0.4rem !important;
 		height: 0.4rem !important;
+	}
+
+	/* AI助手界面DPI缩放支持 */
+	.ai-assistant {
+		transition: transform 0.1s ease-in-out;
+		overflow: visible;
 	}
 
 

@@ -535,6 +535,7 @@
 						/>
 					{:else}
 						<form
+							id='message-input-form'
 							class="w-full flex gap-1.5 justify-center"
 							on:submit|preventDefault={() => {
 								// check if selectedModels support image input
@@ -1406,6 +1407,9 @@
 	@media (min-width: 1366px) and (max-width: 1920px) {
 		#message-input {
 			width: 1368px !important;
+		}
+		#message-input-form {
+			width: 1242px !important;
 		}
 	}
 
