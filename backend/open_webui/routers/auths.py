@@ -55,6 +55,8 @@ from typing import Optional, List
 
 from ssl import CERT_NONE, CERT_REQUIRED, PROTOCOL_TLS
 
+from open_webui.utils.sso import valid_token
+
 if ENABLE_LDAP.value:
     from ldap3 import Server, Connection, NONE, Tls
     from ldap3.utils.conv import escape_filter_chars
@@ -962,55 +964,21 @@ async def sso_login(request: Request, response: Response, token: str):
     if not token:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="token is required")
 
-    # 1. Validate token with external service
-    base_validate_url = os.getenv("SSO_VALIDATE_URL", "http://localhost:8081/validate")
-    if "?" in base_validate_url:
-        validate_url = f"{base_validate_url}&token={quote_plus(token)}"
-    else:
-        validate_url = f"{base_validate_url}?token={quote_plus(token)}"
+    # 1. Validate token via internal SSO util
     try:
-        async with ClientSession() as session:
-            async with session.get(validate_url, timeout=5) as res:
-                if res.status != 200:
-                    raise HTTPException(
-                        status_code=status.HTTP_400_BAD_REQUEST,
-                        detail="Invalid SSO token",
-                    )
-
-                # Try to parse JSON first, fallback to plain text
-                try:
-                    payload = await res.json(content_type=None)
-                except Exception:
-                    payload = None
-
-                if isinstance(payload, dict):
-                    # 常见字段映射
-                    username = (
-                        payload.get("userAcct")
-                    )
-
-                    # 如果返回 resultFlg，还需检查其为真值
-                    result_flg = str(payload.get("resultFlg", "True")).lower()
-                    if result_flg not in ["true", "1", "yes", "y"]:
-                        raise HTTPException(
-                            status_code=status.HTTP_400_BAD_REQUEST,
-                            detail="SSO validation failed (flag)",
-                        )
-                else:
-                    # treat entire response as username string
-                    username = (await res.text()).strip()
-
-                if not username:
-                    raise HTTPException(
-                        status_code=status.HTTP_400_BAD_REQUEST,
-                        detail="Unable to extract username from SSO response",
-                    )
-    except HTTPException:
-        # re-raise handled HTTPException
-        raise
+        payload = await valid_token(token)
     except Exception as ex:
-        log.error(f"SSO validation failed: {ex}")
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="SSO validation failed")
+        log.error(f"SSO validation exception: {ex}")
+        raise HTTPException(status_code=400, detail="SSO validation failed")
+
+    if not payload or str(payload.get("resultFlg", "false")).lower() != "true":
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid SSO token")
+
+    username = payload.get("userAcct")
+    user_id = payload.get("userId")
+
+    if not username:
+        raise HTTPException(status_code=400, detail="Username not found in SSO payload")
 
     # 2. Construct email and lookup/create user
     email = f"{username.lower()}@baibaomen.local"
