@@ -2346,12 +2346,18 @@
 												<img
 													class="image_2"
 													referrerpolicy="no-referrer"
-													src="/assets/images/SketchPn_16.png"
+													src="/assets/images/SketchPn_16.gif"
+													alt="SketchPn_16"
+													loading="eager"
+													decoding="async"
 												/>
 												<img
 													class="image_3"
 													referrerpolicy="no-referrer"
-													src="/assets/images/SketchPn_14.png"
+													src="/assets/images/SketchPn_14.gif"
+													alt="SketchPn_14"
+													loading="eager"
+													decoding="async"
 												/>
 											</div>
 										</div>
@@ -2399,61 +2405,16 @@
 												>
 													<!-- 第一个轮播：智能PPT生成工具 -->
 													<div class="ai-carousel-slide ai-slide-unified">
-														<div class="group_10 flex-col">
-															<div class="group_11 flex-col">
-																<div class="box_9 flex-row">
-																	<div class="text-wrapper_3 flex-col">
-																		<span class="text_15">批量处理</span>
-																	</div>
-																</div>
-																<div class="box_10 flex-row">
-																	<div class="text-wrapper_4 flex-col">
-																		<span class="text_16">智能文档</span>
-																	</div>
-																</div>
-																<div class="box_11 flex-row">
-																	<div class="group_12 flex-col">
-																		<span class="text_17">25.7%</span>
-																		<div class="group_13 flex-row justify-between">
-																			<span class="text_18">8.15%</span>
-																			<img
-																				class="image_4"
-																				referrerpolicy="no-referrer"
-																				src="/assets/images/SketchPn_1.png"
-																			/>
-																		</div>
-																		<div class="group_14 flex-col">
-																			<div class="section_2 flex-col">
-																				<span class="text_19">50.25%</span>
-																				<img
-																					class="image_5"
-																					referrerpolicy="no-referrer"
-																					src="/assets/images/SketchPn_12.png"
-																				/>
-																				<img
-																					class="label_6"
-																					referrerpolicy="no-referrer"
-																					src="/assets/images/SketchPn_11.png"
-																				/>
-																				<img
-																					class="image_6"
-																					referrerpolicy="no-referrer"
-																					src="/assets/images/SketchPn_20.png"
-																				/>
-																			</div>
-																		</div>
-																		<img
-																			class="label_7"
-																			referrerpolicy="no-referrer"
-																			src="/assets/images/SketchPn_15.png"
-																		/>
-																	</div>
-																	<div class="text-wrapper_5 flex-col">
-																		<span class="text_20">工作总结汇报</span>
-																	</div>
-																</div>
-															</div>
-															<div class="text-wrapper_6 flex-col">
+														<div class="ppt-tool-container">
+															<img
+																class="ppt-merged-gif"
+																referrerpolicy="no-referrer"
+																src="/assets/images/merged.gif"
+																alt="智能PPT生成工具"
+																loading="eager"
+																decoding="async"
+															/>
+															<div class="ppt-tool-title">
 																<span class="text_21">智能PPT生成工具</span>
 															</div>
 														</div>
@@ -3023,17 +2984,25 @@
 	.image_2 {
 		position: absolute;
 		left: 40px;
-		top: 69px;
+		top: 60px;
 		width: 103px;
 		height: 88px;
+		/* 确保GIF动画能正常播放 */
+		image-rendering: auto;
+		object-fit: contain;
+		pointer-events: none;
 	}
 
 	.image_3 {
 		position: absolute;
-		left: 327px;
+		left: 314px;
 		top: 62px;
-		width: 76px;
+		width: 98px;
 		height: 98px;
+		/* 确保GIF动画能正常播放 */
+		image-rendering: auto;
+		object-fit: contain;
+		pointer-events: none;
 	}
 
 	/* 效率工具卡片样式 */
@@ -4056,6 +4025,45 @@
 		margin: 10px 0 0 88px;
 	}
 
+	/* PPT工具新样式 */
+	.ppt-tool-container {
+		position: relative;
+		width: 100%;
+		height: 240px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.ppt-merged-gif {
+		width: 280px;
+		height: 180px;
+		margin-top: -50px;
+		object-fit: contain;
+		image-rendering: auto;
+		pointer-events: none;
+	}
+
+	.ppt-tool-title {
+		position: absolute;
+		bottom: 10px;
+		left: 50%;
+		transform: translateX(-50%);
+		height: 44px;
+		background: url(/assets/images/SketchPn_2.png) center center no-repeat;
+		background-size: 304px 56px;
+		width: 304px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.ppt-tool-title .text_21 {
+		margin: 0;
+		text-align: center;
+	}
+
 	/* 暗色模式下的PPT轮播样式 */
 	:global(.dark) .text_15,
 	:global(.dark) .text_16,
@@ -4067,6 +4075,11 @@
 	}
 
 	:global(.dark) .text_21 {
+		color: rgba(255, 255, 255, 1);
+	}
+
+	/* 暗色模式下的PPT工具样式 */
+	:global(.dark) .ppt-tool-title .text_21 {
 		color: rgba(255, 255, 255, 1);
 	}
 
@@ -4135,9 +4148,6 @@
 		.text-wrapper_6{
 			background-size: 264px 56px !important;
 			left: 25px !important;
-		}
-		.text_21  {
-			margin: 10px 0 0 60px !important;
 		}
 		.group_5{
 			width: 508px !important;
