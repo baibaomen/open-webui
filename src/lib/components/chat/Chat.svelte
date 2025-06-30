@@ -2983,7 +2983,7 @@
 
 	.image_2 {
 		position: absolute;
-		left: 40px;
+		left: 32px;
 		top: 60px;
 		width: 103px;
 		height: 88px;
