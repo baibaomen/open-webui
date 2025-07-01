@@ -2407,7 +2407,7 @@
 											<span class="text_1">万语千言，心领神悟</span>
 										</div>
 										<div class="text-wrapper_1 flex-row">
-											<span class="text_2">我是anget，你的实用AI助手</span>
+											<span class="text_2">我是agent，你的实用AI助手</span>
 										</div>
 									</div>
 
