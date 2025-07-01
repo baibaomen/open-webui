@@ -43,7 +43,7 @@
 			</div>
 
 			<div
-				class="flex-1 overflow-hidden max-w-full py-0.5
+				class="flex-1 overflow-hidden max-w-full py-0.5 bg-white dark:bg-gray-900
 			{$showSidebar ? 'ml-1' : ''}
 			"
 			>
