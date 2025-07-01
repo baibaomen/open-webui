@@ -220,6 +220,65 @@
 		setAIAssistantDPI();
 	};
 
+	// 创建新会话并选择指定模型
+	const createNewChatWithModel = async (modelName: string) => {
+		try {
+			// 查找指定名称的模型
+			const targetModel = $models.find(m => m.name === modelName);
+			let selectedModelId = '';
+			
+			if (targetModel) {
+				selectedModelId = targetModel.id;
+				console.log(`找到模型 "${modelName}":`, targetModel);
+			} else {
+				// 如果没有找到指定模型，使用默认模型
+				const availableModels = $models.filter((m) => !((m?.info?.meta as any)?.hidden ?? false));
+				if (availableModels.length > 0) {
+					selectedModelId = availableModels[0].id;
+					console.log(`未找到模型 "${modelName}"，使用默认模型:`, availableModels[0]);
+				} else {
+					toast.error('没有可用的模型');
+					return;
+				}
+			}
+
+			// 创建新会话
+			const newChat = await createNewChat(localStorage.token, {
+				title: '新会话',
+				models: [selectedModelId],
+				system: $settings?.system ?? undefined,
+				params: {},
+				history: {
+					messages: {},
+					currentId: null
+				},
+				messages: [],
+				tags: [],
+				timestamp: Date.now()
+			});
+
+			if (newChat) {
+				// 更新当前选择的模型
+				selectedModels = [selectedModelId];
+				
+				// 跳转到新创建的会话
+				await goto(`/c/${newChat.id}`);
+				
+				// 设置当前会话ID
+				chatId.set(newChat.id);
+				
+				// 刷新会话列表
+				currentChatPage.set(1);
+				await chats.set(await getChatList(localStorage.token, $currentChatPage));
+				
+				toast.success(`新会话已创建`);
+			}
+		} catch (error) {
+			console.error('创建新会话失败:', error);
+			toast.error('创建新会话失败，请重试');
+		}
+	};
+
 	let chatIdUnsubscriber: Unsubscriber | undefined;
 
 	let selectedModels = [''];
@@ -2362,19 +2421,23 @@
 													<span class="text_4">发现更多</span>
 												</div>
 												<div class="group_5 flex-row justify-between">
-													<div class="group_6 flex-row" 
-														on:mouseenter={() => handleGroupHover('.image_2')}
-														on:click={() => handleGroupClick('.image_2')}>
-														<div class="image-text_1 flex-col justify-between">
-															<div class="box_4 flex-col"></div>
-															<div class="text-group_1 flex-col justify-between">
-																<span class="text_5">集团制度助手</span>
-																<span class="paragraph_1"
-																	>智能解答集团制度疑问<br />秒查最新条款，事务处理快人一步。</span
-																>
-															</div>
-														</div>
-													</div>
+																						<div class="group_6 flex-row" 
+										on:mouseenter={() => handleGroupHover('.image_2')}
+										on:click={async () => {
+											handleGroupClick('.image_2');
+											// 新建会话并选择"金助"模型
+											await createNewChatWithModel('金助');
+										}}>
+										<div class="image-text_1 flex-col justify-between">
+											<div class="box_4 flex-col"></div>
+											<div class="text-group_1 flex-col justify-between">
+												<span class="text_5">集团制度助手</span>
+												<span class="paragraph_1"
+													>智能解答集团制度疑问<br />秒查最新条款，事务处理快人一步。</span
+												>
+											</div>
+										</div>
+									</div>
 													<div class="group_7 flex-row"
 														on:mouseenter={() => handleGroupHover('.image_3')}
 														on:click={() => handleGroupClick('.image_3')}>
