@@ -146,20 +146,7 @@
 		replayGif(imgElement);
 	};
 
-	// 处理group容器的鼠标事件
-	const handleGroupHover = (gifSelector: string) => {
-		const imgElement = document.querySelector(gifSelector) as HTMLImageElement;
-		if (imgElement) {
-			replayGif(imgElement);
-		}
-	};
 
-	const handleGroupClick = (gifSelector: string) => {
-		const imgElement = document.querySelector(gifSelector) as HTMLImageElement;
-		if (imgElement) {
-			replayGif(imgElement);
-		}
-	};
 
 	// 轮播控制函数
 	const startCarousel = () => {
@@ -2422,9 +2409,17 @@
 												</div>
 												<div class="group_5 flex-row justify-between">
 																						<div class="group_6 flex-row" 
-										on:mouseenter={() => handleGroupHover('.image_2')}
-										on:click={async () => {
-											handleGroupClick('.image_2');
+										on:mouseenter={(e) => {
+											const imgElement = e.currentTarget.querySelector('.image_2');
+											if (imgElement && imgElement instanceof HTMLImageElement) {
+												replayGif(imgElement);
+											}
+										}}
+										on:click={async (e) => {
+											const imgElement = e.currentTarget.querySelector('.image_2');
+											if (imgElement && imgElement instanceof HTMLImageElement) {
+												replayGif(imgElement);
+											}
 											// 新建会话并选择"金助"模型
 											await createNewChatWithModel('金助');
 										}}>
@@ -2437,10 +2432,28 @@
 												>
 											</div>
 										</div>
+										<img
+											class="image_2"
+											referrerpolicy="no-referrer"
+											src="/assets/images/SketchPn_16.gif"
+											alt="SketchPn_16"
+											loading="eager"
+											decoding="async"
+										/>
 									</div>
 													<div class="group_7 flex-row"
-														on:mouseenter={() => handleGroupHover('.image_3')}
-														on:click={() => handleGroupClick('.image_3')}>
+														on:mouseenter={(e) => {
+															const imgElement = e.currentTarget.querySelector('.image_3');
+															if (imgElement) {
+																replayGif(imgElement);
+															}
+														}}
+														on:click={(e) => {
+															const imgElement = e.currentTarget.querySelector('.image_3');
+															if (imgElement) {
+																replayGif(imgElement);
+															}
+														}}>
 														<div class="image-text_2 flex-col justify-between">
 															<div class="block_1 flex-col"></div>
 															<div class="text-group_2 flex-col justify-between">
@@ -2448,24 +2461,16 @@
 																<span class="text_7">一键核验议题变更，决策更高效</span>
 															</div>
 														</div>
+														<img
+															class="image_3"
+															referrerpolicy="no-referrer"
+															src="/assets/images/SketchPn_14.gif"
+															alt="SketchPn_14"
+															loading="eager"
+															decoding="async"
+														/>
 													</div>
 												</div>
-												<img
-													class="image_2"
-													referrerpolicy="no-referrer"
-													src="/assets/images/SketchPn_16.gif"
-													alt="SketchPn_16"
-													loading="eager"
-													decoding="async"
-												/>
-												<img
-													class="image_3"
-													referrerpolicy="no-referrer"
-													src="/assets/images/SketchPn_14.gif"
-													alt="SketchPn_14"
-													loading="eager"
-													decoding="async"
-												/>
 											</div>
 										</div>
 										<!-- 效率工具卡片 -->
@@ -2984,6 +2989,7 @@
 		background: url(/assets/images/SketchPn_6.png)
 			100% no-repeat;
 		background-size: 100% 100%;
+		position: relative;
 	}
 
 	.group_7 {
@@ -2993,6 +2999,7 @@
 			100% no-repeat;
 		background-size: 100% 100%;
 		margin-left: 16px;
+		position: relative;
 	}
 
 	.image-text_1 {
@@ -3090,26 +3097,28 @@
 
 	.image_2 {
 		position: absolute;
-		left: 32px;
-		top: 60px;
+		left: 13px;
+		top: -26px;
 		width: 103px;
 		height: 88px;
 		/* 确保GIF动画能正常播放 */
 		image-rendering: auto;
 		object-fit: contain;
-		pointer-events: auto;
+		pointer-events: none;
+		z-index: 10;
 	}
 
 	.image_3 {
 		position: absolute;
-		left: 314px;
-		top: 62px;
+		left: 13px;
+		top: -26px;
 		width: 98px;
 		height: 98px;
 		/* 确保GIF动画能正常播放 */
 		image-rendering: auto;
 		object-fit: contain;
-		pointer-events: auto;
+		pointer-events: none;
+		z-index: 10;
 	}
 
 	/* Group交互样式 */
