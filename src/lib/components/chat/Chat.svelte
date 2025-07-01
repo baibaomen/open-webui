@@ -121,6 +121,46 @@
 		alert('即将推出，敬请期待');
 	};
 
+	// GIF动画重播函数
+	const replayGif = (imgElement: HTMLImageElement) => {
+		// 使用更平滑的方法：保存当前src，然后用新的时间戳重新设置
+		const originalSrc = imgElement.src.split('?')[0]; // 移除之前的时间戳参数
+		const timestamp = new Date().getTime();
+		
+		// 创建一个新的Image对象预加载，然后无缝切换
+		const tempImg = new Image();
+		tempImg.onload = () => {
+			imgElement.src = originalSrc + '?t=' + timestamp;
+		};
+		tempImg.src = originalSrc + '?t=' + timestamp;
+	};
+
+	// 处理GIF图片的鼠标事件
+	const handleGifHover = (event: MouseEvent) => {
+		const imgElement = event.target as HTMLImageElement;
+		replayGif(imgElement);
+	};
+
+	const handleGifClick = (event: MouseEvent) => {
+		const imgElement = event.target as HTMLImageElement;
+		replayGif(imgElement);
+	};
+
+	// 处理group容器的鼠标事件
+	const handleGroupHover = (gifSelector: string) => {
+		const imgElement = document.querySelector(gifSelector) as HTMLImageElement;
+		if (imgElement) {
+			replayGif(imgElement);
+		}
+	};
+
+	const handleGroupClick = (gifSelector: string) => {
+		const imgElement = document.querySelector(gifSelector) as HTMLImageElement;
+		if (imgElement) {
+			replayGif(imgElement);
+		}
+	};
+
 	// 轮播控制函数
 	const startCarousel = () => {
 		if (slideInterval) {
@@ -2322,7 +2362,9 @@
 													<span class="text_4">发现更多</span>
 												</div>
 												<div class="group_5 flex-row justify-between">
-													<div class="group_6 flex-row">
+													<div class="group_6 flex-row" 
+														on:mouseenter={() => handleGroupHover('.image_2')}
+														on:click={() => handleGroupClick('.image_2')}>
 														<div class="image-text_1 flex-col justify-between">
 															<div class="box_4 flex-col"></div>
 															<div class="text-group_1 flex-col justify-between">
@@ -2333,7 +2375,9 @@
 															</div>
 														</div>
 													</div>
-													<div class="group_7 flex-row">
+													<div class="group_7 flex-row"
+														on:mouseenter={() => handleGroupHover('.image_3')}
+														on:click={() => handleGroupClick('.image_3')}>
 														<div class="image-text_2 flex-col justify-between">
 															<div class="block_1 flex-col"></div>
 															<div class="text-group_2 flex-col justify-between">
@@ -2990,7 +3034,7 @@
 		/* 确保GIF动画能正常播放 */
 		image-rendering: auto;
 		object-fit: contain;
-		pointer-events: none;
+		pointer-events: auto;
 	}
 
 	.image_3 {
@@ -3002,7 +3046,22 @@
 		/* 确保GIF动画能正常播放 */
 		image-rendering: auto;
 		object-fit: contain;
-		pointer-events: none;
+		pointer-events: auto;
+	}
+
+	/* Group交互样式 */
+	.group_6, .group_7 {
+		cursor: pointer;
+		transition: transform 0.2s ease, opacity 0.2s ease;
+	}
+
+	.group_6:hover, .group_7:hover {
+		transform: scale(1.02);
+		opacity: 0.95;
+	}
+
+	.group_6:active, .group_7:active {
+		transform: scale(0.98);
 	}
 
 	/* 效率工具卡片样式 */
