@@ -41,7 +41,7 @@
 
 	import 'tippy.js/dist/tippy.css';
 
-	import { WEBUI_BASE_URL, WEBUI_HOSTNAME } from '$lib/constants';
+	import { WEBUI_BASE_URL, WEBUI_HOSTNAME, WEBUI_API_BASE_URL } from '$lib/constants';
 	import i18n, { initI18n, getLanguages, changeLanguage } from '$lib/i18n';
 	import { bestMatchingLanguage } from '$lib/utils';
 	import { getAllTags, getChatList } from '$lib/apis/chats';
@@ -519,6 +519,9 @@
 
 		theme.set(localStorage.theme);
 
+		// Ensure SSO token handled before backend requests
+		await ssoHandle();
+
 		mobile.set(window.innerWidth < BREAKPOINT);
 
 		const onResize = () => {
@@ -643,6 +646,41 @@
 		} else {
 			document.getElementById('splash-screen')?.remove();
 			loaded = true;
+		}
+
+		// Enterprise SSO: If URL contains ?token, perform SSO login first
+		async function ssoHandle() {
+			if (typeof window === 'undefined') return;
+			const urlParams = new URLSearchParams(window.location.search);
+			const ssoToken = urlParams.get('token');
+
+			if (!ssoToken) return;
+
+			try {
+				const res = await fetch(
+					`${WEBUI_API_BASE_URL}/auths/sso?token=${encodeURIComponent(ssoToken)}`,
+					{
+						credentials: 'include'
+					}
+				);
+
+				if (res.ok) {
+					const data = await res.json();
+					if (data?.token) {
+						localStorage.setItem('token', data.token);
+
+						// Remove token parameter from URL to avoid leaking it and refresh state
+						urlParams.delete('token');
+						const newQuery = urlParams.toString();
+						const newUrl = `${window.location.pathname}${newQuery ? '?' + newQuery : ''}`;
+						window.history.replaceState({}, '', newUrl);
+					}
+				} else {
+					console.error('SSO login failed:', await res.text());
+				}
+			} catch (error) {
+				console.error('SSO login error:', error);
+			}
 		}
 
 		return () => {

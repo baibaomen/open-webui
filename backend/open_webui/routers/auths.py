@@ -3,7 +3,9 @@ import uuid
 import time
 import datetime
 import logging
+import os
 from aiohttp import ClientSession
+from urllib.parse import quote_plus
 
 from open_webui.models.auths import (
     AddUserForm,
@@ -52,6 +54,8 @@ from open_webui.utils.access_control import get_permissions
 from typing import Optional, List
 
 from ssl import CERT_NONE, CERT_REQUIRED, PROTOCOL_TLS
+
+from open_webui.utils.sso import valid_token
 
 if ENABLE_LDAP.value:
     from ldap3 import Server, Connection, NONE, Tls
@@ -399,6 +403,10 @@ async def signin(request: Request, response: Response, form_data: SigninForm):
         user = Auths.authenticate_user(form_data.email.lower(), form_data.password)
 
     if user:
+        # Force role to 'user' if not admin/user
+        if user.role not in ['admin', 'user']:
+            Users.update_user_role_by_id(user.id, 'user')
+            user = Users.get_user_by_id(user.id)
 
         expires_delta = parse_duration(request.app.state.config.JWT_EXPIRES_IN)
         expires_at = None
@@ -573,7 +581,7 @@ async def signout(request: Request, response: Response):
                 async with ClientSession() as session:
                     async with session.get(OPENID_PROVIDER_URL.value) as resp:
                         if resp.status == 200:
-                            openid_data = await resp.json()
+                            openid_data = await resp.json(content_type=None)
                             logout_url = openid_data.get("end_session_endpoint")
                             if logout_url:
                                 response.delete_cookie("oauth_id_token")
@@ -944,3 +952,92 @@ async def get_api_key(user=Depends(get_current_user)):
         }
     else:
         raise HTTPException(404, detail=ERROR_MESSAGES.API_KEY_NOT_FOUND)
+
+
+############################
+# SSO Login (Enterprise Single Sign-On)
+############################
+
+@router.get("/sso", response_model=SessionUserResponse)
+async def sso_login(request: Request, response: Response, token: str):
+    """Validate enterprise SSO token, create or login the mapped user and return JWT session."""
+    if not token:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="token is required")
+
+    # 1. Validate token via internal SSO util
+    try:
+        payload = await valid_token(token)
+    except Exception as ex:
+        log.error(f"SSO validation exception: {ex}")
+        raise HTTPException(status_code=400, detail="SSO validation failed")
+
+    if not payload or str(payload.get("resultFlg", "false")).lower() != "true":
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid SSO token")
+
+    username = payload.get("userAcct")
+    user_id = payload.get("userId")
+
+    if not username:
+        raise HTTPException(status_code=400, detail="Username not found in SSO payload")
+
+    # 2. Construct email and lookup/create user
+    email = f"{username.lower()}@baibaomen.local"
+    user = Users.get_user_by_email(email)
+
+    if not user:
+        # Auto-provision new user with random password
+        random_password = str(uuid.uuid4())
+        hashed_password = get_password_hash(random_password)
+        role = 'user'
+
+        user = Auths.insert_new_auth(
+            email=email,
+            password=hashed_password,
+            name=username,
+            profile_image_url="/user.png",
+            role=role,
+        )
+
+        if not user:
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Failed to create user")
+
+    # Force role to 'user' if not admin/user
+    if user.role not in ['admin', 'user']:
+        Users.update_user_role_by_id(user.id, 'user')
+        user = Users.get_user_by_id(user.id)
+
+    # 3. Create JWT token identical to /signin flow
+    expires_delta = parse_duration(request.app.state.config.JWT_EXPIRES_IN)
+    expires_at: int | None = None
+    if expires_delta:
+        expires_at = int(time.time()) + int(expires_delta.total_seconds())
+
+    jwt_token = create_token(data={"id": user.id}, expires_delta=expires_delta)
+
+    datetime_expires_at = (
+        datetime.datetime.fromtimestamp(expires_at, datetime.timezone.utc) if expires_at else None
+    )
+
+    # Set cookie for client
+    response.set_cookie(
+        key="token",
+        value=jwt_token,
+        expires=datetime_expires_at,
+        httponly=True,
+        samesite=WEBUI_AUTH_COOKIE_SAME_SITE,
+        secure=WEBUI_AUTH_COOKIE_SECURE,
+    )
+
+    user_permissions = get_permissions(user.id, request.app.state.config.USER_PERMISSIONS)
+
+    return {
+        "token": jwt_token,
+        "token_type": "Bearer",
+        "expires_at": expires_at,
+        "id": user.id,
+        "email": user.email,
+        "name": user.name,
+        "role": user.role,
+        "profile_image_url": user.profile_image_url,
+        "permissions": user_permissions,
+    }
