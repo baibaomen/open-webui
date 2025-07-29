@@ -2453,7 +2453,7 @@
 															if (imgElement) {
 																replayGif(imgElement);
 															}
-															window.open(`http://192.168.3.180:3000/validate?token=${localStorage.token}`);
+															window.open(`http://192.168.200.138:3000/validate?token=${localStorage.token}`);
 														}}>
 														<div class="image-text_2 flex-col justify-between">
 															<div class="block_1 flex-col"></div>
