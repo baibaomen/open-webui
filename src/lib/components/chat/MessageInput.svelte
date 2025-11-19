@@ -560,7 +560,7 @@
 								class={`flex flex-col relative w-full shadow-lg rounded-3xl border border-gray-50 dark:border-gray-850 hover:border-gray-100 focus-within:border-gray-100 hover:dark:border-gray-800 focus-within:dark:border-gray-800 transition px-1 bg-white/90 dark:bg-gray-400/5 dark:text-gray-100`}
 								dir={$settings?.chatDirection ?? 'auto'}
 								id='message-input'
-								style={`background-color: rgba(255, 252, 249, 1); border-radius: 16px; height: 150px; border: 1px solid rgba(222, 222, 222, 1);`}
+								style={`background-color: rgba(255, 252, 249, 1); border-radius: 16px; border: 1px solid rgba(222, 222, 222, 1);`}
 							>
 								{#if files.length > 0}
 									<div class="mx-2 mt-2.5 -mb-1 flex items-center flex-wrap gap-2">
@@ -655,7 +655,7 @@
 									</div>
 								{/if}
 
-								<div class="p-4">
+								<div class="p-2 px-4">
 									{#if $settings?.richTextInput ?? true}
 										<div
 											class="scrollbar-hidden rtl:text-right ltr:text-left bg-transparent dark:text-gray-100 outline-hidden w-full pt-3 px-1 resize-none h-fit max-h-80 overflow-auto"
@@ -1108,7 +1108,7 @@
 									{/if}
 								</div>
 
-								<div class=" flex justify-between mt-6 px-2 max-w-full" dir="ltr">
+								<div class="flex justify-between px-2 max-w-full message-input-controls" dir="ltr">
 									<div class="ml-1 self-end flex items-center flex-1 max-w-[80%] gap-0.5">
 										<!-- 隐藏"+"号按钮
 										<InputMenu
@@ -1418,6 +1418,25 @@
 {/if}
 
 <style>
+	/* 根据分辨率设置消息框高度和控制按钮间距 */
+	@media (max-width: 1919px), (max-height: 1079px) {
+		#message-input {
+			height: 100px !important;
+		}
+		.message-input-controls {
+			margin-top: 0 !important;
+		}
+	}
+
+	@media (min-width: 1920px) and (min-height: 1080px) {
+		#message-input {
+			height: 150px !important;
+		}
+		.message-input-controls {
+			margin-top: 1.5rem !important; /* mt-6 = 1.5rem */
+		}
+	}
+
 	@media (min-width: 1366px) and (max-width: 1920px) {
 		#message-input {
 			width: 1368px !important;

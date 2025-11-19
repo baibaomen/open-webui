@@ -2102,25 +2102,33 @@
 		let _chatId = $chatId;
 
 		if (!$temporaryChatEnabled) {
-			chat = await createNewChat(localStorage.token, {
-				id: _chatId,
-				title: $i18n.t('New Chat'),
-				models: selectedModels,
-				system: $settings.system ?? undefined,
-				params: params,
-				history: history,
-				messages: createMessagesList(history, history.currentId),
-				tags: [],
-				timestamp: Date.now()
-			});
+			// 如果当前 chatId 已经存在且不为空，说明会话已经被创建（例如通过点击"集团制度助手"按钮）
+			// 这种情况下直接更新现有会话而不是创建新的
+			if (_chatId && _chatId !== '') {
+				// 直接更新现有会话
+				await saveChatHandler(_chatId, history);
+			} else {
+				// 只有在没有 chatId 时才创建新会话
+				chat = await createNewChat(localStorage.token, {
+					id: _chatId,
+					title: $i18n.t('New Chat'),
+					models: selectedModels,
+					system: $settings.system ?? undefined,
+					params: params,
+					history: history,
+					messages: createMessagesList(history, history.currentId),
+					tags: [],
+					timestamp: Date.now()
+				});
 
-			_chatId = chat.id;
-			await chatId.set(_chatId);
+				_chatId = chat.id;
+				await chatId.set(_chatId);
 
-			await chats.set(await getChatList(localStorage.token, $currentChatPage));
-			currentChatPage.set(1);
+				await chats.set(await getChatList(localStorage.token, $currentChatPage));
+				currentChatPage.set(1);
 
-			window.history.replaceState(history.state, '', `/c/${_chatId}`);
+				window.history.replaceState(history.state, '', `/c/${_chatId}`);
+			}
 		} else {
 			_chatId = 'local';
 			await chatId.set('local');
