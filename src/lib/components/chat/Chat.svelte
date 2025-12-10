@@ -2485,10 +2485,23 @@
 										<!-- 效率工具卡片 -->
 										<div class="ai-card ai-tools-card">
 											<span class="text_8">效率工具</span>
-											<div class="box_5 flex-row">
+											<div 
+												class="box_5 flex-row"
+												style="cursor: pointer;"
+												on:click={() => {
+													window.open('http://192.168.200.138:8126', '_blank');
+												}}
+												on:keydown={(e) => {
+													if (e.key === 'Enter' || e.key === ' ') {
+														window.open('http://192.168.200.138:8126', '_blank');
+													}
+												}}
+												role="button"
+												tabindex="0"
+											>
 												<div class="text-group_3 flex-col justify-between">
-													<span class="text_9">图文识别助手</span>
-													<span class="text_10">秒级识别多语言/表格/手写体，解放人力</span>
+													<span class="text_9">监管文件风险评估系统</span>
+													<span class="text_10">基于大语言模型的风险等级自动评估工具</span>
 												</div>
 											</div>
 											<div class="box_6 flex-row">
